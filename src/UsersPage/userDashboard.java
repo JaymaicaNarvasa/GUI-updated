@@ -68,7 +68,7 @@ public class userDashboard extends javax.swing.JFrame {
         user_tbl.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(user_tbl);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 250, 440));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 270, 440));
 
         searchIcon.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jPanel1.add(searchIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 30, 30));
@@ -100,7 +100,7 @@ public class userDashboard extends javax.swing.JFrame {
         search.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         search.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         search.setBorder(null);
-        jPanel1.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, 110, 20));
+        jPanel1.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 120, 20));
 
         back.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         back.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -128,7 +128,7 @@ public class userDashboard extends javax.swing.JFrame {
 
         cellphone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ManageUser (2).png"))); // NOI18N
-        jPanel1.add(cellphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jPanel1.add(cellphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 630));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
