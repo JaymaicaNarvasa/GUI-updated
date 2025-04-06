@@ -178,8 +178,12 @@ public class editUser extends javax.swing.JFrame {
                     dbc.updateData("UPDATE tbl_user SET u_fname = '"+fname.getText().trim()+"', u_lname = '"+lname.getText().trim()+"',"
                             + "u_status = '"+status.getSelectedItem()+"', role_id = '"+roleId+"' "
                             + "WHERE u_id = '"+id1.getText()+"' ");
+                    
+                    int actingUserId = Session.getInstance().getId(); 
+                    String action = "Updated User with ID: " + id1.getText();
+                    dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
                 }
-            new userDashboard().setVisible(true);
+            new ManageUser().setVisible(true);
             this.dispose();
         } else {
              JOptionPane.showMessageDialog(null, "ALL FIELDS REQUIRED!");
@@ -193,7 +197,7 @@ public class editUser extends javax.swing.JFrame {
     }//GEN-LAST:event_saveMouseClicked
 
     private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
-        new userDashboard().setVisible(true);
+        new ManageUser().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backMouseClicked
 

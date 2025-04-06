@@ -4,6 +4,9 @@ import config.*;
 import java.awt.Color;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class addUser extends javax.swing.JFrame {
@@ -13,7 +16,7 @@ public class addUser extends javax.swing.JFrame {
     Color exit = new Color(0,153,204);
     Color enter = new Color(255,203,67);
     
-    int validateTegister(){
+    int validateRegister(){
         int result;
         
         if(user.getText().trim().isEmpty() || pass.getText().trim().isEmpty() || fname.getText().trim().isEmpty() || lname.getText().trim().isEmpty() 
@@ -42,10 +45,9 @@ public class addUser extends javax.swing.JFrame {
     dbConnector dbc = new dbConnector();
     
     try {
-        Connection conn = dbc.getConnection(); 
         String sql = "SELECT * FROM tbl_user WHERE u_username = ? OR u_email = ?";
         
-        PreparedStatement pstmt = conn.prepareStatement(sql);
+        PreparedStatement pstmt = dbc.connect.prepareStatement(sql);
         pstmt.setString(1, user.getText());  
         pstmt.setString(2, Email.getText()); 
         
@@ -56,7 +58,6 @@ public class addUser extends javax.swing.JFrame {
         }
         rs.close();
         pstmt.close();
-        conn.close();
         
     } catch (Exception e) {
         e.printStackTrace();
@@ -275,33 +276,38 @@ public class addUser extends javax.swing.JFrame {
     }//GEN-LAST:event_fnameActionPerformed
 
     private void addpaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addpaneMouseClicked
-        int check = validateTegister();
+       int check = validateRegister();
 
-        if(check == 1){
-            dbConnector dbc = new dbConnector();
-            try{
-                String pass1 = passwordHasher.hashPassword(pass.getText());
-                String selecrole = role.getSelectedItem().toString();
-                int roleId = selecrole.equals("Admin") ? 1 : 2;
+    if(check == 1){
+        dbConnector dbc = new dbConnector();
+        try{
+            String pass1 = passwordHasher.hashPassword(pass.getText());
+            String selecrole = role.getSelectedItem().toString();
+            int roleId = selecrole.equals("Admin") ? 1 : 2;
 
-                int result = dbc.insertData("INSERT INTO tbl_user(u_fname, u_lname, u_username, u_password, u_address, u_email, u_contact, u_status , role_id)"
-                    + "VALUES ('"+fname.getText()+"', '"+lname.getText()+"', '"+user.getText()+"', '"+pass1+"', '"+address.getText()+"', "
-                    + "'"+Email.getText()+"', '"+contact.getText()+"', 'Pending', "+ roleId +" )");
+            int result = dbc.insertData("INSERT INTO tbl_user(u_fname, u_lname, u_username, u_password, u_address, u_email, u_contact, u_status , role_id) "
+                + "VALUES ('"+fname.getText()+"', '"+lname.getText()+"', '"+user.getText()+"', '"+pass1+"', '"+address.getText()+"', "
+                + "'"+Email.getText()+"', '"+contact.getText()+"', 'Pending', "+ roleId +" )");
 
-                if(result == 1){
-                    JOptionPane.showMessageDialog(null, "ADDED SUCCESSFULY!");
-                    new userDashboard().setVisible(true);
-                    this.dispose();
-                }else{
-                    JOptionPane.showMessageDialog(null, "Adding Data FAILED!");
-                }
-            }catch(NoSuchAlgorithmException ex){
-                System.out.println(""+ex);
+            if(result == 1){
+                int actingUserId =  Session.getInstance().getId();
+                String action = "Added new user: " + user.getText();
+                dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES ("+ actingUserId +", '"+ action +"', NOW())");
+
+                JOptionPane.showMessageDialog(null, "ADDED SUCCESSFULLY!");
+                new ManageUser().setVisible(true);
+                this.dispose();
+            }else{
+                JOptionPane.showMessageDialog(null, "Adding Data FAILED!");
             }
-
-        }else{
-            System.out.println("ALL FIELDS REQUIRED!");
+        }catch(NoSuchAlgorithmException ex){
+            System.out.println(""+ex);
         }
+
+    }else{
+        System.out.println("ALL FIELDS REQUIRED!");
+    }
+
     }//GEN-LAST:event_addpaneMouseClicked
 
     private void addpaneMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addpaneMouseEntered
@@ -313,7 +319,7 @@ public class addUser extends javax.swing.JFrame {
     }//GEN-LAST:event_addpaneMouseExited
 
     private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
-        new userDashboard().setVisible(true);
+        new ManageUser().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backMouseClicked
 

@@ -1,7 +1,7 @@
 package Authentication;
 
 import AdminPage.*;
-import UsersPage.userDashboard;
+import UsersPage.ManageUser;
 import config.*;
 import java.awt.Color;
 import java.security.NoSuchAlgorithmException;
@@ -264,11 +264,15 @@ public class LogIn extends javax.swing.JFrame {
             ses.setContact(rs.getInt("u_contact"));
             ses.setAddress(rs.getString("u_address"));
             
+                int actingUserId = Session.getInstance().getId(); 
+                String action = "Log In";
+                dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
+                
             int roleId = rs.getInt("role_id");
             if(roleId == 1){
                 new adminDashboard().setVisible(true);
             }else if(roleId == 2){
-                new userDashboard().setVisible(true);
+                new ManageUser().setVisible(true);
             }else{
                 JOptionPane.showMessageDialog(this, "UNKNOWN ROLE!");
             }

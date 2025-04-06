@@ -52,7 +52,7 @@ public class adminDashboard extends javax.swing.JFrame {
 
         Logs.setBackground(new java.awt.Color(255, 204, 153));
         Logs.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        Logs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logs-35.png"))); // NOI18N
+        Logs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/logs-35.png"))); // NOI18N
         Logs.setText("LOGS");
         Logs.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Logs.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -68,7 +68,7 @@ public class adminDashboard extends javax.swing.JFrame {
         popupMenu.add(Logs);
 
         transaction.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        transaction.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/transaction-35 (2).png"))); // NOI18N
+        transaction.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/transaction-35 (2).png"))); // NOI18N
         transaction.setText("TRANSACTIONS");
         transaction.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 153)));
         transaction.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -93,7 +93,7 @@ public class adminDashboard extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 204, 153));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Name");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 120, 30));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 120, 20));
 
         back.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         back.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -109,7 +109,7 @@ public class adminDashboard extends javax.swing.JFrame {
                 profilesettingsMouseClicked(evt);
             }
         });
-        jPanel1.add(profilesettings, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 30, 30));
+        jPanel1.add(profilesettings, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 30, 30));
 
         home.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         home.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -128,7 +128,6 @@ public class adminDashboard extends javax.swing.JFrame {
         jPanel1.add(minimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 580, 50, 30));
 
         applicationpane2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        applicationpane2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         application.setBackground(new java.awt.Color(0, 153, 204));
         application.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -147,7 +146,7 @@ public class adminDashboard extends javax.swing.JFrame {
         jLabel4.setText("Application");
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/application.png"))); // NOI18N
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/application.png"))); // NOI18N
 
         javax.swing.GroupLayout applicationLayout = new javax.swing.GroupLayout(application);
         application.setLayout(applicationLayout);
@@ -168,7 +167,20 @@ public class adminDashboard extends javax.swing.JFrame {
                 .addComponent(jLabel4))
         );
 
-        applicationpane2.add(application, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        javax.swing.GroupLayout applicationpane2Layout = new javax.swing.GroupLayout(applicationpane2);
+        applicationpane2.setLayout(applicationpane2Layout);
+        applicationpane2Layout.setHorizontalGroup(
+            applicationpane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(applicationpane2Layout.createSequentialGroup()
+                .addGap(7, 7, 7)
+                .addComponent(application, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        applicationpane2Layout.setVerticalGroup(
+            applicationpane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(applicationpane2Layout.createSequentialGroup()
+                .addGap(7, 7, 7)
+                .addComponent(application, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         jPanel1.add(applicationpane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 180, 120, 120));
 
@@ -206,7 +218,7 @@ public class adminDashboard extends javax.swing.JFrame {
         jLabel6.setText("Reports");
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/reports.png"))); // NOI18N
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/reports.png"))); // NOI18N
 
         javax.swing.GroupLayout reportsLayout = new javax.swing.GroupLayout(reports);
         reports.setLayout(reportsLayout);
@@ -268,6 +280,12 @@ public class adminDashboard extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 user3MouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                user3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                user3MouseExited(evt);
+            }
         });
 
         jLabel15.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
@@ -276,7 +294,7 @@ public class adminDashboard extends javax.swing.JFrame {
         jLabel15.setText("Manage User");
 
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/manage user.png"))); // NOI18N
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/manage user.png"))); // NOI18N
 
         javax.swing.GroupLayout user3Layout = new javax.swing.GroupLayout(user3);
         user3.setLayout(user3Layout);
@@ -350,7 +368,7 @@ public class adminDashboard extends javax.swing.JFrame {
         jLabel5.setText("Payments");
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/payments.png"))); // NOI18N
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/payments.png"))); // NOI18N
 
         javax.swing.GroupLayout paymentsLayout = new javax.swing.GroupLayout(payments);
         payments.setLayout(paymentsLayout);
@@ -358,8 +376,8 @@ public class adminDashboard extends javax.swing.JFrame {
             paymentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(paymentsLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addComponent(jLabel9))
         );
         paymentsLayout.setVerticalGroup(
             paymentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -508,7 +526,7 @@ public class adminDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_transactionActionPerformed
 
     private void user3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_user3MouseClicked
-        new userDashboard().setVisible(true);
+        new ManageUser().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_user3MouseClicked
 
@@ -519,6 +537,14 @@ public class adminDashboard extends javax.swing.JFrame {
     private void transactionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_transactionMouseClicked
         
     }//GEN-LAST:event_transactionMouseClicked
+
+    private void user3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_user3MouseEntered
+       user3.setBackground(enter);
+    }//GEN-LAST:event_user3MouseEntered
+
+    private void user3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_user3MouseExited
+        user3.setBackground(exit);
+    }//GEN-LAST:event_user3MouseExited
 
     
     public static void main(String args[]) {

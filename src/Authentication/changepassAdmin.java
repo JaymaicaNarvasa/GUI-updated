@@ -1,6 +1,6 @@
-package ProfilePage;
+package Authentication;
 
-import Authentication.*;
+import ProfilePage.adminProfile;
 import config.*;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
@@ -194,6 +194,9 @@ if(check == 1){
             PreparedStatement updateStmt = dbc.getConnection().prepareStatement(updateSQL);
             updateStmt.setString(1, npass);
             updateStmt.setInt(2, sess.getId());
+                int actingUserId = Session.getInstance().getId(); 
+                String action = "Changing password of ID "+id;
+                dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
 
             int result = updateStmt.executeUpdate();
             if (result > 0) {

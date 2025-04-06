@@ -5,7 +5,7 @@ import javax.swing.JOptionPane;
 
 public class dbConnector {
     
-    private Connection connect;
+    public Connection connect;
     
     public dbConnector(){
             try{

@@ -1,17 +1,17 @@
 package ProfilePage;
 
 import Authentication.changepassAdmin;
-import AdminPage.*;
 import Authentication.*;
+import UsersPage.*;
 import config.*;
 import java.sql.*;
-import javax.swing.*;
+import javax.swing.JOptionPane;
 
-public class adminProfile extends javax.swing.JFrame {
+public class CustomerProfile extends javax.swing.JFrame {
 
-    public adminProfile() {
+    public CustomerProfile() {
         initComponents();
-        
+    
         displayUserDetails();
     }
     private void displayUserDetails() {
@@ -30,7 +30,7 @@ public class adminProfile extends javax.swing.JFrame {
     contact.setText(""+ses.getContact());
     address.setText(""+ses.getAddress());
     }
-}
+    }   
     
     
     int validateTegister(){
@@ -44,11 +44,11 @@ public class adminProfile extends javax.swing.JFrame {
         }
         return result;
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         save = new javax.swing.JLabel();
         logout = new javax.swing.JLabel();
@@ -67,10 +67,7 @@ public class adminProfile extends javax.swing.JFrame {
         lname = new javax.swing.JTextField();
         cellphone = new javax.swing.JLabel();
 
-        jLabel1.setText("jLabel1");
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -187,8 +184,58 @@ public class adminProfile extends javax.swing.JFrame {
         );
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void saveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMouseClicked
+        dbConnector dbc = new dbConnector();
+        int check = validateTegister();
+
+        if (check == 1) {
+            try {
+                String sql = "UPDATE tbl_user SET u_fname = ?, u_lname = ?, u_address = ?, u_contact = ?, u_email = ? WHERE u_id = ?";
+                PreparedStatement pstmt = dbc.getConnection().prepareStatement(sql);
+
+                pstmt.setString(1, fname.getText().trim());
+                pstmt.setString(2, lname.getText().trim());
+                pstmt.setString(3, address.getText().trim());
+                pstmt.setString(4, contact.getText().trim());
+                pstmt.setString(5, email.getText().trim());
+                pstmt.setInt(6, Integer.parseInt(id.getText().trim()));
+
+                int actingUserId = Session.getInstance().getId();
+                String action = "Saving data customer profile";
+                dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
+
+                int result = pstmt.executeUpdate();
+
+                if (result > 0) {
+                    JOptionPane.showMessageDialog(null, "User details updated successfully!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Update failed! User ID not found.");
+                }
+                pstmt.close();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Something ERROR!");
+                System.out.println("Error: " + ex.getMessage());
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "ALL FIELDS REQUIRED!");
+        }
+    }//GEN-LAST:event_saveMouseClicked
+
+    private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
+        dbConnector dbc = new dbConnector();
+        int actingUserId = Session.getInstance().getId();
+        String action = "Log Out";
+        dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
+        new LogIn().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_logoutMouseClicked
+
+    private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
+        new CustomerDashboard().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_backMouseClicked
 
     private void homeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeMouseClicked
         int a = JOptionPane.showConfirmDialog(null, "Confirm EXIT?");
@@ -202,61 +249,10 @@ public class adminProfile extends javax.swing.JFrame {
         setState(ICONIFIED);
     }//GEN-LAST:event_minimizeMouseClicked
 
-    private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
-        dbConnector dbc = new dbConnector();
-        int actingUserId = Session.getInstance().getId(); 
-        String action = "Log Out";
-        dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
-        new LogIn().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_logoutMouseClicked
-
-    private void saveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMouseClicked
-           dbConnector dbc = new dbConnector();
-            int check = validateTegister();
-    
-    if (check == 1) {
-        try {
-            String sql = "UPDATE tbl_user SET u_fname = ?, u_lname = ?, u_address = ?, u_contact = ?, u_email = ? WHERE u_id = ?";
-            PreparedStatement pstmt = dbc.getConnection().prepareStatement(sql);
-
-            pstmt.setString(1, fname.getText().trim());
-            pstmt.setString(2, lname.getText().trim());
-            pstmt.setString(3, address.getText().trim());
-            pstmt.setString(4, contact.getText().trim());
-            pstmt.setString(5, email.getText().trim());
-            pstmt.setInt(6, Integer.parseInt(id.getText().trim())); 
-            
-                int actingUserId = Session.getInstance().getId(); 
-                String action = "Saving data admin profile";
-                dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
-            
-            int result = pstmt.executeUpdate();
-
-            if (result > 0) {
-                JOptionPane.showMessageDialog(null, "User details updated successfully!");
-            } else {
-                JOptionPane.showMessageDialog(null, "Update failed! User ID not found.");
-            }
-            pstmt.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Something ERROR!");
-            System.out.println("Error: " + ex.getMessage());
-        }
-    } else {
-        JOptionPane.showMessageDialog(null, "ALL FIELDS REQUIRED!");
-    }
-    }//GEN-LAST:event_saveMouseClicked
-
     private void exitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitMouseClicked
-        new adminDashboard().setVisible(true);
+        new CustomerDashboard().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_exitMouseClicked
-
-    private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
-        new adminDashboard().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_backMouseClicked
 
     private void changepassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changepassMouseClicked
         new changepassAdmin().setVisible(true);
@@ -269,7 +265,7 @@ public class adminProfile extends javax.swing.JFrame {
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with cellphoneault look and feel.
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
@@ -280,20 +276,21 @@ public class adminProfile extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(adminProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomerProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(adminProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomerProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(adminProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomerProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(adminProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomerProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new adminProfile().setVisible(true);
+                new CustomerProfile().setVisible(true);
             }
         });
     }
@@ -311,11 +308,11 @@ public class adminProfile extends javax.swing.JFrame {
     private javax.swing.JLabel home;
     private javax.swing.JLabel id;
     private javax.swing.JLabel id1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField lname;
     private javax.swing.JLabel logout;
     private javax.swing.JLabel minimize;
     private javax.swing.JLabel save;
     // End of variables declaration//GEN-END:variables
+
 }

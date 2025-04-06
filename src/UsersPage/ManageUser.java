@@ -7,9 +7,9 @@ import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
 
-public class userDashboard extends javax.swing.JFrame {
+public class ManageUser extends javax.swing.JFrame {
 
-    public userDashboard() {
+    public ManageUser() {
         initComponents();
         
         displayData();
@@ -79,7 +79,7 @@ public class userDashboard extends javax.swing.JFrame {
                 editMouseClicked(evt);
             }
         });
-        jPanel1.add(edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, 40, 40));
+        jPanel1.add(edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 60, 40));
 
         add.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         add.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -87,7 +87,7 @@ public class userDashboard extends javax.swing.JFrame {
                 addMouseClicked(evt);
             }
         });
-        jPanel1.add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, 50, 40));
+        jPanel1.add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, 60, 40));
 
         delete.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         delete.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -95,7 +95,7 @@ public class userDashboard extends javax.swing.JFrame {
                 deleteMouseClicked(evt);
             }
         });
-        jPanel1.add(delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 90, 40, 40));
+        jPanel1.add(delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 90, 80, 40));
 
         search.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         search.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -162,6 +162,9 @@ public class userDashboard extends javax.swing.JFrame {
                 dbConnector dbc = new dbConnector();
                 int uId = Integer.parseInt(id);
                 dbc.deleteData(uId, "tbl_user", "u_id");
+                int actingUserId = Session.getInstance().getId(); 
+                String action = "Deleted User with ID: " + id;
+                dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
                 displayData();
             }
         }
@@ -221,20 +224,21 @@ public class userDashboard extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(userDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(userDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(userDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(userDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new userDashboard().setVisible(true);
+                new ManageUser().setVisible(true);
             }
         });
     }
