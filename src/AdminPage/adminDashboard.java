@@ -25,7 +25,6 @@ public class adminDashboard extends javax.swing.JFrame {
         transaction = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        back = new javax.swing.JLabel();
         profilesettings = new javax.swing.JLabel();
         home = new javax.swing.JLabel();
         minimize = new javax.swing.JLabel();
@@ -41,10 +40,7 @@ public class adminDashboard extends javax.swing.JFrame {
         user3 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        paymnestpane2 = new javax.swing.JPanel();
-        payments = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
         cellphone = new javax.swing.JLabel();
 
         popupMenu.setBackground(new java.awt.Color(255, 204, 204));
@@ -95,14 +91,6 @@ public class adminDashboard extends javax.swing.JFrame {
         jLabel3.setText("Name");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 120, 20));
 
-        back.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        back.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                backMouseClicked(evt);
-            }
-        });
-        jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 580, 40, 30));
-
         profilesettings.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         profilesettings.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -117,7 +105,7 @@ public class adminDashboard extends javax.swing.JFrame {
                 homeMouseClicked(evt);
             }
         });
-        jPanel1.add(home, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 580, 40, 30));
+        jPanel1.add(home, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 590, 40, 30));
 
         minimize.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         minimize.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -125,8 +113,9 @@ public class adminDashboard extends javax.swing.JFrame {
                 minimizeMouseClicked(evt);
             }
         });
-        jPanel1.add(minimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 580, 50, 30));
+        jPanel1.add(minimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 590, 50, 20));
 
+        applicationpane2.setBackground(new java.awt.Color(255, 255, 255));
         applicationpane2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         application.setBackground(new java.awt.Color(0, 153, 204));
@@ -247,18 +236,18 @@ public class adminDashboard extends javax.swing.JFrame {
             reportspane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(reportspane2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(reports, javax.swing.GroupLayout.PREFERRED_SIZE, 94, Short.MAX_VALUE)
+                .addComponent(reports, javax.swing.GroupLayout.PREFERRED_SIZE, 104, Short.MAX_VALUE)
                 .addContainerGap())
         );
         reportspane2Layout.setVerticalGroup(
             reportspane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(reportspane2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(reports, javax.swing.GroupLayout.PREFERRED_SIZE, 82, Short.MAX_VALUE)
+                .addComponent(reports, javax.swing.GroupLayout.PREFERRED_SIZE, 92, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jPanel1.add(reportspane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 310, 120, 110));
+        jPanel1.add(reportspane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 130, 120));
 
         userpane2.setBackground(new java.awt.Color(255, 255, 255));
         userpane2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -335,77 +324,22 @@ public class adminDashboard extends javax.swing.JFrame {
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        jPanel1.add(userpane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 130, 120));
+        jPanel1.add(userpane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 310, 130, 120));
 
-        paymnestpane2.setBackground(new java.awt.Color(255, 255, 255));
-        paymnestpane2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        paymnestpane2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                paymnestpane2MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                paymnestpane2MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                paymnestpane2MouseExited(evt);
-            }
-        });
+        jPanel2.setBackground(new java.awt.Color(239, 221, 101));
 
-        payments.setBackground(new java.awt.Color(0, 153, 204));
-        payments.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        payments.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                paymentsMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                paymentsMouseExited(evt);
-            }
-        });
-
-        jLabel5.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Payments");
-
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/payments.png"))); // NOI18N
-
-        javax.swing.GroupLayout paymentsLayout = new javax.swing.GroupLayout(payments);
-        payments.setLayout(paymentsLayout);
-        paymentsLayout.setHorizontalGroup(
-            paymentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(paymentsLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel9))
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 30, Short.MAX_VALUE)
         );
-        paymentsLayout.setVerticalGroup(
-            paymentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(paymentsLayout.createSequentialGroup()
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
-                .addContainerGap())
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 20, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout paymnestpane2Layout = new javax.swing.GroupLayout(paymnestpane2);
-        paymnestpane2.setLayout(paymnestpane2Layout);
-        paymnestpane2Layout.setHorizontalGroup(
-            paymnestpane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paymnestpane2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(payments, javax.swing.GroupLayout.PREFERRED_SIZE, 104, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        paymnestpane2Layout.setVerticalGroup(
-            paymnestpane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paymnestpane2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(payments, javax.swing.GroupLayout.PREFERRED_SIZE, 82, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jPanel1.add(paymnestpane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, 130, 110));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 590, 30, 20));
 
         cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/adminDashboard (2).png"))); // NOI18N
         jPanel1.add(cellphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 640));
@@ -445,14 +379,6 @@ public class adminDashboard extends javax.swing.JFrame {
         application.setBackground(exit);
     }//GEN-LAST:event_applicationMouseExited
 
-    private void paymentsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paymentsMouseEntered
-        payments.setBackground(enter);
-    }//GEN-LAST:event_paymentsMouseEntered
-
-    private void paymentsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paymentsMouseExited
-       payments.setBackground(exit);
-    }//GEN-LAST:event_paymentsMouseExited
-
     private void reportsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportsMouseEntered
         reports.setBackground(enter);
     }//GEN-LAST:event_reportsMouseEntered
@@ -465,27 +391,6 @@ public class adminDashboard extends javax.swing.JFrame {
        new adminProfile().setVisible(true);
        this.dispose();
     }//GEN-LAST:event_profilesettingsMouseClicked
-
-    private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
-        int j = JOptionPane.showConfirmDialog(null, "Do you want to LOG OUT?");
-        
-        if(j == JOptionPane.YES_OPTION){
-            new LogIn().setVisible(true);
-            this.dispose();
-        }
-    }//GEN-LAST:event_backMouseClicked
-
-    private void paymnestpane2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paymnestpane2MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_paymnestpane2MouseClicked
-
-    private void paymnestpane2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paymnestpane2MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_paymnestpane2MouseEntered
-
-    private void paymnestpane2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paymnestpane2MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_paymnestpane2MouseExited
 
     private void reportspane2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportspane2MouseClicked
         // TODO add your handling code here:
@@ -583,7 +488,6 @@ public class adminDashboard extends javax.swing.JFrame {
     private javax.swing.JMenuItem Logs;
     private javax.swing.JPanel application;
     private javax.swing.JPanel applicationpane2;
-    private javax.swing.JLabel back;
     private javax.swing.JLabel cellphone;
     private javax.swing.JLabel home;
     private javax.swing.JLabel jLabel10;
@@ -591,14 +495,11 @@ public class adminDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel minimize;
-    private javax.swing.JPanel payments;
-    private javax.swing.JPanel paymnestpane2;
     private javax.swing.JPopupMenu popupMenu;
     private javax.swing.JLabel profilesettings;
     private javax.swing.JPanel reports;

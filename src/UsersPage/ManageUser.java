@@ -2,9 +2,10 @@ package UsersPage;
 
 import AdminPage.*;
 import config.*;
+import java.awt.*;
 import java.sql.*;
-import javax.swing.JOptionPane;
-import javax.swing.table.TableModel;
+import javax.swing.*;
+import javax.swing.table.*;
 import net.proteanit.sql.DbUtils;
 
 public class ManageUser extends javax.swing.JFrame {
@@ -12,6 +13,34 @@ public class ManageUser extends javax.swing.JFrame {
     public ManageUser() {
         initComponents();
         
+        user_tbl.setShowGrid(false);
+        user_tbl.setIntercellSpacing(new Dimension(0, 0)); 
+        user_tbl.setRowHeight(30);
+        user_tbl.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        user_tbl.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        user_tbl.getTableHeader().setVisible(false);
+
+    JTableHeader header = user_tbl.getTableHeader();
+    header.setFont(new Font("Segoe UI", Font.BOLD, 12));
+    header.setBackground(new Color(255, 255, 255));
+    header.setForeground(Color.BLACK);
+    header.setPreferredSize(new Dimension(50, 35));
+    
+    user_tbl.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+        public Component getTableCellRendererComponent(JTable table, Object value,
+                boolean isSelected, boolean hasFocus, int row, int column) {
+            Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+            if (isSelected) {
+                c.setBackground(new Color(173, 216, 230)); 
+            } else {
+                c.setBackground(row % 2 == 0 ? Color.WHITE : new Color(245, 245, 245));
+            }
+            c.setForeground(Color.BLACK);
+            return c;
+        }
+    });
+                
         displayData();
     }
    
@@ -29,15 +58,14 @@ public class ManageUser extends javax.swing.JFrame {
         }
 
     }
-
+     
+     
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        user_tbl = new javax.swing.JTable();
         searchIcon = new javax.swing.JLabel();
         edit = new javax.swing.JLabel();
         add = new javax.swing.JLabel();
@@ -46,6 +74,14 @@ public class ManageUser extends javax.swing.JFrame {
         back = new javax.swing.JLabel();
         home = new javax.swing.JLabel();
         minimize = new javax.swing.JLabel();
+        role = new javax.swing.JLabel();
+        status = new javax.swing.JLabel();
+        lname = new javax.swing.JLabel();
+        fname = new javax.swing.JLabel();
+        idlbl = new javax.swing.JLabel();
+        header = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        user_tbl = new javax.swing.JTable();
         cellphone = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -54,21 +90,6 @@ public class ManageUser extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setPreferredSize(new java.awt.Dimension(352, 625));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        user_tbl.setBackground(new java.awt.Color(204, 204, 204));
-        user_tbl.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        user_tbl.setSelectionBackground(new java.awt.Color(255, 204, 153));
-        user_tbl.setSelectionForeground(new java.awt.Color(0, 0, 0));
-        jScrollPane1.setViewportView(user_tbl);
-
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 270, 440));
 
         searchIcon.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jPanel1.add(searchIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 30, 30));
@@ -125,6 +146,61 @@ public class ManageUser extends javax.swing.JFrame {
             }
         });
         jPanel1.add(minimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 580, 50, 30));
+
+        role.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        role.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        role.setText("Role");
+        jPanel1.add(role, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, 50, 20));
+
+        status.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        status.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        status.setText("Status");
+        jPanel1.add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 150, 40, 20));
+
+        lname.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lname.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lname.setText("Last Name");
+        jPanel1.add(lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, 70, 20));
+
+        fname.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        fname.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        fname.setText("First Name");
+        jPanel1.add(fname, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, 70, 20));
+
+        idlbl.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        idlbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        idlbl.setText("ID");
+        jPanel1.add(idlbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 40, 20));
+
+        header.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
+        header.setLayout(headerLayout);
+        headerLayout.setHorizontalGroup(
+            headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 270, Short.MAX_VALUE)
+        );
+        headerLayout.setVerticalGroup(
+            headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 270, 40));
+
+        user_tbl.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        user_tbl.setGridColor(new java.awt.Color(255, 255, 255));
+        user_tbl.setSelectionBackground(new java.awt.Color(255, 204, 153));
+        user_tbl.setSelectionForeground(new java.awt.Color(0, 0, 0));
+        jScrollPane1.setViewportView(user_tbl);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 270, 440));
 
         cellphone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ManageUser (2).png"))); // NOI18N
@@ -249,12 +325,18 @@ public class ManageUser extends javax.swing.JFrame {
     private javax.swing.JLabel cellphone;
     private javax.swing.JLabel delete;
     private javax.swing.JLabel edit;
+    private javax.swing.JLabel fname;
+    private javax.swing.JPanel header;
     private javax.swing.JLabel home;
+    private javax.swing.JLabel idlbl;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lname;
     private javax.swing.JLabel minimize;
+    private javax.swing.JLabel role;
     private javax.swing.JTextField search;
     private javax.swing.JLabel searchIcon;
+    private javax.swing.JLabel status;
     private javax.swing.JTable user_tbl;
     // End of variables declaration//GEN-END:variables
 }
