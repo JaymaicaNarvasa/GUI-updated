@@ -163,7 +163,10 @@ public class changepassAdmin extends javax.swing.JFrame {
 
         if(a == JOptionPane.YES_OPTION){
             System.exit(0);
-        }
+        }       dbConnector dbc = new dbConnector();
+                int actingUserId = Session.getInstance().getId(); 
+                String action = "Exit";
+                dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
     }//GEN-LAST:event_homeMouseClicked
 
     private void minimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeMouseClicked
@@ -194,6 +197,7 @@ if(check == 1){
             PreparedStatement updateStmt = dbc.getConnection().prepareStatement(updateSQL);
             updateStmt.setString(1, npass);
             updateStmt.setInt(2, sess.getId());
+            
                 int actingUserId = Session.getInstance().getId(); 
                 String action = "Changing password of ID "+id;
                 dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");

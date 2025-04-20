@@ -20,12 +20,6 @@ public class ManageUser extends javax.swing.JFrame {
         user_tbl.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         user_tbl.getTableHeader().setVisible(false);
 
-    JTableHeader header = user_tbl.getTableHeader();
-    header.setFont(new Font("Segoe UI", Font.BOLD, 12));
-    header.setBackground(new Color(255, 255, 255));
-    header.setForeground(Color.BLACK);
-    header.setPreferredSize(new Dimension(50, 35));
-    
     user_tbl.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
         public Component getTableCellRendererComponent(JTable table, Object value,
                 boolean isSelected, boolean hasFocus, int row, int column) {
@@ -121,7 +115,7 @@ public class ManageUser extends javax.swing.JFrame {
         search.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         search.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         search.setBorder(null);
-        jPanel1.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 120, 20));
+        jPanel1.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 130, 20));
 
         back.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         back.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -279,7 +273,10 @@ public class ManageUser extends javax.swing.JFrame {
 
         if(a == JOptionPane.YES_OPTION){
             System.exit(0);
-        }
+        }       dbConnector dbc = new dbConnector();
+                int actingUserId = Session.getInstance().getId(); 
+                String action = "Exit";
+                dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
     }//GEN-LAST:event_homeMouseClicked
 
     private void minimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeMouseClicked

@@ -1,7 +1,7 @@
 package Authentication;
 
 import AdminPage.*;
-import UsersPage.ManageUser;
+import UsersPage.*;
 import config.*;
 import java.awt.Color;
 import java.security.NoSuchAlgorithmException;
@@ -273,6 +273,8 @@ public class LogIn extends javax.swing.JFrame {
                 new adminDashboard().setVisible(true);
             }else if(roleId == 2){
                 new ManageUser().setVisible(true);
+            }else if(roleId == 3){
+                new CustomerDashboard().setVisible(true);
             }else{
                 JOptionPane.showMessageDialog(this, "UNKNOWN ROLE!");
             }
@@ -309,7 +311,10 @@ public class LogIn extends javax.swing.JFrame {
         
        if(a == JOptionPane.YES_OPTION){
             System.exit(0);
-        }
+        }       dbConnector dbc = new dbConnector();
+                int actingUserId = Session.getInstance().getId(); 
+                String action = "Exit";
+                dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
     }//GEN-LAST:event_homeMouseClicked
 
     /**

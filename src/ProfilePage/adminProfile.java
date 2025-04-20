@@ -65,6 +65,7 @@ public class adminProfile extends javax.swing.JFrame {
         email = new javax.swing.JTextField();
         fname = new javax.swing.JTextField();
         lname = new javax.swing.JTextField();
+        image = new javax.swing.JLabel();
         cellphone = new javax.swing.JLabel();
 
         jLabel1.setText("jLabel1");
@@ -169,6 +170,13 @@ public class adminProfile extends javax.swing.JFrame {
         lname.setBorder(null);
         jPanel1.add(lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(119, 210, 70, 20));
 
+        image.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imageMouseClicked(evt);
+            }
+        });
+        jPanel1.add(image, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 80, 90, 90));
+
         cellphone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/updateadminProfile (2).png"))); // NOI18N
         jPanel1.add(cellphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -195,7 +203,10 @@ public class adminProfile extends javax.swing.JFrame {
 
         if(a == JOptionPane.YES_OPTION){
             System.exit(0);
-        }
+        }       dbConnector dbc = new dbConnector();
+                int actingUserId = Session.getInstance().getId(); 
+                String action = "Exit";
+                dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
     }//GEN-LAST:event_homeMouseClicked
 
     private void minimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeMouseClicked
@@ -263,6 +274,10 @@ public class adminProfile extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_changepassMouseClicked
 
+    private void imageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageMouseClicked
+
+    }//GEN-LAST:event_imageMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -311,6 +326,7 @@ public class adminProfile extends javax.swing.JFrame {
     private javax.swing.JLabel home;
     private javax.swing.JLabel id;
     private javax.swing.JLabel id1;
+    private javax.swing.JLabel image;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField lname;

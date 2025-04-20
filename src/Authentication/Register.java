@@ -147,7 +147,7 @@ public class Register extends javax.swing.JFrame {
         luyoCp.add(fname, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, 100, 20));
 
         role.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "User" }));
+        role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Staff", "Customer" }));
         role.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         role.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         luyoCp.add(role, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 390, 160, 20));
@@ -265,33 +265,46 @@ public class Register extends javax.swing.JFrame {
     }//GEN-LAST:event_registerPaneMouseEntered
 
     private void registerPaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerPaneMouseClicked
-       int check = validateTegister();
-        
-    if(check == 1){
-        dbConnector dbc = new dbConnector();
-        try{
+       int check = validateTegister(); 
+
+if(check == 1){
+    dbConnector dbc = new dbConnector();
+    try{
         String pass1 = passwordHasher.hashPassword(pass.getText());
         String selecrole = role.getSelectedItem().toString();
-        int roleId = selecrole.equals("Admin") ? 1 : 2;
         
-        int result = dbc.insertData("INSERT INTO tbl_user(u_fname, u_lname, u_username, u_password, u_address, u_email, u_contact, u_status , role_id)"
+        ResultSet rs = dbc.getData("SELECT role_id FROM role WHERE role_name = '" + selecrole + "'");
+        int roleId = 0;
+        if(rs.next()) {
+            roleId = rs.getInt("role_id");
+        } else {
+            JOptionPane.showMessageDialog(null, "Role not found!");
+            return;
+        }
+
+        int result = dbc.insertData("INSERT INTO tbl_user(u_fname, u_lname, u_username, u_password, u_address, u_email, u_contact, u_status , role_id) "
               + "VALUES ('"+fname.getText()+"', '"+lname.getText()+"', '"+user.getText()+"', '"+pass1+"', '"+address.getText()+"', "
                       + "'"+Email.getText()+"', '"+contact.getText()+"', 'Pending', "+ roleId +" )");
-      
+
         if(result == 1){
-         JOptionPane.showMessageDialog(null, "REGISTERED SUCCESSFULY!");
-           new LogIn().setVisible(true);
-           this.dispose();
-        }else{
+            JOptionPane.showMessageDialog(null, "REGISTERED SUCCESSFULLY!");
+            new LogIn().setVisible(true);
+            this.dispose();
+                int actingUserId = Session.getInstance().getId(); 
+                String action = "Registered Successfully";
+                dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
+        } else {
             JOptionPane.showMessageDialog(null, "Saving Data FAILED!");
         }
-        }catch(NoSuchAlgorithmException ex){
-            System.out.println(""+ex);
-        }
-        
-    }else{
-        System.out.println("ALL FIELDS REQUIRED!");
+
+    } catch(NoSuchAlgorithmException | SQLException ex){
+        System.out.println("Error: " + ex);
     }
+
+} else {
+    System.out.println("ALL FIELDS REQUIRED!");
+}
+
     }//GEN-LAST:event_registerPaneMouseClicked
 
     /**

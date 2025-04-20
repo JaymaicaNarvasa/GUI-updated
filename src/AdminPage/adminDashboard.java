@@ -1,6 +1,6 @@
 package AdminPage;
 
-import Authentication.*;
+import config.*;
 import Reports.*;
 import ProfilePage.*;
 import UsersPage.*;
@@ -24,6 +24,7 @@ public class adminDashboard extends javax.swing.JFrame {
         Logs = new javax.swing.JMenuItem();
         transaction = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         profilesettings = new javax.swing.JLabel();
         home = new javax.swing.JLabel();
@@ -85,11 +86,17 @@ public class adminDashboard extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel3.setFont(new java.awt.Font("Arial Black", 3, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 204, 153));
+        jLabel5.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Welcome Back,");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 120, 20));
+
+        jLabel3.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Name");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 120, 20));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 120, 20));
 
         profilesettings.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         profilesettings.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -368,7 +375,10 @@ public class adminDashboard extends javax.swing.JFrame {
 
         if(a == JOptionPane.YES_OPTION){
             System.exit(0);
-        }
+        }       dbConnector dbc = new dbConnector();
+                int actingUserId = Session.getInstance().getId(); 
+                String action = "Exit";
+                dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
     }//GEN-LAST:event_homeMouseClicked
 
     private void minimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeMouseClicked
@@ -495,6 +505,7 @@ public class adminDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
