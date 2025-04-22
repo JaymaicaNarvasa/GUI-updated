@@ -34,7 +34,11 @@ public class CustomerDashboard extends javax.swing.JFrame {
        Session ses = Session.getInstance();
        int userId = ses.getId();
        
-       String sql = "SELECT ap.amount , s.status_name FROM tbl_application ap INNER JOIN tbl_status s WHERE user_id = ? AND status_name = 'Disbursed' ";
+       String sql = "SELECT ap.amount , s.status_name "
+               + "FROM tbl_application ap "
+               + "INNER JOIN tbl_status s "
+               + "ON ap.loan_status_id = s.loan_status_id"
+               + "WHERE user_id = ? AND status_name = 'Disbursed' ";
        try{
            dbConnector dbc = new dbConnector();
            PreparedStatement pst = dbc.getConnection().prepareStatement(sql);

@@ -341,7 +341,8 @@ public class application extends javax.swing.JFrame {
     String validIdPath = image.toString();
     LocalDateTime date = LocalDateTime.now();
 
-    int sql = dbc.insertData("INSERT INTO loan_application (user_id, loan_status_id, loan_type_id, amount, application_date, tenure_value, tenure_unit, interest_rate, validid_path)"
+    int sql = dbc.insertData("INSERT INTO loan_application (user_id, loan_status_id, loan_type_id, amount, application_date, tenure_value, tenure_unit, "
+            + "interest_rate, validid_path)"
             + " VALUES (" +
             "'" + loanStatusId + "', " +
             "'" + loanTypeId + "', " +
