@@ -8,6 +8,7 @@ import java.io.*;
 import java.nio.file.*;
 import java.sql.*;
 import java.sql.ResultSet;
+import java.time.LocalDateTime;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -330,33 +331,37 @@ public class application extends javax.swing.JFrame {
         return;
     }
     
-   /* dbConnector dbc = new dbConnector();
+    dbConnector dbc = new dbConnector();
     int loanTypeId = getLoanTypeIdByName(selectedLoanType);
-    int loanStatusId = getLoanStatusIdByName("Pending");  
-    String selectedLoanType = type.getSelectedItem();
+    int loanStatusId = getLoanStatusIdByName("Pending"); 
     String interestRateText = interest.getText(); 
     String amountText = loanamt.getText(); 
-    String tenureValueText = monthbox.getSelectedItem().toString(), yearbox.getSelectedItem().toString(); 
+    String tenureValueText = monthbox.getSelectedItem().toString(); 
     String tenureUnit = tenurebox.getSelectedItem().toString(); 
-    String validIdPath = image;
+    String validIdPath = image.toString();
+    LocalDateTime date = LocalDateTime.now();
 
-    String sql = "INSERT INTO loan_application (user_id, loan_status_id, loan_type_id, amount, application_date, tenure_value, tenure_unit, interest_rate, validID_path)"
+    int sql = dbc.insertData("INSERT INTO loan_application (user_id, loan_status_id, loan_type_id, amount, application_date, tenure_value, tenure_unit, interest_rate, validid_path)"
             + " VALUES (" +
             "'" + loanStatusId + "', " +
             "'" + loanTypeId + "', " +
-            "'" + enteredAmount + "', " +
-            "'" + applicationDate + "', " +
-            "'" + tenureValue + "', " +
+            "'" + amountText + "', " +
+            "'" + date + "', " +
+            "'" + tenureValueText + "', " +
             "'" + tenureUnit + "', " +
-            "'" + interestRate + "', " +
-            "'" + validIdPath + "')";
+            "'" + interestRateText + "', " +
+            "'" + validIdPath + "')");
 
-    if (dbc.insertData(sql)) {
+    if (sql == 1) {
         JOptionPane.showMessageDialog(null, "Loan Application Submitted Successfully!");
-    
+        new CustomerDashboard().setVisible(true);
+        this.dispose();
+                int actingUserId = Session.getInstance().getId(); 
+                String action = "Applied A Loan";
+                dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
     } else {
         JOptionPane.showMessageDialog(null, "Connection Error!");
-    }*/
+    }
     }//GEN-LAST:event_addpaneMouseClicked
 
     private void addpaneMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addpaneMouseEntered
@@ -376,10 +381,12 @@ public class application extends javax.swing.JFrame {
             interest.setText("5%");
         }else if (type.getSelectedItem().equals("Personal")){
             interest.setText("6%");
-        }else if (type.getSelectedItem().equals("Medical") || type.getSelectedItem().equals("Education")){
+        }else if (type.getSelectedItem().equals("Medical")){
             interest.setText("4%");
+        }else if (type.getSelectedItem().equals ("Education")){
+            interest.setText("4.5%");
         }else{
-            interest.setText("");
+            interest.setText("ERROR");
         }
     }//GEN-LAST:event_typeActionPerformed
 
