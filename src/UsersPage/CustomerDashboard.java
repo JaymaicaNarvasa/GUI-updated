@@ -11,7 +11,7 @@ public class CustomerDashboard extends javax.swing.JFrame {
 
     public CustomerDashboard() {
         initComponents();
-        
+        displayAmount();
         displayData();
     }
     public void displayData() {
@@ -27,6 +27,32 @@ public class CustomerDashboard extends javax.swing.JFrame {
         } catch (SQLException ex) {
          System.out.println("Errors: " + ex.getMessage());
         }
+    }
+        
+    
+    public void displayAmount(){
+       Session ses = Session.getInstance();
+       int userId = ses.getId();
+       
+       String sql = "SELECT ap.amount , s.status_name FROM tbl_application ap INNER JOIN tbl_status s WHERE user_id = ? AND status_name = 'Disbursed' ";
+       try{
+           dbConnector dbc = new dbConnector();
+           PreparedStatement pst = dbc.getConnection().prepareStatement(sql);
+           pst.setInt(1, userId);
+           
+           ResultSet rs = pst.executeQuery();
+           
+           if(rs.next()){
+               double amount = rs.getDouble("amount");
+               money.setText(String.valueOf(amount));
+           }else{
+               JOptionPane.showMessageDialog(null, "NO active disbursed loan.");
+           }
+           rs.close();
+           pst.close();
+       }catch(SQLException ex){
+           System.out.println("ERROR fecthing loan: "+ ex.getMessage());
+       }
     }
 
     
