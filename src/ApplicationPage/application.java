@@ -1,5 +1,6 @@
 package ApplicationPage;
 
+import ProfilePage.CustomerProfile;
 import UsersPage.*;
 import config.*;
 import java.awt.*;
@@ -7,8 +8,8 @@ import java.awt.image.*;
 import java.io.*;
 import java.nio.file.*;
 import java.sql.*;
-import java.sql.ResultSet;
 import java.time.LocalDateTime;
+import java.util.logging.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -76,13 +77,28 @@ public class application extends javax.swing.JFrame {
     Image newImg = img.getScaledInstance(label.getWidth(), newHeight, Image.SCALE_SMOOTH);
     ImageIcon image = new ImageIcon(newImg);
     return image;
-}
+}       
+    public int getLoanIdByName(String name) {
+    int id = -1;
+    try {
+        dbConnector dbc = new dbConnector();
+        PreparedStatement ps = dbc.connect.prepareStatement("SELECT loan_id FROM tbl_application WHERE loan_id = ?");
+        ps.setString(1, name);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            id = rs.getInt("loan_id");
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return id;
+    }
     
     public int getLoanTypeIdByName(String name) {
     int id = -1;
     try {
         dbConnector dbc = new dbConnector();
-        PreparedStatement ps = dbc.connect.prepareStatement("SELECT loan_type_id FROM loan_type WHERE loan_name = ?");
+        PreparedStatement ps = dbc.connect.prepareStatement("SELECT loan_type_id FROM tbl_loan WHERE loan_name = ?");
         ps.setString(1, name);
         ResultSet rs = ps.executeQuery();
         if (rs.next()) {
@@ -98,7 +114,7 @@ public class application extends javax.swing.JFrame {
     int id = -1;
     try {
         dbConnector dbc = new dbConnector();
-        PreparedStatement ps = dbc.connect.prepareStatement("SELECT loan_status_id FROM loan_status WHERE status_name = ?");
+        PreparedStatement ps = dbc.connect.prepareStatement("SELECT loan_status_id FROM tbl_status WHERE status_name = ?");
         ps.setString(1, name);
         ResultSet rs = ps.executeQuery();
         if (rs.next()) {
@@ -110,6 +126,7 @@ public class application extends javax.swing.JFrame {
     return id;
     }
 
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -117,6 +134,8 @@ public class application extends javax.swing.JFrame {
         luyoCp3 = new javax.swing.JPanel();
         email = new javax.swing.JLabel();
         name = new javax.swing.JLabel();
+        edit = new javax.swing.JLabel();
+        loanamt = new javax.swing.JComboBox<>();
         type = new javax.swing.JComboBox<>();
         interest = new javax.swing.JLabel();
         addpane = new javax.swing.JPanel();
@@ -124,10 +143,9 @@ public class application extends javax.swing.JFrame {
         tenurebox = new javax.swing.JComboBox<>();
         yearbox = new javax.swing.JComboBox<>();
         monthbox = new javax.swing.JComboBox<>();
-        loanamt = new javax.swing.JTextField();
-        image = new javax.swing.JLabel();
         selec = new javax.swing.JLabel();
         remove = new javax.swing.JLabel();
+        image = new javax.swing.JLabel();
         back = new javax.swing.JLabel();
         home = new javax.swing.JLabel();
         minimize = new javax.swing.JLabel();
@@ -148,9 +166,29 @@ public class application extends javax.swing.JFrame {
         name.setText("Name");
         luyoCp3.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, 180, 30));
 
+        edit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        edit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                editMouseClicked(evt);
+            }
+        });
+        luyoCp3.add(edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(274, 120, 30, 30));
+
+        loanamt.setBackground(new java.awt.Color(204, 204, 204));
+        loanamt.setEditable(true);
+        loanamt.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        loanamt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "5000.00", "15000.00", "10000.00", "20000.00", "30000.00", "35000.00", "40000.00", "50000.00", "70000.00", "80000.00", "90000.00", "100000.00", "500000.00" }));
+        loanamt.setBorder(null);
+        loanamt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loanamtActionPerformed(evt);
+            }
+        });
+        luyoCp3.add(loanamt, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 340, 110, 20));
+
         type.setBackground(new java.awt.Color(204, 204, 204));
         type.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Home", "Personal", "Medical", "Education" }));
+        type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Home", "Personal", "Medical", "Education" }));
         type.setBorder(null);
         type.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -227,18 +265,6 @@ public class application extends javax.swing.JFrame {
         monthbox.setBorder(null);
         luyoCp3.add(monthbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 400, 50, 20));
 
-        loanamt.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        loanamt.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        loanamt.setBorder(null);
-        luyoCp3.add(loanamt, new org.netbeans.lib.awtextra.AbsoluteConstraints(69, 340, 210, 20));
-
-        image.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                imageMouseClicked(evt);
-            }
-        });
-        luyoCp3.add(image, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 474, 210, 70));
-
         selec.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         selec.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         selec.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -256,7 +282,14 @@ public class application extends javax.swing.JFrame {
                 removeMouseClicked(evt);
             }
         });
-        luyoCp3.add(remove, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 470, 30, 30));
+        luyoCp3.add(remove, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 440, 30, 30));
+
+        image.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imageMouseClicked(evt);
+            }
+        });
+        luyoCp3.add(image, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 474, 200, 70));
 
         back.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         back.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -304,11 +337,8 @@ public class application extends javax.swing.JFrame {
 
     private void addpaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addpaneMouseClicked
         String selectedLoanType = type.getSelectedItem().toString();
-        double enteredAmount = Double.parseDouble(loanamt.getText());
+        double enteredAmount = Double.parseDouble(loanamt.getSelectedItem().toString());
         
-        if(loanamt.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Amount should not be Empty.");
-        }
         boolean isValid = false;
 
     switch (selectedLoanType) {
@@ -328,22 +358,29 @@ public class application extends javax.swing.JFrame {
 
     if (!isValid) {
         JOptionPane.showMessageDialog(null, "Amount is not valid for selected loan type!");
+        System.out.println("LoanType: Minimum  - Maximum"
+                         + "\nHome: 100,000 - 2,000,000"
+                         + "\nPersonal: 50,000 - 1,000,000"
+                         + "\nMedical: 10,000 - 300,000"
+                         + "\nEducation: 5,000 - 500,000");
+        
         return;
     }
-    
+        
     dbConnector dbc = new dbConnector();
-    int loanTypeId = getLoanTypeIdByName(selectedLoanType);
+    int loanTypeId = Session.getInstance().getId();
     int loanStatusId = getLoanStatusIdByName("Pending"); 
+    int userId = Session.getInstance().getId();
     String interestRateText = interest.getText(); 
-    String amountText = loanamt.getText(); 
+    String amountText = loanamt.getSelectedItem().toString(); 
     String tenureValueText = monthbox.getSelectedItem().toString(); 
     String tenureUnit = tenurebox.getSelectedItem().toString(); 
-    String validIdPath = image.toString();
     LocalDateTime date = LocalDateTime.now();
 
-    int sql = dbc.insertData("INSERT INTO loan_application (user_id, loan_status_id, loan_type_id, amount, application_date, tenure_value, tenure_unit, "
+    int sql = dbc.insertData("INSERT INTO tbl_application (user_id, loan_status_id, loan_type_id, amount, application_date, tenure_value, tenure_unit, "
             + "interest_rate, validid_path)"
             + " VALUES (" +
+            "'" + userId + "', " +
             "'" + loanStatusId + "', " +
             "'" + loanTypeId + "', " +
             "'" + amountText + "', " +
@@ -351,17 +388,41 @@ public class application extends javax.swing.JFrame {
             "'" + tenureValueText + "', " +
             "'" + tenureUnit + "', " +
             "'" + interestRateText + "', " +
-            "'" + validIdPath + "')");
+            "'" + destination + "')");
 
     if (sql == 1) {
+            try {
+                if (selectedFile != null) {
+                    Files.copy(selectedFile.toPath(), new File(destination).toPath(), StandardCopyOption.REPLACE_EXISTING);
+                } else {
+                    System.out.println("This is Null");
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(application.class.getName()).log(Level.SEVERE, null, ex);
+            }
         JOptionPane.showMessageDialog(null, "Loan Application Submitted Successfully!");
         new CustomerDashboard().setVisible(true);
         this.dispose();
                 int actingUserId = Session.getInstance().getId(); 
                 String action = "Applied A Loan";
-                dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
+                dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW() )");
     } else {
         JOptionPane.showMessageDialog(null, "Connection Error!");
+    }
+    try {
+    String query = "INSERT INTO tbl_activity (loan_id, loan_status_id, loan_type_id, amt_to_pay, date) " +
+                        "VALUES (?, ?, ?, ?, NOW())";
+
+    PreparedStatement pstmt = dbc.getConnection().prepareStatement(query);
+    pstmt.setInt(1, Session.getInstance().getId());
+    pstmt.setInt(2, loanStatusId);
+    pstmt.setInt(3, loanTypeId);
+    pstmt.setDouble(4, Double.parseDouble(amountText)); 
+    pstmt.executeUpdate();
+    pstmt.close();
+   
+    } catch (SQLException ex) {
+    JOptionPane.showMessageDialog(null, "Error loading data: " + ex.getMessage());
     }
     }//GEN-LAST:event_addpaneMouseClicked
 
@@ -379,13 +440,13 @@ public class application extends javax.swing.JFrame {
 
     private void typeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typeActionPerformed
         if(type.getSelectedItem().equals("Home")){
-            interest.setText("5%");
+            interest.setText("5");
         }else if (type.getSelectedItem().equals("Personal")){
-            interest.setText("6%");
+            interest.setText("6");
         }else if (type.getSelectedItem().equals("Medical")){
-            interest.setText("4%");
+            interest.setText("4");
         }else if (type.getSelectedItem().equals ("Education")){
-            interest.setText("4.5%");
+            interest.setText("4.5");
         }else{
             interest.setText("ERROR");
         }
@@ -402,10 +463,6 @@ public class application extends javax.swing.JFrame {
         if(a == JOptionPane.YES_OPTION){
             System.exit(0);
         }
-                dbConnector dbc = new dbConnector();
-                int actingUserId = Session.getInstance().getId(); 
-                String action = "Exit";
-                dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
     }//GEN-LAST:event_homeMouseClicked
 
     private void minimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeMouseClicked
@@ -416,6 +473,8 @@ public class application extends javax.swing.JFrame {
         if(tenurebox.getSelectedItem().equals("Month")){
             yearbox.setEnabled(false);
             monthbox.setEnabled(true);
+        }else if(tenurebox.getSelectedItem().equals("Select")){
+            JOptionPane.showMessageDialog(this, "Select First");
         }else{
             monthbox.setEnabled(false);
             yearbox.setEnabled(true);
@@ -454,6 +513,15 @@ public class application extends javax.swing.JFrame {
                     }
                 }
     }//GEN-LAST:event_selecMouseClicked
+
+    private void loanamtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loanamtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_loanamtActionPerformed
+
+    private void editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseClicked
+        new CustomerProfile().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_editMouseClicked
     /**
      * @param args the command line arguments
      */
@@ -494,11 +562,12 @@ public class application extends javax.swing.JFrame {
     private javax.swing.JPanel addpane;
     private javax.swing.JLabel back;
     private javax.swing.JLabel cellphone;
+    private javax.swing.JLabel edit;
     private javax.swing.JLabel email;
     private javax.swing.JLabel home;
     public javax.swing.JLabel image;
     private javax.swing.JLabel interest;
-    private javax.swing.JTextField loanamt;
+    private javax.swing.JComboBox<String> loanamt;
     private javax.swing.JPanel luyoCp3;
     private javax.swing.JLabel minimize;
     private javax.swing.JComboBox<String> monthbox;

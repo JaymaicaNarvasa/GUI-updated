@@ -4,8 +4,14 @@ import Authentication.changepassAdmin;
 import Authentication.*;
 import UsersPage.*;
 import config.*;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.*;
 import java.sql.*;
-import javax.swing.JOptionPane;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 public class CustomerProfile extends javax.swing.JFrame {
 
@@ -44,6 +50,96 @@ public class CustomerProfile extends javax.swing.JFrame {
         }
         return result;
     }
+    public String destination = "";
+    File selectedFile;
+    public String oldpath;
+    public String path;
+//--------------------------------------------------------------------------
+
+
+public int FileExistenceChecker(String path){
+        File file = new File(path);
+        String fileName = file.getName();
+        
+        Path filePath = Paths.get("src/images", fileName);
+        boolean fileExists = Files.exists(filePath);
+        
+        if (fileExists) {
+            return 1;
+        } else {
+            return 0;
+        }
+    
+    }
+
+
+//---------------------------------------------------------------------------
+
+public static int getHeightFromWidth(String imagePath, int desiredWidth) {
+        try {
+            // Read the image file
+            File imageFile = new File(imagePath);
+            BufferedImage image = ImageIO.read(imageFile);
+            
+            // Get the original width and height of the image
+            int originalWidth = image.getWidth();
+            int originalHeight = image.getHeight();
+            
+            // Calculate the new height based on the desired width and the aspect ratio
+            int newHeight = (int) ((double) desiredWidth / originalWidth * originalHeight);
+            
+            return newHeight;
+        } catch (IOException ex) {
+            System.out.println("No image found!");
+        }
+        
+        return -1;
+    }
+
+//--------------------------------------------------------------------------------------
+
+public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
+    ImageIcon MyImage = null;
+        if(ImagePath !=null){
+            MyImage = new ImageIcon(ImagePath);
+        }else{
+            MyImage = new ImageIcon(pic);
+        }
+        
+    int newHeight = getHeightFromWidth(ImagePath, label.getWidth());
+
+    Image img = MyImage.getImage();
+    Image newImg = img.getScaledInstance(label.getWidth(), newHeight, Image.SCALE_SMOOTH);
+    ImageIcon image = new ImageIcon(newImg);
+    return image;
+}
+
+//----------------------------------------------------------------------------------------
+
+    public void imageUpdater(String existingFilePath, String newFilePath){
+        File existingFile = new File(existingFilePath);
+        if (existingFile.exists()) {
+            String parentDirectory = existingFile.getParent();
+            File newFile = new File(newFilePath);
+            String newFileName = newFile.getName();
+            File updatedFile = new File(parentDirectory, newFileName);
+            existingFile.delete();
+            try {
+                Files.copy(newFile.toPath(), updatedFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                System.out.println("Image updated successfully.");
+            } catch (IOException e) {
+                System.out.println("Error occurred while updating the image: "+e);
+            }
+        } else {
+            try{
+                Files.copy(selectedFile.toPath(), new File(destination).toPath(), StandardCopyOption.REPLACE_EXISTING);
+            }catch(IOException e){
+                System.out.println("Error on update!");
+            }
+        }
+   }
+
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -65,6 +161,7 @@ public class CustomerProfile extends javax.swing.JFrame {
         email = new javax.swing.JTextField();
         fname = new javax.swing.JTextField();
         lname = new javax.swing.JTextField();
+        image = new javax.swing.JLabel();
         cellphone = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -167,6 +264,13 @@ public class CustomerProfile extends javax.swing.JFrame {
         lname.setBorder(null);
         jPanel1.add(lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(119, 210, 70, 20));
 
+        image.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imageMouseClicked(evt);
+            }
+        });
+        jPanel1.add(image, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, 110, 90));
+
         cellphone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/updateadminProfile (2).png"))); // NOI18N
         jPanel1.add(cellphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -194,7 +298,7 @@ public class CustomerProfile extends javax.swing.JFrame {
 
         if (check == 1) {
             try {
-                String sql = "UPDATE tbl_user SET u_fname = ?, u_lname = ?, u_address = ?, u_contact = ?, u_email = ? WHERE u_id = ?";
+                String sql = "UPDATE tbl_user SET u_fname = ?, u_lname = ?, u_address = ?, u_contact = ?, u_email = ?, validid_path = ? WHERE u_id = ?";
                 PreparedStatement pstmt = dbc.getConnection().prepareStatement(sql);
 
                 pstmt.setString(1, fname.getText().trim());
@@ -202,8 +306,19 @@ public class CustomerProfile extends javax.swing.JFrame {
                 pstmt.setString(3, address.getText().trim());
                 pstmt.setString(4, contact.getText().trim());
                 pstmt.setString(5, email.getText().trim());
-                pstmt.setInt(6, Integer.parseInt(id.getText().trim()));
+                pstmt.setString(6, destination);
+                pstmt.setInt(7, Integer.parseInt(id.getText().trim()));
 
+                if(destination.isEmpty()){
+                    File existingFile = new File(oldpath);
+                    if(existingFile.exists()){
+                        existingFile.delete();
+                    }
+                }else{
+                    if(!(oldpath.equals(path))){
+                        imageUpdater(oldpath,path);
+                    }
+                }
                 int actingUserId = Session.getInstance().getId();
                 String action = "Saving data customer profile";
                 dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
@@ -244,10 +359,7 @@ public class CustomerProfile extends javax.swing.JFrame {
 
         if(a == JOptionPane.YES_OPTION){
             System.exit(0);
-        }       dbConnector dbc = new dbConnector();
-                int actingUserId = Session.getInstance().getId(); 
-                String action = "Exit";
-                dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
+        }       
     }//GEN-LAST:event_homeMouseClicked
 
     private void minimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeMouseClicked
@@ -263,6 +375,29 @@ public class CustomerProfile extends javax.swing.JFrame {
         new changepassAdmin().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_changepassMouseClicked
+
+    private void imageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageMouseClicked
+        JFileChooser fileChooser = new JFileChooser();
+                int returnValue = fileChooser.showOpenDialog(null);
+                if (returnValue == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        selectedFile = fileChooser.getSelectedFile();
+                        destination = "src/images/" + selectedFile.getName();
+                        path  = selectedFile.getAbsolutePath();
+                        
+                        
+                        if(FileExistenceChecker(path) == 1){
+                          JOptionPane.showMessageDialog(null, "File Already Exist, Rename or Choose another!");
+                            destination = "";
+                            path="";
+                        }else{
+                            image.setIcon(ResizeImage(path, null, image));
+                        }
+                    } catch (Exception ex) {
+                        System.out.println("File Error!");
+                    }
+                }
+    }//GEN-LAST:event_imageMouseClicked
 
     /**
      * @param args the command line arguments
@@ -313,6 +448,7 @@ public class CustomerProfile extends javax.swing.JFrame {
     private javax.swing.JLabel home;
     private javax.swing.JLabel id;
     private javax.swing.JLabel id1;
+    public javax.swing.JLabel image;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField lname;
     private javax.swing.JLabel logout;

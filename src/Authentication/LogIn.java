@@ -311,10 +311,7 @@ public class LogIn extends javax.swing.JFrame {
         
        if(a == JOptionPane.YES_OPTION){
             System.exit(0);
-        }       dbConnector dbc = new dbConnector();
-                int actingUserId = Session.getInstance().getId(); 
-                String action = "Exit";
-                dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
+        }      
     }//GEN-LAST:event_homeMouseClicked
 
     /**

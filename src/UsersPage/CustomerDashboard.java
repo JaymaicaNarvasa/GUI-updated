@@ -2,50 +2,32 @@ package UsersPage;
 
 import ApplicationPage.application;
 import ProfilePage.CustomerProfile;
+import Reports.ActivityDashboard;
 import config.*;
-import java.awt.*;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
 import net.proteanit.sql.DbUtils;
 
 public class CustomerDashboard extends javax.swing.JFrame {
 
     public CustomerDashboard() {
         initComponents();
-        customer_tbl.setShowGrid(false);
-        customer_tbl.setIntercellSpacing(new Dimension(0, 0)); 
-        customer_tbl.setRowHeight(30);
-        customer_tbl.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        customer_tbl.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-        customer_tbl.getTableHeader().setVisible(false);
-        
-        customer_tbl.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-        public Component getTableCellRendererComponent(JTable table, Object value,
-                boolean isSelected, boolean hasFocus, int row, int column) {
-            Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-            if (isSelected) {
-                c.setBackground(new Color(173, 216, 230)); 
-            } else {
-                c.setBackground(row % 2 == 0 ? Color.WHITE : new Color(245, 245, 245));
-            }
-            c.setForeground(Color.BLACK);
-            return c;
-        }
-    });
+        displayImage();
         displayAmount();
         displayData();
     }
     public void displayData() {
         try {
             dbConnector dbc = new dbConnector();
-            ResultSet rs = dbc.getData("SELECT l.loan_name, a.amt_to_pay, a.date, s.status_name " +
+            ResultSet rs = dbc.getData("SELECT l.loan_name AS 'Loan Type', a.amt_to_pay AS 'To Pay', a.date AS 'Date', s.status_name AS 'Status' " +
                 "FROM tbl_activity a " +
                 "INNER JOIN tbl_loan l ON a.loan_type_id = l.loan_type_id " +
                 "INNER JOIN tbl_status s ON a.loan_status_id = s.loan_status_id");
 
             customer_tbl.setModel(DbUtils.resultSetToTableModel(rs));
+        
             rs.close();
         } catch (SQLException ex) {
          System.out.println("Errors: " + ex.getMessage());
@@ -73,7 +55,7 @@ public class CustomerDashboard extends javax.swing.JFrame {
                double amount = rs.getDouble("amount");
                money.setText(String.valueOf(amount));
            }else{
-               System.out.println("Your not still Approved by the administrator or staff. ");
+               System.out.println("Your Application is not Approved by the administrator or staff. ");
            }
            rs.close();
            pst.close();
@@ -81,7 +63,18 @@ public class CustomerDashboard extends javax.swing.JFrame {
            System.out.println("ERROR fecthing loan: "+ ex.getMessage());
        }
     }
-
+        public void displayImage(){
+           dbConnector dbc = new dbConnector();
+           
+        try {
+           ResultSet rs = dbc.getData("SELECT validid_path FROM tbl_application");
+        
+        CustomerProfile cp = new CustomerProfile();
+            cp.image.setText(rs.getString("validid_path"));
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDashboard.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -93,13 +86,11 @@ public class CustomerDashboard extends javax.swing.JFrame {
         home = new javax.swing.JLabel();
         minimize = new javax.swing.JLabel();
         profilesettings = new javax.swing.JLabel();
-        header = new javax.swing.JPanel();
-        topay = new javax.swing.JLabel();
-        date = new javax.swing.JLabel();
-        type = new javax.swing.JLabel();
-        status = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         customer_tbl = new javax.swing.JTable();
+        seeall = new javax.swing.JLabel();
+        refresh = new javax.swing.JLabel();
+        image = new javax.swing.JLabel();
         cellphone = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -143,51 +134,6 @@ public class CustomerDashboard extends javax.swing.JFrame {
         });
         jPanel1.add(profilesettings, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 40, 30));
 
-        header.setBackground(new java.awt.Color(255, 255, 255));
-
-        topay.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        topay.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        topay.setText("To Pay");
-
-        date.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        date.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        date.setText("Date");
-
-        type.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        type.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        type.setText("Loan type");
-
-        status.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        status.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        status.setText("Status");
-
-        javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
-        header.setLayout(headerLayout);
-        headerLayout.setHorizontalGroup(
-            headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
-                .addComponent(type)
-                .addGap(18, 18, 18)
-                .addComponent(topay, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        headerLayout.setVerticalGroup(
-            headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
-                .addGap(0, 10, Short.MAX_VALUE)
-                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(topay, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(type, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
-
-        jPanel1.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 360, 250, 30));
-
         customer_tbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -201,6 +147,32 @@ public class CustomerDashboard extends javax.swing.JFrame {
         jScrollPane1.setViewportView(customer_tbl);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 360, 250, 210));
+
+        seeall.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        seeall.setForeground(new java.awt.Color(0, 0, 204));
+        seeall.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        seeall.setText("See All");
+        seeall.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                seeallMouseClicked(evt);
+            }
+        });
+        jPanel1.add(seeall, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 340, 50, -1));
+
+        refresh.setText("Refresh");
+        refresh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                refreshMouseClicked(evt);
+            }
+        });
+        jPanel1.add(refresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 340, -1, -1));
+
+        image.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imageMouseClicked(evt);
+            }
+        });
+        jPanel1.add(image, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, 60, 50));
 
         cellphone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Customer (2).png"))); // NOI18N
@@ -234,10 +206,7 @@ public class CustomerDashboard extends javax.swing.JFrame {
 
         if(a == JOptionPane.YES_OPTION){
             System.exit(0);
-        }       dbConnector dbc = new dbConnector();
-                int actingUserId = Session.getInstance().getId(); 
-                String action = "Exit";
-                dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
+        }       
     }//GEN-LAST:event_homeMouseClicked
 
     private void minimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeMouseClicked
@@ -248,6 +217,19 @@ public class CustomerDashboard extends javax.swing.JFrame {
         new CustomerProfile().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_profilesettingsMouseClicked
+
+    private void seeallMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seeallMouseClicked
+        new ActivityDashboard().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_seeallMouseClicked
+
+    private void refreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshMouseClicked
+        displayData();
+    }//GEN-LAST:event_refreshMouseClicked
+
+    private void imageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageMouseClicked
+        
+    }//GEN-LAST:event_imageMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -287,17 +269,15 @@ public class CustomerDashboard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel apply;
     private javax.swing.JLabel cellphone;
-    private javax.swing.JTable customer_tbl;
-    private javax.swing.JLabel date;
-    private javax.swing.JPanel header;
+    public javax.swing.JTable customer_tbl;
     private javax.swing.JLabel home;
+    public javax.swing.JLabel image;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel minimize;
     private javax.swing.JLabel money;
     private javax.swing.JLabel profilesettings;
-    private javax.swing.JLabel status;
-    private javax.swing.JLabel topay;
-    private javax.swing.JLabel type;
+    private javax.swing.JLabel refresh;
+    private javax.swing.JLabel seeall;
     // End of variables declaration//GEN-END:variables
 }

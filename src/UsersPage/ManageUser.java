@@ -13,35 +13,36 @@ public class ManageUser extends javax.swing.JFrame {
     public ManageUser() {
         initComponents();
         
-        user_tbl.setShowGrid(false);
-        user_tbl.setIntercellSpacing(new Dimension(0, 0)); 
-        user_tbl.setRowHeight(30);
-        user_tbl.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        user_tbl.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-        user_tbl.getTableHeader().setVisible(false);
-
-    user_tbl.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-        public Component getTableCellRendererComponent(JTable table, Object value,
-                boolean isSelected, boolean hasFocus, int row, int column) {
-            Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-            if (isSelected) {
-                c.setBackground(new Color(173, 216, 230)); 
-            } else {
-                c.setBackground(row % 2 == 0 ? Color.WHITE : new Color(245, 245, 245));
-            }
-            c.setForeground(Color.BLACK);
-            return c;
-        }
-    });
-                
+//        user_tbl.setShowGrid(false);
+//        user_tbl.setIntercellSpacing(new Dimension(0, 0)); 
+//        user_tbl.setRowHeight(30);
+//        user_tbl.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+//        user_tbl.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+//        user_tbl.getTableHeader().setVisible(false);
+//
+//    user_tbl.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+//        public Component getTableCellRendererComponent(JTable table, Object value,
+//                boolean isSelected, boolean hasFocus, int row, int column) {
+//            Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+//
+//            if (isSelected) {
+//                c.setBackground(new Color(173, 216, 230)); 
+//            } else {
+//                c.setBackground(row % 2 == 0 ? Color.WHITE : new Color(245, 245, 245));
+//            }
+//            c.setForeground(Color.BLACK);
+//            return c;
+//        }
+//    });
+//                
         displayData();
     }
    
      public void displayData(){
         try{
             dbConnector dbc = new dbConnector();
-            ResultSet rs = dbc.getData("SELECT tbl_user.u_id, tbl_user.u_fname, tbl_user.u_lname, tbl_user.u_status, tbl_role.role_name "
+            ResultSet rs = dbc.getData("SELECT tbl_user.u_id AS 'ID', tbl_user.u_fname AS 'FirstName', tbl_user.u_lname AS 'LastName', "
+                    + "tbl_user.u_status AS 'Status', tbl_role.role_name AS 'Role' "
                     + "FROM tbl_user INNER JOIN tbl_role ON tbl_user.role_id = tbl_role.role_id");
 
             user_tbl.setModel(DbUtils.resultSetToTableModel(rs));
@@ -68,12 +69,6 @@ public class ManageUser extends javax.swing.JFrame {
         back = new javax.swing.JLabel();
         home = new javax.swing.JLabel();
         minimize = new javax.swing.JLabel();
-        header = new javax.swing.JPanel();
-        fname = new javax.swing.JLabel();
-        idlbl = new javax.swing.JLabel();
-        lname = new javax.swing.JLabel();
-        status = new javax.swing.JLabel();
-        role = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         user_tbl = new javax.swing.JTable();
         cellphone = new javax.swing.JLabel();
@@ -140,54 +135,6 @@ public class ManageUser extends javax.swing.JFrame {
             }
         });
         jPanel1.add(minimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 580, 50, 30));
-
-        header.setBackground(new java.awt.Color(255, 255, 255));
-
-        fname.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        fname.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        fname.setText("First Name");
-
-        idlbl.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        idlbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        idlbl.setText("ID");
-
-        lname.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lname.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lname.setText("Last Name");
-
-        status.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        status.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        status.setText("Status");
-
-        role.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        role.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        role.setText("Role");
-
-        javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
-        header.setLayout(headerLayout);
-        headerLayout.setHorizontalGroup(
-            headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(idlbl, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(fname, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(lname, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(role, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        headerLayout.setVerticalGroup(
-            headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(headerLayout.createSequentialGroup()
-                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(idlbl, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fname, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lname, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(role, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 11, Short.MAX_VALUE))
-        );
-
-        jPanel1.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 270, 30));
 
         user_tbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -281,10 +228,7 @@ public class ManageUser extends javax.swing.JFrame {
 
         if(a == JOptionPane.YES_OPTION){
             System.exit(0);
-        }       dbConnector dbc = new dbConnector();
-                int actingUserId = Session.getInstance().getId(); 
-                String action = "Exit";
-                dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
+        }       
     }//GEN-LAST:event_homeMouseClicked
 
     private void minimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeMouseClicked
@@ -330,18 +274,12 @@ public class ManageUser extends javax.swing.JFrame {
     private javax.swing.JLabel cellphone;
     private javax.swing.JLabel delete;
     private javax.swing.JLabel edit;
-    private javax.swing.JLabel fname;
-    private javax.swing.JPanel header;
     private javax.swing.JLabel home;
-    private javax.swing.JLabel idlbl;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lname;
     private javax.swing.JLabel minimize;
-    private javax.swing.JLabel role;
     private javax.swing.JTextField search;
     private javax.swing.JLabel searchIcon;
-    private javax.swing.JLabel status;
     private javax.swing.JTable user_tbl;
     // End of variables declaration//GEN-END:variables
 }

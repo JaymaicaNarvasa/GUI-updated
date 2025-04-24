@@ -1,21 +1,47 @@
 package Reports;
 
-import AdminPage.*;
+import UsersPage.*;
+import config.dbConnector;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import net.proteanit.sql.DbUtils;
 
-public class Transactions extends javax.swing.JFrame {
+public class ActivityDashboard extends javax.swing.JFrame {
 
-    public Transactions() {
+    public ActivityDashboard() {
         initComponents();
+        
+        displayData();
     }
+    
+    public void displayData() {
+        try {
+            dbConnector dbc = new dbConnector();
+            ResultSet rs = dbc.getData("SELECT l.loan_name AS 'Loan Type', a.amt_to_pay AS 'To Pay' " +
+                "FROM tbl_activity a " +
+                "INNER JOIN tbl_loan l ON a.loan_type_id = l.loan_type_id ");
+            
+            ResultSet rs1 = dbc.getData("SELECT a.date AS 'Date', s.status_name AS 'Status' " +
+                "FROM tbl_activity a " +
+                "INNER JOIN tbl_status s ON a.loan_status_id = s.loan_status_id");
 
+            activity_tbl.setModel(DbUtils.resultSetToTableModel(rs));
+            activity_tbl1.setModel(DbUtils.resultSetToTableModel(rs1));
+            rs.close();
+        } catch (SQLException ex) {
+         System.out.println("Errors: " + ex.getMessage());
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        activity_tbl1 = new javax.swing.JTable();
         jScrollPane1 = new javax.swing.JScrollPane();
-        log_tbl = new javax.swing.JTable();
+        activity_tbl = new javax.swing.JTable();
         logsname = new javax.swing.JLabel();
         minimize = new javax.swing.JLabel();
         home = new javax.swing.JLabel();
@@ -29,8 +55,8 @@ public class Transactions extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(352, 625));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        log_tbl.setBackground(new java.awt.Color(204, 204, 204));
-        log_tbl.setModel(new javax.swing.table.DefaultTableModel(
+        activity_tbl1.setBackground(new java.awt.Color(204, 204, 204));
+        activity_tbl1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -38,11 +64,26 @@ public class Transactions extends javax.swing.JFrame {
 
             }
         ));
-        log_tbl.setSelectionBackground(new java.awt.Color(255, 204, 153));
-        log_tbl.setSelectionForeground(new java.awt.Color(0, 0, 0));
-        jScrollPane1.setViewportView(log_tbl);
+        activity_tbl1.setSelectionBackground(new java.awt.Color(255, 204, 153));
+        activity_tbl1.setSelectionForeground(new java.awt.Color(0, 0, 0));
+        jScrollPane2.setViewportView(activity_tbl1);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 270, 490));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, 270, 230));
+
+        activity_tbl.setBackground(new java.awt.Color(204, 204, 204));
+        activity_tbl.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        activity_tbl.setSelectionBackground(new java.awt.Color(255, 204, 153));
+        activity_tbl.setSelectionForeground(new java.awt.Color(0, 0, 0));
+        jScrollPane1.setViewportView(activity_tbl);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 270, 260));
 
         logsname.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         logsname.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -85,7 +126,7 @@ public class Transactions extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
         );
 
         pack();
@@ -105,7 +146,7 @@ public class Transactions extends javax.swing.JFrame {
     }//GEN-LAST:event_homeMouseClicked
 
     private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
-        new adminDashboard().setVisible(true);
+        new CustomerDashboard().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backMouseClicked
 
@@ -123,31 +164,34 @@ public class Transactions extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Transactions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ActivityDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Transactions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ActivityDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Transactions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ActivityDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Transactions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ActivityDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Transactions().setVisible(true);
+                new ActivityDashboard().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable activity_tbl;
+    private javax.swing.JTable activity_tbl1;
     private javax.swing.JLabel back;
     private javax.swing.JLabel cellphone;
     private javax.swing.JLabel home;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable log_tbl;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel logsname;
     private javax.swing.JLabel minimize;
     // End of variables declaration//GEN-END:variables

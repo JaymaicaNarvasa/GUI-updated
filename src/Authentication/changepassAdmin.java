@@ -78,6 +78,14 @@ public class changepassAdmin extends javax.swing.JFrame {
                 homeMouseClicked(evt);
             }
         });
+        home.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                homeKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                homeKeyReleased(evt);
+            }
+        });
         jPanel1.add(home, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 580, 40, 30));
 
         minimize.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -163,10 +171,7 @@ public class changepassAdmin extends javax.swing.JFrame {
 
         if(a == JOptionPane.YES_OPTION){
             System.exit(0);
-        }       dbConnector dbc = new dbConnector();
-                int actingUserId = Session.getInstance().getId(); 
-                String action = "Exit";
-                dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
+        }       
     }//GEN-LAST:event_homeMouseClicked
 
     private void minimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeMouseClicked
@@ -248,6 +253,14 @@ if(check == 1){
         
        
     }//GEN-LAST:event_showpasswordMouseClicked
+
+    private void homeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_homeKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_homeKeyReleased
+
+    private void homeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_homeKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_homeKeyPressed
 
     /**
      * @param args the command line arguments
