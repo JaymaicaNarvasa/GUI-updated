@@ -3,14 +3,37 @@ package UsersPage;
 import ApplicationPage.application;
 import ProfilePage.CustomerProfile;
 import config.*;
+import java.awt.*;
 import java.sql.*;
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import net.proteanit.sql.DbUtils;
 
 public class CustomerDashboard extends javax.swing.JFrame {
 
     public CustomerDashboard() {
         initComponents();
+        customer_tbl.setShowGrid(false);
+        customer_tbl.setIntercellSpacing(new Dimension(0, 0)); 
+        customer_tbl.setRowHeight(30);
+        customer_tbl.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        customer_tbl.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        customer_tbl.getTableHeader().setVisible(false);
+        
+        customer_tbl.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+        public Component getTableCellRendererComponent(JTable table, Object value,
+                boolean isSelected, boolean hasFocus, int row, int column) {
+            Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+            if (isSelected) {
+                c.setBackground(new Color(173, 216, 230)); 
+            } else {
+                c.setBackground(row % 2 == 0 ? Color.WHITE : new Color(245, 245, 245));
+            }
+            c.setForeground(Color.BLACK);
+            return c;
+        }
+    });
         displayAmount();
         displayData();
     }
@@ -19,7 +42,7 @@ public class CustomerDashboard extends javax.swing.JFrame {
             dbConnector dbc = new dbConnector();
             ResultSet rs = dbc.getData("SELECT l.loan_name, a.amt_to_pay, a.date, s.status_name " +
                 "FROM tbl_activity a " +
-                "INNER JOIN tbl_loan l ON a.loan_id = l.loan_id " +
+                "INNER JOIN tbl_loan l ON a.loan_type_id = l.loan_type_id " +
                 "INNER JOIN tbl_status s ON a.loan_status_id = s.loan_status_id");
 
             customer_tbl.setModel(DbUtils.resultSetToTableModel(rs));
@@ -37,8 +60,8 @@ public class CustomerDashboard extends javax.swing.JFrame {
        String sql = "SELECT ap.amount , s.status_name "
                + "FROM tbl_application ap "
                + "INNER JOIN tbl_status s "
-               + "ON ap.loan_status_id = s.loan_status_id"
-               + "WHERE user_id = ? AND status_name = 'Disbursed' ";
+               + "ON ap.loan_status_id = s.loan_status_id "
+               + "WHERE user_id = ? AND status_name = 'Approved' ";
        try{
            dbConnector dbc = new dbConnector();
            PreparedStatement pst = dbc.getConnection().prepareStatement(sql);
@@ -50,7 +73,7 @@ public class CustomerDashboard extends javax.swing.JFrame {
                double amount = rs.getDouble("amount");
                money.setText(String.valueOf(amount));
            }else{
-               JOptionPane.showMessageDialog(null, "NO active disbursed loan.");
+               System.out.println("Your not still Approved by the administrator or staff. ");
            }
            rs.close();
            pst.close();
@@ -142,30 +165,28 @@ public class CustomerDashboard extends javax.swing.JFrame {
         header.setLayout(headerLayout);
         headerLayout.setHorizontalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(headerLayout.createSequentialGroup()
-                .addGap(6, 6, 6)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
                 .addComponent(type)
                 .addGap(18, 18, 18)
                 .addComponent(topay, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addContainerGap())
         );
         headerLayout.setVerticalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(headerLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
+                .addGap(0, 10, Short.MAX_VALUE)
                 .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(topay, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(type, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(type, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        jPanel1.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 360, 250, 40));
+        jPanel1.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 360, 250, 30));
 
         customer_tbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

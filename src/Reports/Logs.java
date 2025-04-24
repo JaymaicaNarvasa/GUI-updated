@@ -141,7 +141,7 @@ public class Logs extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 270, 40));
+        jPanel1.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 270, 30));
 
         log_tbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 31, 2025 at 12:23 PM
+-- Generation Time: Apr 24, 2025 at 10:17 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -39,10 +39,7 @@ CREATE TABLE `tbl_status` (
 INSERT INTO `tbl_status` (`loan_status_id`, `status_name`) VALUES
 (1, 'Pending'),
 (2, 'Approved'),
-(3, 'Rejected'),
-(4, 'Disbursed'),
-(5, 'Fully Paid'),
-(6, 'Overdue');
+(3, 'Rejected');
 
 --
 -- Indexes for dumped tables

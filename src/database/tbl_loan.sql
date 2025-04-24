@@ -24,32 +24,43 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_role`
+-- Table structure for table `tbl_loan`
 --
 
-CREATE TABLE `tbl_role` (
-  `role_id` int(20) NOT NULL,
-  `role_name` varchar(20) NOT NULL
+CREATE TABLE `tbl_loan` (
+  `loan_type_id` int(11) NOT NULL,
+  `loan_name` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `tbl_role`
+-- Dumping data for table `tbl_loan`
 --
 
-INSERT INTO `tbl_role` (`role_id`, `role_name`) VALUES
-(1, 'Admin'),
-(2, 'Staff'),
-(3, 'Customer');
+INSERT INTO `tbl_loan` (`loan_type_id`, `loan_name`) VALUES
+(1, 'Home'),
+(2, 'Personal'),
+(3, 'Education'),
+(4, 'Medical');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `tbl_role`
+-- Indexes for table `tbl_loan`
 --
-ALTER TABLE `tbl_role`
-  ADD PRIMARY KEY (`role_id`);
+ALTER TABLE `tbl_loan`
+  ADD PRIMARY KEY (`loan_type_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `tbl_loan`
+--
+ALTER TABLE `tbl_loan`
+  MODIFY `loan_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

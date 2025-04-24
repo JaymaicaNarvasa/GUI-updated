@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 31, 2025 at 12:19 PM
+-- Generation Time: Apr 24, 2025 at 10:17 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -48,7 +48,11 @@ INSERT INTO `tbl_user` (`u_id`, `u_fname`, `u_lname`, `u_username`, `u_password`
 (1, 'testing', 'test9001', 'test', 'test', 'test', 'test@gmail.com', 22456984, 'Pending', '2'),
 (2, 'testing1', 'test10101', 'test1', 'k36NX7tIvUlJU2zWW401xCa4DS+DDFwwjizexCKuIkQ=', 'SAMPLE', 'tes1t@gmail.com', 1231, 'Pending', '2'),
 (3, 'testing', 'test', 'test2', '47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=', 'SAMPLE2', 'test2@gmail.com', 99123456, 'Active', '1'),
-(4, 'test3', 'test3', 'test3', 'uCLxzS3PxoW0foPjmAKJ/V2OP/OoLe8k19HWi7Jy6zI=', 'SAMPLE3', 'test3@gmail.com', 99123456, 'Active', '1');
+(4, 'test3', 'test3', 'test3', 'uCLxzS3PxoW0foPjmAKJ/V2OP/OoLe8k19HWi7Jy6zI=', 'SAMPLE3', 'test3@gmail.com', 99123456, 'Active', '3'),
+(6, 'user1', 'user1', 'user1', 'uCLxzS3PxoW0foPjmAKJ/V2OP/OoLe8k19HWi7Jy6zI=', 'SAmple of user1', 'user1@gmail.com', 993456127, 'Active', '2'),
+(8, 'admin1', 'admin1', 'admin1', 'uCLxzS3PxoW0foPjmAKJ/V2OP/OoLe8k19HWi7Jy6zI=', 'Sample of admin1', 'admin1@gmail.com', 5419671, 'Active', '1'),
+(9, '1user1', '1user1', '1user1', 'ky88G1YlfOhTmsJp16q0JVDaz4gY0HXwvfGZBWKq4+8=', 'Sample 123 User', '1user1@gmail.com', 2416478, 'Active', '2'),
+(10, 'admin2', 'admin2', 'admin2', 'FeKw08M4keuw8e9gnsQZQgwg4yDOlMZfvIwzEkSOsiU=', 'Sample admin 2', 'admin2@gmail.com', 21320213, 'Pending', '1');
 
 --
 -- Indexes for dumped tables
@@ -68,7 +72,7 @@ ALTER TABLE `tbl_user`
 -- AUTO_INCREMENT for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
-  MODIFY `u_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `u_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
