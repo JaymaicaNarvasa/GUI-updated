@@ -2,11 +2,12 @@ package UsersPage;
 
 import ApplicationPage.application;
 import ProfilePage.CustomerProfile;
+import static ProfilePage.CustomerProfile.getHeightFromWidth;
 import Reports.ActivityDashboard;
 import config.*;
+import java.awt.Image;
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.logging.*;
 import javax.swing.*;
 import net.proteanit.sql.DbUtils;
 
@@ -33,7 +34,21 @@ public class CustomerDashboard extends javax.swing.JFrame {
          System.out.println("Errors: " + ex.getMessage());
         }
     }
+        public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
+        ImageIcon MyImage = null;
+        if(ImagePath !=null){
+            MyImage = new ImageIcon(ImagePath);
+        }else{
+            MyImage = new ImageIcon(pic);
+        }
         
+    int newHeight = getHeightFromWidth(ImagePath, label.getWidth());
+
+    Image img = MyImage.getImage();
+    Image newImg = img.getScaledInstance(label.getWidth(), newHeight, Image.SCALE_SMOOTH);
+    ImageIcon image = new ImageIcon(newImg);
+    return image;
+}
     
     public void displayAmount(){
        Session ses = Session.getInstance();
@@ -63,18 +78,24 @@ public class CustomerDashboard extends javax.swing.JFrame {
            System.out.println("ERROR fecthing loan: "+ ex.getMessage());
        }
     }
-        public void displayImage(){
-           dbConnector dbc = new dbConnector();
-           
+        private void displayImage() {
+             dbConnector dbc = new dbConnector();
         try {
-           ResultSet rs = dbc.getData("SELECT validid_path FROM tbl_application");
-        
-        CustomerProfile cp = new CustomerProfile();
-            cp.image.setText(rs.getString("validid_path"));
-        } catch (SQLException ex) {
-            Logger.getLogger(CustomerDashboard.class.getName()).log(Level.SEVERE, null, ex);
+            String sql = "SELECT profile_pic FROM tbl_user WHERE u_id = " + Session.getInstance().getId();
+            ResultSet rs = dbc.getData(sql);
+
+        if (rs.next()) {
+            String imagePath = rs.getString("profile_pic");
+            if (imagePath != null && !imagePath.isEmpty()) {
+                image.setIcon(ResizeImage(imagePath, null, image));
+            }
         }
-        }
+        rs.close();
+    } catch (SQLException ex) {
+        System.out.println("Error loading profile image: " + ex.getMessage());
+    }
+}
+
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
