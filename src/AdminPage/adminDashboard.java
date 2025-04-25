@@ -133,6 +133,9 @@ public class adminDashboard extends javax.swing.JFrame {
         application.setBackground(new java.awt.Color(0, 153, 204));
         application.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         application.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                applicationMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 applicationMouseEntered(evt);
             }
@@ -450,9 +453,13 @@ public class adminDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_user3MouseExited
 
     private void applicationpane2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_applicationpane2MouseClicked
-       new ApplicationDashboard().setVisible(true);
-       this.dispose();
+       
     }//GEN-LAST:event_applicationpane2MouseClicked
+
+    private void applicationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_applicationMouseClicked
+        new ApplicationDashboard().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_applicationMouseClicked
 
     
     public static void main(String args[]) {

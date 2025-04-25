@@ -5,7 +5,6 @@ import config.*;
 import java.awt.*;
 import java.sql.*;
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
 import net.proteanit.sql.DbUtils;
 
 public class Logs extends javax.swing.JFrame {
@@ -13,27 +12,27 @@ public class Logs extends javax.swing.JFrame {
     public Logs() {
         initComponents();
         
-        log_tbl.setShowGrid(false);
-        log_tbl.setIntercellSpacing(new Dimension(0, 0)); 
-        log_tbl.setRowHeight(30);
-        log_tbl.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        log_tbl.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-        log_tbl.getTableHeader().setVisible(false);
-        
-        log_tbl.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-        public Component getTableCellRendererComponent(JTable table, Object value,
-                boolean isSelected, boolean hasFocus, int row, int column) {
-            Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-            if (isSelected) {
-                c.setBackground(new Color(173, 216, 230)); 
-            } else {
-                c.setBackground(row % 2 == 0 ? Color.WHITE : new Color(245, 245, 245));
-            }
-            c.setForeground(Color.BLACK);
-            return c;
-        }
-    });
+//        log_tbl.setShowGrid(false);
+//        log_tbl.setIntercellSpacing(new Dimension(0, 0)); 
+//        log_tbl.setRowHeight(30);
+//        log_tbl.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+          log_tbl.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+//        log_tbl.getTableHeader().setVisible(false);
+//        
+//        log_tbl.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+//        public Component getTableCellRendererComponent(JTable table, Object value,
+//                boolean isSelected, boolean hasFocus, int row, int column) {
+//            Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+//
+//            if (isSelected) {
+//                c.setBackground(new Color(173, 216, 230)); 
+//            } else {
+//                c.setBackground(row % 2 == 0 ? Color.WHITE : new Color(245, 245, 245));
+//            }
+//            c.setForeground(Color.BLACK);
+//            return c;
+//        }
+//    });
         displayData();
     }
     

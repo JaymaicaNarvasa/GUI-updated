@@ -2,7 +2,6 @@ package UsersPage;
 
 import AdminPage.*;
 import config.*;
-import java.awt.*;
 import java.sql.*;
 import javax.swing.*;
 import javax.swing.table.*;
@@ -17,7 +16,7 @@ public class ManageUser extends javax.swing.JFrame {
 //        user_tbl.setIntercellSpacing(new Dimension(0, 0)); 
 //        user_tbl.setRowHeight(30);
 //        user_tbl.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-//        user_tbl.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+          user_tbl.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 //        user_tbl.getTableHeader().setVisible(false);
 //
 //    user_tbl.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
@@ -43,7 +42,8 @@ public class ManageUser extends javax.swing.JFrame {
             dbConnector dbc = new dbConnector();
             ResultSet rs = dbc.getData("SELECT tbl_user.u_id AS 'ID', tbl_user.u_fname AS 'FirstName', tbl_user.u_lname AS 'LastName', "
                     + "tbl_user.u_status AS 'Status', tbl_role.role_name AS 'Role' "
-                    + "FROM tbl_user INNER JOIN tbl_role ON tbl_user.role_id = tbl_role.role_id");
+                    + "FROM tbl_user "
+                    + "INNER JOIN tbl_role ON tbl_user.role_id = tbl_role.role_id");
 
             user_tbl.setModel(DbUtils.resultSetToTableModel(rs));
              rs.close();
