@@ -378,18 +378,10 @@ public class application extends javax.swing.JFrame {
     String tenureUnit = tenurebox.getSelectedItem().toString(); 
     LocalDateTime date = LocalDateTime.now();
 
-    int sql = dbc.insertData("INSERT INTO tbl_application (user_id, loan_status_id, loan_type_id, amount, application_date, tenure_value, tenure_unit, "
-            + "interest_rate, validid_path)"
-            + " VALUES (" +
-            "'" + userId + "', " +
-            "'" + loanStatusId + "', " +
-            "'" + loanTypeId + "', " +
-            "'" + amountText + "', " +
-            "'" + date + "', " +
-            "'" + tenureValueText + "', " +
-            "'" + tenureUnit + "', " +
-            "'" + interestRateText + "', " +
-            "'" + destination + "')");
+    int sql = dbc.insertData("INSERT INTO tbl_application (user_id, loan_status_id, loan_type_id, amount, application_date, tenure_value, tenure_unit, interest_rate, validid_path)"
+    + " VALUES ('" + userId + "', '" + loanStatusId + "', '" + loanTypeId + "', '" + amountText + "', '" + date + "', '"
+    + tenureValueText + "', '" + tenureUnit + "', '" + interestRateText + "', '" + destination + "')");
+
 
     if (sql == 1) {
             try {

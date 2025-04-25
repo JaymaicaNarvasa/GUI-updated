@@ -22,12 +22,16 @@ public class CustomerProfile extends javax.swing.JFrame {
     }
     private void displayUserDetails() {
     Session ses = Session.getInstance();
-
+    
     if (ses == null || ses.getId() == 0) {
+        System.out.println("Session ID: "+ses.getId());
         JOptionPane.showMessageDialog(this, "No Account Found, Please Log In First.");
-        LogIn lp = new LogIn();
-        lp.setVisible(true);
+        //new LogIn().setVisible(true);
+         LogIn login = new LogIn();
+        login.setVisible(true);
+        this.setVisible(false);
         this.dispose();
+        return;
     }else{
     id.setText(""+ses.getId());
     fname.setText(""+ses.getFname());
@@ -315,7 +319,11 @@ public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
 
         if (check == 1) {
             try {
+<<<<<<< HEAD
                 String sql = "UPDATE tbl_user SET u_fname = ?, u_lname = ?, u_address = ?, u_contact = ?, u_email = ? WHERE u_id = ?";
+=======
+                String sql = "UPDATE tbl_user SET u_fname = ?, u_lname = ?, u_address = ?, u_contact = ?, u_email = ?, profile_pic = ? WHERE u_id = ?";
+>>>>>>> 6f61145b4faf5ed48d32e007832c307aafc21612
                 PreparedStatement pstmt = dbc.getConnection().prepareStatement(sql);
 
                 pstmt.setString(1, fname.getText().trim());
@@ -323,7 +331,25 @@ public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
                 pstmt.setString(3, address.getText().trim());
                 pstmt.setString(4, contact.getText().trim());
                 pstmt.setString(5, email.getText().trim());
+<<<<<<< HEAD
                 pstmt.setInt(6, Integer.parseInt(id.getText().trim()));
+=======
+                pstmt.setString(6, destination);
+                pstmt.setInt(7, Integer.parseInt(id.getText().trim()));
+                    
+                if (destination == null || destination.isEmpty()) {
+                    if (oldpath != null) {
+                        File existingFile = new File(oldpath);
+                            if (existingFile.exists()) {
+                                existingFile.delete();
+                            }
+                    }
+                } else {
+                    if (oldpath != null && path != null && !oldpath.equals(path)) {
+                        imageUpdater(oldpath, path);
+                    }
+                }
+>>>>>>> 6f61145b4faf5ed48d32e007832c307aafc21612
 
                 int actingUserId = Session.getInstance().getId();
                 String action = "Saving data admin profile";

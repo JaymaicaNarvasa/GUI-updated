@@ -19,7 +19,7 @@ public class ActivityDashboard extends javax.swing.JFrame {
         try {
             dbConnector dbc = new dbConnector();
             ResultSet rs = dbc.getData("SELECT l.loan_name AS 'Loan Type', a.amt_to_pay AS 'To Pay' " +
-                "FROM tbl_activity a " +
+                "FROM tbl_activity a "+
                 "INNER JOIN tbl_loan l ON a.loan_type_id = l.loan_type_id ");
             
             ResultSet rs1 = dbc.getData("SELECT a.date AS 'Date', s.status_name AS 'Status' " +

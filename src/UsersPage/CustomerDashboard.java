@@ -3,10 +3,15 @@ package UsersPage;
 import ApplicationPage.application;
 import static ApplicationPage.application.getHeightFromWidth;
 import ProfilePage.CustomerProfile;
+import static ProfilePage.CustomerProfile.getHeightFromWidth;
 import Reports.ActivityDashboard;
 import config.*;
 import java.awt.Image;
 import java.sql.*;
+<<<<<<< HEAD
+=======
+import java.util.logging.*;
+>>>>>>> 6f61145b4faf5ed48d32e007832c307aafc21612
 import javax.swing.*;
 import net.proteanit.sql.DbUtils;
 
@@ -33,7 +38,21 @@ public class CustomerDashboard extends javax.swing.JFrame {
          System.out.println("Errors: " + ex.getMessage());
         }
     }
+        public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
+        ImageIcon MyImage = null;
+        if(ImagePath !=null){
+            MyImage = new ImageIcon(ImagePath);
+        }else{
+            MyImage = new ImageIcon(pic);
+        }
         
+    int newHeight = getHeightFromWidth(ImagePath, label.getWidth());
+
+    Image img = MyImage.getImage();
+    Image newImg = img.getScaledInstance(label.getWidth(), newHeight, Image.SCALE_SMOOTH);
+    ImageIcon image = new ImageIcon(newImg);
+    return image;
+}
     
     public void displayAmount(){
        Session ses = Session.getInstance();
@@ -62,6 +81,7 @@ public class CustomerDashboard extends javax.swing.JFrame {
        }catch(SQLException ex){
            System.out.println("ERROR fecthing loan: "+ ex.getMessage());
        }
+<<<<<<< HEAD
     }   
     
     public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
@@ -87,6 +107,17 @@ public class CustomerDashboard extends javax.swing.JFrame {
 
         if (rs.next()) {
             String imagePath = rs.getString("validid_path");
+=======
+    }
+        private void displayImage() {
+             dbConnector dbc = new dbConnector();
+        try {
+            String sql = "SELECT profile_pic FROM tbl_user WHERE u_id = " + Session.getInstance().getId();
+            ResultSet rs = dbc.getData(sql);
+
+        if (rs.next()) {
+            String imagePath = rs.getString("profile_pic");
+>>>>>>> 6f61145b4faf5ed48d32e007832c307aafc21612
             if (imagePath != null && !imagePath.isEmpty()) {
                 image.setIcon(ResizeImage(imagePath, null, image));
             }
