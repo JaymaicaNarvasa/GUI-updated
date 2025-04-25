@@ -150,7 +150,7 @@ public class Register extends javax.swing.JFrame {
         role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Staff", "Customer" }));
         role.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         role.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        luyoCp.add(role, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 390, 160, 20));
+        luyoCp.add(role, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 390, 160, -1));
 
         pass.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         pass.setBorder(null);
@@ -212,7 +212,7 @@ public class Register extends javax.swing.JFrame {
         luyoCp.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 20, 20));
 
         cellphone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Registration (2).png"))); // NOI18N
+        cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Registration.png"))); // NOI18N
         cellphone.setPreferredSize(new java.awt.Dimension(350, 625));
         luyoCp.add(cellphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 630));
 

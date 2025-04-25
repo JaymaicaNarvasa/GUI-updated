@@ -1,14 +1,17 @@
+
 package Authentication;
 
-import ProfilePage.adminProfile;
+import ProfilePage.*;
 import config.*;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
-import javax.swing.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
-public class changepassAdmin extends javax.swing.JFrame {
+public class SecurityDashboard extends javax.swing.JFrame {
 
-    public changepassAdmin() {
+    public SecurityDashboard() {
         initComponents();
         Session ses = Session.getInstance();
         id.setText(""+ses.getId());
@@ -28,6 +31,7 @@ public class changepassAdmin extends javax.swing.JFrame {
         }
         return result;
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -49,7 +53,6 @@ public class changepassAdmin extends javax.swing.JFrame {
         cellphone = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -62,14 +65,14 @@ public class changepassAdmin extends javax.swing.JFrame {
                 saveMouseClicked(evt);
             }
         });
-        jPanel1.add(save, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 430, 110, 30));
+        jPanel1.add(save, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 410, 110, 30));
 
         id.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 idMouseClicked(evt);
             }
         });
-        jPanel1.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 90, 160, 20));
+        jPanel1.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 90, 100, 20));
 
         home.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         home.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -147,7 +150,7 @@ public class changepassAdmin extends javax.swing.JFrame {
         jPanel1.add(showpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 370, 30, 20));
 
         cellphone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/changepass.png"))); // NOI18N
+        cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/security.png"))); // NOI18N
         jPanel1.add(cellphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -162,81 +165,88 @@ public class changepassAdmin extends javax.swing.JFrame {
         );
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void saveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMouseClicked
+        dbConnector dbc = new dbConnector();
+        Session sess = Session.getInstance();
+
+        try {
+            String sql = "SELECT u_password FROM tbl_user WHERE u_id = ?";
+            PreparedStatement pstmt = dbc.getConnection().prepareStatement(sql);
+            pstmt.setInt(1, sess.getId());
+
+            ResultSet rs = pstmt.executeQuery();
+
+            int check = validateTegister();
+            if(check == 1){
+                if (rs.next()) {
+                    String olddbpass = rs.getString("u_password");
+                    String oldhash = passwordHasher.hashPassword(oldpass.getText().trim());
+
+                    if (olddbpass.equals(oldhash)) {
+                        String npass = passwordHasher.hashPassword(newpass.getText().trim());
+
+                        String updateSQL = "UPDATE tbl_user SET u_password = ? WHERE u_id = ?";
+                        PreparedStatement updateStmt = dbc.getConnection().prepareStatement(updateSQL);
+                        updateStmt.setString(1, npass);
+                        updateStmt.setInt(2, sess.getId());
+
+                        int actingUserId = Session.getInstance().getId();
+                        String action = "Changing password of ID "+id;
+                        dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
+
+                        int result = updateStmt.executeUpdate();
+                        if (result > 0) {
+                            JOptionPane.showMessageDialog(null, "SAVE SUCCESS!");
+                            new adminProfile().setVisible(true);
+                            this.dispose();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Update Failed!");
+                        }
+
+                        updateStmt.close();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Old Password Incorrect!");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "User Not Found!");
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "All Fields Required!");
+            }
+
+            rs.close();
+            pstmt.close();
+
+        } catch (SQLException | NoSuchAlgorithmException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_saveMouseClicked
+
+    private void idMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_idMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_idMouseClicked
 
     private void homeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeMouseClicked
         int a = JOptionPane.showConfirmDialog(null, "Confirm EXIT?");
 
         if(a == JOptionPane.YES_OPTION){
             System.exit(0);
-        }       
+        }
     }//GEN-LAST:event_homeMouseClicked
+
+    private void homeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_homeKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_homeKeyPressed
+
+    private void homeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_homeKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_homeKeyReleased
 
     private void minimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeMouseClicked
         setState(ICONIFIED);
     }//GEN-LAST:event_minimizeMouseClicked
-
-    private void saveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMouseClicked
-       dbConnector dbc = new dbConnector();
-       Session sess = Session.getInstance();   
-
-try {
-    String sql = "SELECT u_password FROM tbl_user WHERE u_id = ?";
-    PreparedStatement pstmt = dbc.getConnection().prepareStatement(sql);
-    pstmt.setInt(1, sess.getId()); 
-
-    ResultSet rs = pstmt.executeQuery();
-    
-    int check = validateTegister();
-if(check == 1){
-    if (rs.next()) {
-        String olddbpass = rs.getString("u_password");
-        String oldhash = passwordHasher.hashPassword(oldpass.getText().trim());
-
-        if (olddbpass.equals(oldhash)) {
-            String npass = passwordHasher.hashPassword(newpass.getText().trim());
-
-            String updateSQL = "UPDATE tbl_user SET u_password = ? WHERE u_id = ?";
-            PreparedStatement updateStmt = dbc.getConnection().prepareStatement(updateSQL);
-            updateStmt.setString(1, npass);
-            updateStmt.setInt(2, sess.getId());
-            
-                int actingUserId = Session.getInstance().getId(); 
-                String action = "Changing password of ID "+id;
-                dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
-
-            int result = updateStmt.executeUpdate();
-            if (result > 0) {
-                JOptionPane.showMessageDialog(null, "SAVE SUCCESS!");
-                new adminProfile().setVisible(true);
-                this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "Update Failed!");
-            }
-
-            updateStmt.close();
-        } else {
-            JOptionPane.showMessageDialog(null, "Old Password Incorrect!");
-        }
-    } else {
-        JOptionPane.showMessageDialog(null, "User Not Found!");
-    }
-    }else{
-        JOptionPane.showMessageDialog(null, "All Fields Required!");
-    }
-
-        rs.close();
-        pstmt.close();
-        
-    } catch (SQLException | NoSuchAlgorithmException ex) {
-        System.out.println("Error: " + ex.getMessage());
-    }
-    }//GEN-LAST:event_saveMouseClicked
-
-    private void idMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_idMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_idMouseClicked
 
     private void exitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitMouseClicked
         new adminProfile().setVisible(true);
@@ -249,17 +259,8 @@ if(check == 1){
     }//GEN-LAST:event_backMouseClicked
 
     private void showpasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showpasswordMouseClicked
-        
-       
+
     }//GEN-LAST:event_showpasswordMouseClicked
-
-    private void homeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_homeKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_homeKeyReleased
-
-    private void homeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_homeKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_homeKeyPressed
 
     /**
      * @param args the command line arguments
@@ -267,7 +268,7 @@ if(check == 1){
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with cellphoneault look and feel.
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
@@ -278,23 +279,20 @@ if(check == 1){
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(changepassAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SecurityDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(changepassAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SecurityDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(changepassAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SecurityDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(changepassAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SecurityDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new changepassAdmin().setVisible(true);
+                new SecurityDashboard().setVisible(true);
             }
         });
     }

@@ -59,12 +59,14 @@ public class adminProfile extends javax.swing.JFrame {
         id = new javax.swing.JLabel();
         exit = new javax.swing.JLabel();
         coma = new javax.swing.JLabel();
+        security = new javax.swing.JLabel();
         changepass = new javax.swing.JLabel();
         address = new javax.swing.JTextField();
         contact = new javax.swing.JTextField();
         email = new javax.swing.JTextField();
         fname = new javax.swing.JTextField();
         lname = new javax.swing.JTextField();
+        image1 = new javax.swing.JLabel();
         image = new javax.swing.JLabel();
         cellphone = new javax.swing.JLabel();
 
@@ -84,7 +86,7 @@ public class adminProfile extends javax.swing.JFrame {
                 saveMouseClicked(evt);
             }
         });
-        jPanel1.add(save, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 530, 70, 40));
+        jPanel1.add(save, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 520, 120, 40));
 
         logout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         logout.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -120,7 +122,7 @@ public class adminProfile extends javax.swing.JFrame {
 
         id1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         id1.setText("ID");
-        jPanel1.add(id1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 70, 20));
+        jPanel1.add(id1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 20, 20));
 
         id.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         id.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -131,11 +133,19 @@ public class adminProfile extends javax.swing.JFrame {
                 exitMouseClicked(evt);
             }
         });
-        jPanel1.add(exit, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, 30, 30));
+        jPanel1.add(exit, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, 20, 20));
 
         coma.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         coma.setText(",");
         jPanel1.add(coma, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 210, 10, 20));
+
+        security.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        security.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                securityMouseClicked(evt);
+            }
+        });
+        jPanel1.add(security, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 420, 60, 50));
 
         changepass.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         changepass.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -143,7 +153,7 @@ public class adminProfile extends javax.swing.JFrame {
                 changepassMouseClicked(evt);
             }
         });
-        jPanel1.add(changepass, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 420, 90, 50));
+        jPanel1.add(changepass, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 420, 70, 50));
 
         address.setBackground(new java.awt.Color(255, 212, 157));
         address.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -170,15 +180,22 @@ public class adminProfile extends javax.swing.JFrame {
         lname.setBorder(null);
         jPanel1.add(lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(119, 210, 70, 20));
 
+        image1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                image1MouseClicked(evt);
+            }
+        });
+        jPanel1.add(image1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, 20, 20));
+
         image.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 imageMouseClicked(evt);
             }
         });
-        jPanel1.add(image, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 80, 90, 90));
+        jPanel1.add(image, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, 110, 90));
 
         cellphone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/updateadminProfile (2).png"))); // NOI18N
+        cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/updateadminProfile.png"))); // NOI18N
         jPanel1.add(cellphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -275,6 +292,14 @@ public class adminProfile extends javax.swing.JFrame {
 
     }//GEN-LAST:event_imageMouseClicked
 
+    private void image1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_image1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_image1MouseClicked
+
+    private void securityMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_securityMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_securityMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -324,11 +349,13 @@ public class adminProfile extends javax.swing.JFrame {
     private javax.swing.JLabel id;
     private javax.swing.JLabel id1;
     private javax.swing.JLabel image;
+    private javax.swing.JLabel image1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField lname;
     private javax.swing.JLabel logout;
     private javax.swing.JLabel minimize;
     private javax.swing.JLabel save;
+    private javax.swing.JLabel security;
     // End of variables declaration//GEN-END:variables
 }

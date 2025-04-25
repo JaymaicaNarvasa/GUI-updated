@@ -66,7 +66,7 @@ public class addUser extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        luyoCp3 = new javax.swing.JPanel();
+        luyoCp = new javax.swing.JPanel();
         contact = new javax.swing.JTextField();
         Email = new javax.swing.JTextField();
         user = new javax.swing.JTextField();
@@ -74,22 +74,20 @@ public class addUser extends javax.swing.JFrame {
         fname = new javax.swing.JTextField();
         role = new javax.swing.JComboBox<>();
         pass = new javax.swing.JPasswordField();
-        addressjScrollPane4 = new javax.swing.JScrollPane();
+        addressjScrollPane1 = new javax.swing.JScrollPane();
         address = new javax.swing.JTextArea();
-        addpane = new javax.swing.JPanel();
-        add = new javax.swing.JLabel();
+        registerPane = new javax.swing.JPanel();
+        register = new javax.swing.JLabel();
         back = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         cellphone = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(350, 625));
 
-        luyoCp3.setBackground(new java.awt.Color(0, 0, 0));
-        luyoCp3.setPreferredSize(new java.awt.Dimension(350, 625));
-        luyoCp3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        luyoCp.setBackground(new java.awt.Color(255, 255, 255));
+        luyoCp.setPreferredSize(new java.awt.Dimension(350, 625));
+        luyoCp.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         contact.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         contact.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -99,7 +97,7 @@ public class addUser extends javax.swing.JFrame {
                 contactActionPerformed(evt);
             }
         });
-        luyoCp3.add(contact, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 270, 170, 20));
+        luyoCp.add(contact, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 260, 160, 20));
 
         Email.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         Email.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -110,7 +108,7 @@ public class addUser extends javax.swing.JFrame {
                 EmailActionPerformed(evt);
             }
         });
-        luyoCp3.add(Email, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, 170, 20));
+        luyoCp.add(Email, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 170, 20));
 
         user.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         user.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -120,7 +118,7 @@ public class addUser extends javax.swing.JFrame {
                 userActionPerformed(evt);
             }
         });
-        luyoCp3.add(user, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 170, 20));
+        luyoCp.add(user, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 170, 20));
 
         lname.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         lname.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -131,7 +129,7 @@ public class addUser extends javax.swing.JFrame {
                 lnameActionPerformed(evt);
             }
         });
-        luyoCp3.add(lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, 90, 20));
+        luyoCp.add(lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 80, 30));
 
         fname.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         fname.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -142,63 +140,63 @@ public class addUser extends javax.swing.JFrame {
                 fnameActionPerformed(evt);
             }
         });
-        luyoCp3.add(fname, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, 100, 20));
+        luyoCp.add(fname, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 80, 30));
 
         role.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Customer", "Staff" }));
+        role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Staff", "Customer" }));
         role.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         role.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        luyoCp3.add(role, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 390, 160, 20));
+        luyoCp.add(role, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 380, 160, -1));
 
         pass.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         pass.setBorder(null);
-        luyoCp3.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(111, 330, 160, 30));
+        luyoCp.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(111, 330, 160, 20));
 
         address.setColumns(20);
         address.setRows(5);
-        addressjScrollPane4.setViewportView(address);
+        addressjScrollPane1.setViewportView(address);
 
-        luyoCp3.add(addressjScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 450, 220, 110));
+        luyoCp.add(addressjScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 450, 220, 110));
 
-        addpane.setBackground(new java.awt.Color(0, 153, 204));
-        addpane.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        addpane.addMouseListener(new java.awt.event.MouseAdapter() {
+        registerPane.setBackground(new java.awt.Color(0, 153, 204));
+        registerPane.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        registerPane.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addpaneMouseClicked(evt);
+                registerPaneMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                addpaneMouseEntered(evt);
+                registerPaneMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                addpaneMouseExited(evt);
+                registerPaneMouseExited(evt);
             }
         });
 
-        add.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        add.setText("ADD");
+        register.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        register.setText("Register");
 
-        javax.swing.GroupLayout addpaneLayout = new javax.swing.GroupLayout(addpane);
-        addpane.setLayout(addpaneLayout);
-        addpaneLayout.setHorizontalGroup(
-            addpaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout registerPaneLayout = new javax.swing.GroupLayout(registerPane);
+        registerPane.setLayout(registerPaneLayout);
+        registerPaneLayout.setHorizontalGroup(
+            registerPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 216, Short.MAX_VALUE)
-            .addGroup(addpaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(addpaneLayout.createSequentialGroup()
+            .addGroup(registerPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(registerPaneLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(add)
+                    .addComponent(register)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
-        addpaneLayout.setVerticalGroup(
-            addpaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        registerPaneLayout.setVerticalGroup(
+            registerPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 26, Short.MAX_VALUE)
-            .addGroup(addpaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(addpaneLayout.createSequentialGroup()
+            .addGroup(registerPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(registerPaneLayout.createSequentialGroup()
                     .addGap(0, 2, Short.MAX_VALUE)
-                    .addComponent(add)
+                    .addComponent(register)
                     .addGap(0, 2, Short.MAX_VALUE)))
         );
 
-        luyoCp3.add(addpane, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 570, 220, 30));
+        luyoCp.add(registerPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 570, 220, 30));
 
         back.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         back.setText("<");
@@ -207,45 +205,22 @@ public class addUser extends javax.swing.JFrame {
                 backMouseClicked(evt);
             }
         });
-        luyoCp3.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 20, 20));
-
-        jPanel1.setBackground(new java.awt.Color(251, 174, 156));
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("ADD USER DETAILS");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addGap(0, 5, Short.MAX_VALUE))
-        );
-
-        luyoCp3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 140, 20));
+        luyoCp.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 20, 20));
 
         cellphone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Registration (2).png"))); // NOI18N
+        cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Registration.png"))); // NOI18N
         cellphone.setPreferredSize(new java.awt.Dimension(350, 625));
-        luyoCp3.add(cellphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 630));
+        luyoCp.add(cellphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 350, 640));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(luyoCp3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(luyoCp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(luyoCp3, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
+            .addComponent(luyoCp, javax.swing.GroupLayout.PREFERRED_SIZE, 617, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -272,56 +247,55 @@ public class addUser extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_fnameActionPerformed
 
-    private void addpaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addpaneMouseClicked
-       int check = validateRegister();
+    private void registerPaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerPaneMouseClicked
+        int check = validateRegister();
 
-if(check == 1){
-    dbConnector dbc = new dbConnector();
-    try{
-        String pass1 = passwordHasher.hashPassword(pass.getText());
-        String selecrole = role.getSelectedItem().toString();
-        
-        ResultSet rs = dbc.getData("SELECT role_id FROM role WHERE role_name = '" + selecrole + "'");
-        int roleId = 0;
-        if(rs.next()) {
-            roleId = rs.getInt("role_id");
+        if(check == 1){
+            dbConnector dbc = new dbConnector();
+            try{
+                String pass1 = passwordHasher.hashPassword(pass.getText());
+                String selecrole = role.getSelectedItem().toString();
+
+                ResultSet rs = dbc.getData("SELECT role_id FROM role WHERE role_name = '" + selecrole + "'");
+                int roleId = 0;
+                if(rs.next()) {
+                    roleId = rs.getInt("role_id");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Role not found!");
+                    return;
+                }
+
+                int result = dbc.insertData("INSERT INTO tbl_user(u_fname, u_lname, u_username, u_password, u_address, u_email, u_contact, u_status , role_id) "
+                    + "VALUES ('"+fname.getText()+"', '"+lname.getText()+"', '"+user.getText()+"', '"+pass1+"', '"+address.getText()+"', "
+                    + "'"+Email.getText()+"', '"+contact.getText()+"', 'Pending', "+ roleId +" )");
+
+                if(result == 1){
+                    JOptionPane.showMessageDialog(null, "REGISTERED SUCCESSFULLY!");
+                    new ManageUser().setVisible(true);
+                    this.dispose();
+                    int actingUserId = Session.getInstance().getId();
+                    String action = "Registered Successfully";
+                    dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Saving Data FAILED!");
+                }
+
+            } catch(NoSuchAlgorithmException | SQLException ex){
+                System.out.println("Error: " + ex);
+            }
+
         } else {
-            JOptionPane.showMessageDialog(null, "Role not found!");
-            return;
+            System.out.println("ALL FIELDS REQUIRED!");
         }
+    }//GEN-LAST:event_registerPaneMouseClicked
 
-        int result = dbc.insertData("INSERT INTO tbl_user(u_fname, u_lname, u_username, u_password, u_address, u_email, u_contact, u_status , role_id) "
-              + "VALUES ('"+fname.getText()+"', '"+lname.getText()+"', '"+user.getText()+"', '"+pass1+"', '"+address.getText()+"', "
-                      + "'"+Email.getText()+"', '"+contact.getText()+"', 'Pending', "+ roleId +" )");
+    private void registerPaneMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerPaneMouseEntered
+        registerPane.setBackground(enter);
+    }//GEN-LAST:event_registerPaneMouseEntered
 
-        if(result == 1){
-            JOptionPane.showMessageDialog(null, "ADDED SUCCESSFULLY!");
-            new ManageUser().setVisible(true);
-            this.dispose();
-                int actingUserId = Session.getInstance().getId(); 
-                String action = "Added Successfully";
-                dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
-        } else {
-            JOptionPane.showMessageDialog(null, "Saving Data FAILED!");
-        }
-
-    } catch(NoSuchAlgorithmException | SQLException ex){
-        System.out.println("Error: " + ex);
-    }
-
-} else {
-    System.out.println("ALL FIELDS REQUIRED!");
-}
-
-    }//GEN-LAST:event_addpaneMouseClicked
-
-    private void addpaneMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addpaneMouseEntered
-        addpane.setBackground(enter);
-    }//GEN-LAST:event_addpaneMouseEntered
-
-    private void addpaneMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addpaneMouseExited
-        addpane.setBackground(exit);
-    }//GEN-LAST:event_addpaneMouseExited
+    private void registerPaneMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerPaneMouseExited
+        registerPane.setBackground(exit);
+    }//GEN-LAST:event_registerPaneMouseExited
 
     private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
         new ManageUser().setVisible(true);
@@ -365,19 +339,17 @@ if(check == 1){
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Email;
-    private javax.swing.JLabel add;
-    private javax.swing.JPanel addpane;
     private javax.swing.JTextArea address;
-    private javax.swing.JScrollPane addressjScrollPane4;
+    private javax.swing.JScrollPane addressjScrollPane1;
     private javax.swing.JLabel back;
     private javax.swing.JLabel cellphone;
     private javax.swing.JTextField contact;
     private javax.swing.JTextField fname;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField lname;
-    private javax.swing.JPanel luyoCp3;
+    private javax.swing.JPanel luyoCp;
     private javax.swing.JPasswordField pass;
+    private javax.swing.JLabel register;
+    private javax.swing.JPanel registerPane;
     private javax.swing.JComboBox<String> role;
     private javax.swing.JTextField user;
     // End of variables declaration//GEN-END:variables

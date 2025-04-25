@@ -1,7 +1,6 @@
 package UsersPage;
 
 import config.*;
-import java.awt.*;
 import java.sql.*;
 import javax.swing.*;
 import javax.swing.table.*;
@@ -56,15 +55,16 @@ public class StaffDashboard extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        searchIcon = new javax.swing.JLabel();
         edit = new javax.swing.JLabel();
         add = new javax.swing.JLabel();
         delete = new javax.swing.JLabel();
         search = new javax.swing.JTextField();
+        back = new javax.swing.JLabel();
         home = new javax.swing.JLabel();
         minimize = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         user_tbl = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
         cellphone = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -73,9 +73,6 @@ public class StaffDashboard extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setPreferredSize(new java.awt.Dimension(352, 625));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        searchIcon.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jPanel1.add(searchIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 30, 30));
 
         edit.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         edit.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -99,12 +96,25 @@ public class StaffDashboard extends javax.swing.JFrame {
                 deleteMouseClicked(evt);
             }
         });
-        jPanel1.add(delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 90, 80, 40));
+        jPanel1.add(delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 90, 70, 40));
 
         search.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         search.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         search.setBorder(null);
-        jPanel1.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 130, 20));
+        search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchActionPerformed(evt);
+            }
+        });
+        jPanel1.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, 230, 10));
+
+        back.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        back.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backMouseClicked(evt);
+            }
+        });
+        jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 590, 40, 10));
 
         home.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         home.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -135,10 +145,25 @@ public class StaffDashboard extends javax.swing.JFrame {
         user_tbl.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(user_tbl);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 270, 440));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 270, 380));
+
+        jPanel2.setBackground(new java.awt.Color(255, 230, 50));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 30, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 580, 40, 30));
 
         cellphone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ManageUser (2).png"))); // NOI18N
+        cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ManageUser.png"))); // NOI18N
         jPanel1.add(cellphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 630));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -204,6 +229,14 @@ public class StaffDashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_deleteMouseClicked
 
+    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchActionPerformed
+
+    private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
+        
+    }//GEN-LAST:event_backMouseClicked
+
     private void homeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeMouseClicked
         int a = JOptionPane.showConfirmDialog(null, "Confirm EXIT?");
 
@@ -253,15 +286,16 @@ public class StaffDashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel add;
+    private javax.swing.JLabel back;
     private javax.swing.JLabel cellphone;
     private javax.swing.JLabel delete;
     private javax.swing.JLabel edit;
     private javax.swing.JLabel home;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel minimize;
     private javax.swing.JTextField search;
-    private javax.swing.JLabel searchIcon;
     private javax.swing.JTable user_tbl;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,12 +1,12 @@
 package UsersPage;
 
 import ApplicationPage.application;
+import static ApplicationPage.application.getHeightFromWidth;
 import ProfilePage.CustomerProfile;
 import Reports.ActivityDashboard;
 import config.*;
+import java.awt.Image;
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
 import net.proteanit.sql.DbUtils;
 
@@ -62,19 +62,41 @@ public class CustomerDashboard extends javax.swing.JFrame {
        }catch(SQLException ex){
            System.out.println("ERROR fecthing loan: "+ ex.getMessage());
        }
-    }
-        public void displayImage(){
-           dbConnector dbc = new dbConnector();
-           
-        try {
-           ResultSet rs = dbc.getData("SELECT validid_path FROM tbl_application");
+    }   
+    
+    public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
+    ImageIcon MyImage = null;
+        if(ImagePath !=null){
+            MyImage = new ImageIcon(ImagePath);
+        }else{
+            MyImage = new ImageIcon(pic);
+        }
         
-        CustomerProfile cp = new CustomerProfile();
-            cp.image.setText(rs.getString("validid_path"));
-        } catch (SQLException ex) {
-            Logger.getLogger(CustomerDashboard.class.getName()).log(Level.SEVERE, null, ex);
+    int newHeight = getHeightFromWidth(ImagePath, label.getWidth());
+
+    Image img = MyImage.getImage();
+    Image newImg = img.getScaledInstance(label.getWidth(), newHeight, Image.SCALE_SMOOTH);
+    ImageIcon image = new ImageIcon(newImg);
+    return image;
+}
+        private void displayImage() {
+    dbConnector dbc = new dbConnector();
+    try {
+        String sql = "SELECT validid_path FROM tbl_user WHERE u_id = " + Session.getInstance().getId();
+        ResultSet rs = dbc.getData(sql);
+
+        if (rs.next()) {
+            String imagePath = rs.getString("validid_path");
+            if (imagePath != null && !imagePath.isEmpty()) {
+                image.setIcon(ResizeImage(imagePath, null, image));
+            }
         }
-        }
+        rs.close();
+    } catch (SQLException ex) {
+        System.out.println("Error loading profile image: " + ex.getMessage());
+    }
+}
+
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -167,15 +189,13 @@ public class CustomerDashboard extends javax.swing.JFrame {
         });
         jPanel1.add(refresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 340, -1, -1));
 
-        image.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                imageMouseClicked(evt);
-            }
-        });
-        jPanel1.add(image, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, 60, 50));
+        image.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/manage user.png"))); // NOI18N
+        image.setToolTipText("");
+        jPanel1.add(image, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, 50, 50));
 
         cellphone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Customer (2).png"))); // NOI18N
+        cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Customer.png"))); // NOI18N
         jPanel1.add(cellphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 630));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -227,10 +247,6 @@ public class CustomerDashboard extends javax.swing.JFrame {
         displayData();
     }//GEN-LAST:event_refreshMouseClicked
 
-    private void imageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageMouseClicked
-        
-    }//GEN-LAST:event_imageMouseClicked
-
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -271,7 +287,7 @@ public class CustomerDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel cellphone;
     public javax.swing.JTable customer_tbl;
     private javax.swing.JLabel home;
-    public javax.swing.JLabel image;
+    private javax.swing.JLabel image;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel minimize;

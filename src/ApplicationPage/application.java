@@ -77,7 +77,7 @@ public class application extends javax.swing.JFrame {
     Image newImg = img.getScaledInstance(label.getWidth(), newHeight, Image.SCALE_SMOOTH);
     ImageIcon image = new ImageIcon(newImg);
     return image;
-}       
+    }       
     public int getLoanIdByName(String name) {
     int id = -1;
     try {
@@ -149,6 +149,7 @@ public class application extends javax.swing.JFrame {
         back = new javax.swing.JLabel();
         home = new javax.swing.JLabel();
         minimize = new javax.swing.JLabel();
+        profile = new javax.swing.JLabel();
         cellphone = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -186,7 +187,6 @@ public class application extends javax.swing.JFrame {
         });
         luyoCp3.add(loanamt, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 340, 110, 20));
 
-        type.setBackground(new java.awt.Color(204, 204, 204));
         type.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Home", "Personal", "Medical", "Education" }));
         type.setBorder(null);
@@ -242,7 +242,6 @@ public class application extends javax.swing.JFrame {
 
         luyoCp3.add(addpane, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 550, 140, 30));
 
-        tenurebox.setBackground(new java.awt.Color(204, 204, 204));
         tenurebox.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         tenurebox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Month", "Year" }));
         tenurebox.setBorder(null);
@@ -253,13 +252,11 @@ public class application extends javax.swing.JFrame {
         });
         luyoCp3.add(tenurebox, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 400, 70, 20));
 
-        yearbox.setBackground(new java.awt.Color(204, 204, 204));
         yearbox.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         yearbox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
         yearbox.setBorder(null);
         luyoCp3.add(yearbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 400, 40, 20));
 
-        monthbox.setBackground(new java.awt.Color(204, 204, 204));
         monthbox.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         monthbox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
         monthbox.setBorder(null);
@@ -276,13 +273,12 @@ public class application extends javax.swing.JFrame {
 
         remove.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         remove.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        remove.setText("X");
         remove.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 removeMouseClicked(evt);
             }
         });
-        luyoCp3.add(remove, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 440, 30, 30));
+        luyoCp3.add(remove, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 440, 20, 20));
 
         image.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -315,8 +311,13 @@ public class application extends javax.swing.JFrame {
         });
         luyoCp3.add(minimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 580, 40, 30));
 
+        profile.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        profile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/manage user.png"))); // NOI18N
+        profile.setToolTipText("");
+        luyoCp3.add(profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, 60, 60));
+
         cellphone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Application1 (2).png"))); // NOI18N
+        cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Application.png"))); // NOI18N
         cellphone.setPreferredSize(new java.awt.Dimension(350, 625));
         luyoCp3.add(cellphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 630));
 
@@ -572,6 +573,7 @@ public class application extends javax.swing.JFrame {
     private javax.swing.JLabel minimize;
     private javax.swing.JComboBox<String> monthbox;
     private javax.swing.JLabel name;
+    private javax.swing.JLabel profile;
     public javax.swing.JLabel remove;
     public javax.swing.JLabel selec;
     private javax.swing.JComboBox<String> tenurebox;

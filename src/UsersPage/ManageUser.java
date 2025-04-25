@@ -61,7 +61,6 @@ public class ManageUser extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        searchIcon = new javax.swing.JLabel();
         edit = new javax.swing.JLabel();
         add = new javax.swing.JLabel();
         delete = new javax.swing.JLabel();
@@ -79,9 +78,6 @@ public class ManageUser extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setPreferredSize(new java.awt.Dimension(352, 625));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        searchIcon.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jPanel1.add(searchIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 30, 30));
 
         edit.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         edit.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -105,12 +101,17 @@ public class ManageUser extends javax.swing.JFrame {
                 deleteMouseClicked(evt);
             }
         });
-        jPanel1.add(delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 90, 80, 40));
+        jPanel1.add(delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 90, 70, 40));
 
         search.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         search.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         search.setBorder(null);
-        jPanel1.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 130, 20));
+        search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchActionPerformed(evt);
+            }
+        });
+        jPanel1.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, 230, 10));
 
         back.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         back.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -149,10 +150,10 @@ public class ManageUser extends javax.swing.JFrame {
         user_tbl.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(user_tbl);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 270, 440));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 270, 380));
 
         cellphone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ManageUser (2).png"))); // NOI18N
+        cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ManageUser.png"))); // NOI18N
         jPanel1.add(cellphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 630));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -235,6 +236,10 @@ public class ManageUser extends javax.swing.JFrame {
         setState(ICONIFIED);
     }//GEN-LAST:event_minimizeMouseClicked
 
+    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchActionPerformed
+
     public static void main(String args[]) {
         
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -279,7 +284,6 @@ public class ManageUser extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel minimize;
     private javax.swing.JTextField search;
-    private javax.swing.JLabel searchIcon;
     private javax.swing.JTable user_tbl;
     // End of variables declaration//GEN-END:variables
 }

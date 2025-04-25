@@ -87,8 +87,8 @@ public class ActivityDashboard extends javax.swing.JFrame {
 
         logsname.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         logsname.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        logsname.setText("Transaction");
-        jPanel1.add(logsname, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 60, -1, -1));
+        logsname.setText("Activity");
+        jPanel1.add(logsname, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 60, 110, -1));
 
         minimize.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         minimize.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -115,7 +115,6 @@ public class ActivityDashboard extends javax.swing.JFrame {
         jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 590, 40, 20));
 
         cellphone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ReportsTable (2).png"))); // NOI18N
         jPanel1.add(cellphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 636));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

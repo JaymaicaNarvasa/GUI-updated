@@ -155,12 +155,14 @@ public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
         id = new javax.swing.JLabel();
         exit = new javax.swing.JLabel();
         coma = new javax.swing.JLabel();
+        security = new javax.swing.JLabel();
         changepass = new javax.swing.JLabel();
         address = new javax.swing.JTextField();
         contact = new javax.swing.JTextField();
         email = new javax.swing.JTextField();
         fname = new javax.swing.JTextField();
         lname = new javax.swing.JTextField();
+        image1 = new javax.swing.JLabel();
         image = new javax.swing.JLabel();
         cellphone = new javax.swing.JLabel();
 
@@ -178,7 +180,7 @@ public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
                 saveMouseClicked(evt);
             }
         });
-        jPanel1.add(save, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 530, 70, 40));
+        jPanel1.add(save, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 520, 120, 40));
 
         logout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         logout.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -214,7 +216,7 @@ public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
 
         id1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         id1.setText("ID");
-        jPanel1.add(id1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 70, 20));
+        jPanel1.add(id1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 20, 20));
 
         id.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         id.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -225,11 +227,19 @@ public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
                 exitMouseClicked(evt);
             }
         });
-        jPanel1.add(exit, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, 30, 30));
+        jPanel1.add(exit, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, 20, 20));
 
         coma.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         coma.setText(",");
         jPanel1.add(coma, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 210, 10, 20));
+
+        security.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        security.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                securityMouseClicked(evt);
+            }
+        });
+        jPanel1.add(security, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 420, 60, 50));
 
         changepass.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         changepass.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -237,7 +247,7 @@ public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
                 changepassMouseClicked(evt);
             }
         });
-        jPanel1.add(changepass, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 420, 90, 50));
+        jPanel1.add(changepass, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 420, 70, 50));
 
         address.setBackground(new java.awt.Color(255, 212, 157));
         address.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -264,6 +274,13 @@ public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
         lname.setBorder(null);
         jPanel1.add(lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(119, 210, 70, 20));
 
+        image1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                image1MouseClicked(evt);
+            }
+        });
+        jPanel1.add(image1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, 20, 20));
+
         image.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 imageMouseClicked(evt);
@@ -272,7 +289,7 @@ public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
         jPanel1.add(image, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, 110, 90));
 
         cellphone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/updateadminProfile (2).png"))); // NOI18N
+        cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/updateadminProfile.png"))); // NOI18N
         jPanel1.add(cellphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -298,7 +315,7 @@ public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
 
         if (check == 1) {
             try {
-                String sql = "UPDATE tbl_user SET u_fname = ?, u_lname = ?, u_address = ?, u_contact = ?, u_email = ?, validid_path = ? WHERE u_id = ?";
+                String sql = "UPDATE tbl_user SET u_fname = ?, u_lname = ?, u_address = ?, u_contact = ?, u_email = ? WHERE u_id = ?";
                 PreparedStatement pstmt = dbc.getConnection().prepareStatement(sql);
 
                 pstmt.setString(1, fname.getText().trim());
@@ -306,21 +323,10 @@ public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
                 pstmt.setString(3, address.getText().trim());
                 pstmt.setString(4, contact.getText().trim());
                 pstmt.setString(5, email.getText().trim());
-                pstmt.setString(6, destination);
-                pstmt.setInt(7, Integer.parseInt(id.getText().trim()));
+                pstmt.setInt(6, Integer.parseInt(id.getText().trim()));
 
-                if(destination.isEmpty()){
-                    File existingFile = new File(oldpath);
-                    if(existingFile.exists()){
-                        existingFile.delete();
-                    }
-                }else{
-                    if(!(oldpath.equals(path))){
-                        imageUpdater(oldpath,path);
-                    }
-                }
                 int actingUserId = Session.getInstance().getId();
-                String action = "Saving data customer profile";
+                String action = "Saving data admin profile";
                 dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
 
                 int result = pstmt.executeUpdate();
@@ -359,7 +365,7 @@ public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
 
         if(a == JOptionPane.YES_OPTION){
             System.exit(0);
-        }       
+        }
     }//GEN-LAST:event_homeMouseClicked
 
     private void minimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeMouseClicked
@@ -371,32 +377,21 @@ public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
         this.dispose();
     }//GEN-LAST:event_exitMouseClicked
 
+    private void securityMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_securityMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_securityMouseClicked
+
     private void changepassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changepassMouseClicked
         new changepassAdmin().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_changepassMouseClicked
 
+    private void image1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_image1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_image1MouseClicked
+
     private void imageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageMouseClicked
-        JFileChooser fileChooser = new JFileChooser();
-                int returnValue = fileChooser.showOpenDialog(null);
-                if (returnValue == JFileChooser.APPROVE_OPTION) {
-                    try {
-                        selectedFile = fileChooser.getSelectedFile();
-                        destination = "src/images/" + selectedFile.getName();
-                        path  = selectedFile.getAbsolutePath();
-                        
-                        
-                        if(FileExistenceChecker(path) == 1){
-                          JOptionPane.showMessageDialog(null, "File Already Exist, Rename or Choose another!");
-                            destination = "";
-                            path="";
-                        }else{
-                            image.setIcon(ResizeImage(path, null, image));
-                        }
-                    } catch (Exception ex) {
-                        System.out.println("File Error!");
-                    }
-                }
+
     }//GEN-LAST:event_imageMouseClicked
 
     /**
@@ -448,12 +443,14 @@ public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
     private javax.swing.JLabel home;
     private javax.swing.JLabel id;
     private javax.swing.JLabel id1;
-    public javax.swing.JLabel image;
+    private javax.swing.JLabel image;
+    private javax.swing.JLabel image1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField lname;
     private javax.swing.JLabel logout;
     private javax.swing.JLabel minimize;
     private javax.swing.JLabel save;
+    private javax.swing.JLabel security;
     // End of variables declaration//GEN-END:variables
 
 }

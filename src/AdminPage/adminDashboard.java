@@ -1,6 +1,6 @@
 package AdminPage;
 
-import config.*;
+import ApplicationPage.*;
 import Reports.*;
 import ProfilePage.*;
 import UsersPage.*;
@@ -41,7 +41,7 @@ public class adminDashboard extends javax.swing.JFrame {
         user3 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        profile = new javax.swing.JLabel();
         cellphone = new javax.swing.JLabel();
 
         popupMenu.setBackground(new java.awt.Color(255, 204, 204));
@@ -124,6 +124,11 @@ public class adminDashboard extends javax.swing.JFrame {
 
         applicationpane2.setBackground(new java.awt.Color(255, 255, 255));
         applicationpane2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        applicationpane2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                applicationpane2MouseClicked(evt);
+            }
+        });
 
         application.setBackground(new java.awt.Color(0, 153, 204));
         application.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -157,9 +162,8 @@ public class adminDashboard extends javax.swing.JFrame {
         applicationLayout.setVerticalGroup(
             applicationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, applicationLayout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4))
         );
 
@@ -175,10 +179,11 @@ public class adminDashboard extends javax.swing.JFrame {
             applicationpane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(applicationpane2Layout.createSequentialGroup()
                 .addGap(7, 7, 7)
-                .addComponent(application, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(application, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(applicationpane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 180, 120, 120));
+        jPanel1.add(applicationpane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 190, 120, 110));
 
         reportspane2.setBackground(new java.awt.Color(255, 255, 255));
         reportspane2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -220,21 +225,17 @@ public class adminDashboard extends javax.swing.JFrame {
         reports.setLayout(reportsLayout);
         reportsLayout.setHorizontalGroup(
             reportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(reportsLayout.createSequentialGroup()
-                .addGroup(reportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(reportsLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(20, 20, 20))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         reportsLayout.setVerticalGroup(
             reportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(reportsLayout.createSequentialGroup()
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel6))
         );
 
         javax.swing.GroupLayout reportspane2Layout = new javax.swing.GroupLayout(reportspane2);
@@ -243,18 +244,18 @@ public class adminDashboard extends javax.swing.JFrame {
             reportspane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(reportspane2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(reports, javax.swing.GroupLayout.PREFERRED_SIZE, 104, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(reports, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         reportspane2Layout.setVerticalGroup(
             reportspane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(reportspane2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(reports, javax.swing.GroupLayout.PREFERRED_SIZE, 92, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(reports, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        jPanel1.add(reportspane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 130, 120));
+        jPanel1.add(reportspane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 120, 110));
 
         userpane2.setBackground(new java.awt.Color(255, 255, 255));
         userpane2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -314,7 +315,7 @@ public class adminDashboard extends javax.swing.JFrame {
         userpane2.setLayout(userpane2Layout);
         userpane2Layout.setHorizontalGroup(
             userpane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 124, Short.MAX_VALUE)
+            .addGap(0, 114, Short.MAX_VALUE)
             .addGroup(userpane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(userpane2Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -323,7 +324,7 @@ public class adminDashboard extends javax.swing.JFrame {
         );
         userpane2Layout.setVerticalGroup(
             userpane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 114, Short.MAX_VALUE)
+            .addGap(0, 104, Short.MAX_VALUE)
             .addGroup(userpane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(userpane2Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -331,24 +332,14 @@ public class adminDashboard extends javax.swing.JFrame {
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        jPanel1.add(userpane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 310, 130, 120));
+        jPanel1.add(userpane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 310, 120, 110));
 
-        jPanel2.setBackground(new java.awt.Color(239, 221, 101));
+        profile.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        profile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/manage user.png"))); // NOI18N
+        profile.setToolTipText("");
+        jPanel1.add(profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, 50, 50));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 30, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 20, Short.MAX_VALUE)
-        );
-
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 590, 30, 20));
-
-        cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/adminDashboard (2).png"))); // NOI18N
+        cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/adminDashboard.png"))); // NOI18N
         jPanel1.add(cellphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 640));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -458,6 +449,11 @@ public class adminDashboard extends javax.swing.JFrame {
         user3.setBackground(exit);
     }//GEN-LAST:event_user3MouseExited
 
+    private void applicationpane2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_applicationpane2MouseClicked
+       new ApplicationDashboard().setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_applicationpane2MouseClicked
+
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -506,9 +502,9 @@ public class adminDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel minimize;
     private javax.swing.JPopupMenu popupMenu;
+    private javax.swing.JLabel profile;
     private javax.swing.JLabel profilesettings;
     private javax.swing.JPanel reports;
     private javax.swing.JPanel reportspane2;

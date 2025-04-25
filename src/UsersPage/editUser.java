@@ -55,6 +55,11 @@ public class editUser extends javax.swing.JFrame {
         role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "User" }));
         role.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         role.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        role.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                roleActionPerformed(evt);
+            }
+        });
         jPanel1.add(role, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 390, 160, -1));
 
         status.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
@@ -92,7 +97,7 @@ public class editUser extends javax.swing.JFrame {
                 saveMouseClicked(evt);
             }
         });
-        jPanel1.add(save, new org.netbeans.lib.awtextra.AbsoluteConstraints(138, 440, 80, 50));
+        jPanel1.add(save, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 440, 110, 30));
 
         id1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jPanel1.add(id1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 130, 20));
@@ -126,7 +131,7 @@ public class editUser extends javax.swing.JFrame {
         });
         jPanel1.add(minimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 580, 50, 30));
 
-        cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/EditUser (3).png"))); // NOI18N
+        cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/EditUser.png"))); // NOI18N
         jPanel1.add(cellphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -212,6 +217,10 @@ public class editUser extends javax.swing.JFrame {
     private void minimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeMouseClicked
         setState(ICONIFIED);
     }//GEN-LAST:event_minimizeMouseClicked
+
+    private void roleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_roleActionPerformed
 
     /**
      * @param args the command line arguments
