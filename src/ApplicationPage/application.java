@@ -243,7 +243,7 @@ public class application extends javax.swing.JFrame {
         luyoCp3.add(addpane, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 550, 140, 30));
 
         tenurebox.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        tenurebox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Month", "Year" }));
+        tenurebox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Month", "Year" }));
         tenurebox.setBorder(null);
         tenurebox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -463,7 +463,10 @@ public class application extends javax.swing.JFrame {
     }//GEN-LAST:event_minimizeMouseClicked
 
     private void tenureboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tenureboxActionPerformed
-        if(tenurebox.getSelectedItem().equals("Month")){
+        if(tenurebox.getSelectedItem().equals("Select")){
+            yearbox.setEnabled(false);
+            monthbox.setEnabled(false);
+        }else if(tenurebox.getSelectedItem().equals("Month")){
             yearbox.setEnabled(false);
             monthbox.setEnabled(true);
         }else if(tenurebox.getSelectedItem().equals("Select")){

@@ -1,10 +1,11 @@
 package ApplicationPage;
 
 import AdminPage.adminDashboard;
+import config.Session;
 import config.dbConnector;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import javax.swing.*;
+import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
 
 public class ApplicationDashboard extends javax.swing.JFrame {
@@ -13,17 +14,34 @@ public class ApplicationDashboard extends javax.swing.JFrame {
         initComponents();
         application_tbl.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         
+
+        
         displayData();
     }
     public void displayData(){
         try{
             dbConnector dbc = new dbConnector();
-            ResultSet rs = dbc.getData("SELECT a.user_id AS 'ID', a.amount AS 'Amount', a.amt_to_pay As 'To Pay', s.status_name AS 'Status'  "
+            ResultSet rs = dbc.getData("SELECT a.user_id AS 'User ID', a.amount AS 'Amount', a.amt_to_pay As 'To Pay', a.tenure_value , a.tenure_unit , "
+                    + "a.interest_rate , s.status_name AS 'Status', l.loan_name "
                     + "FROM tbl_application a "
                     + "INNER JOIN tbl_user u ON a.user_id = u.u_id "
-                    + "INNER JOIN tbl_status s ON a.loan_status_id = s.loan_status_id");
+                    + "INNER JOIN tbl_loan l ON a.loan_type_id = l.loan_type_id "
+                    + "INNER JOIN tbl_status s ON a.loan_status_id = s.loan_status_id "
+                    + "WHERE a.loan_status_id != 4");
 
             application_tbl.setModel(DbUtils.resultSetToTableModel(rs));
+            application_tbl.getColumnModel().getColumn(3).setMinWidth(0);
+            application_tbl.getColumnModel().getColumn(3).setMaxWidth(0);
+            application_tbl.getColumnModel().getColumn(3).setWidth(0);
+            application_tbl.getColumnModel().getColumn(4).setMinWidth(0);
+            application_tbl.getColumnModel().getColumn(4).setMaxWidth(0);
+            application_tbl.getColumnModel().getColumn(4).setWidth(0);
+            application_tbl.getColumnModel().getColumn(5).setMinWidth(0);
+            application_tbl.getColumnModel().getColumn(5).setMaxWidth(0);
+            application_tbl.getColumnModel().getColumn(5).setWidth(0);
+            application_tbl.getColumnModel().getColumn(7).setMinWidth(0);
+            application_tbl.getColumnModel().getColumn(7).setMaxWidth(0);
+            application_tbl.getColumnModel().getColumn(7).setWidth(0);
              rs.close();
         }catch(SQLException ex){
             System.out.println("Errors: "+ex.getMessage());
@@ -169,52 +187,85 @@ public class ApplicationDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_searchActionPerformed
 
     private void editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseClicked
-//        int rowindex = application_tbl.getSelectedRow();
-//
-//        if(rowindex < 0){
-//            JOptionPane.showMessageDialog(null, "Please SELECt data from Table");
-//        }else{
-//            TableModel model = user_tbl.getModel();
-//            editUser eu = new editUser();
-//            eu.id1.setText(""+model.getValueAt(rowindex, 0));
-//            eu.fname.setText(""+model.getValueAt(rowindex, 1));
-//            eu.lname.setText(""+model.getValueAt(rowindex, 2));
-//            eu.status.setSelectedItem(model.getValueAt(rowindex, 3));
-//            eu.role.setSelectedItem(model.getValueAt(rowindex, 4));
-//            eu.setVisible(true);
-//            this.dispose();
-//        }
+        int rowindex = application_tbl.getSelectedRow();
+        
+        if(rowindex < 0){
+            JOptionPane.showMessageDialog(null, "Please SELECt data from Table");
+        }else{
+            TableModel model = application_tbl.getModel();
+            StaffApplication eu = new StaffApplication();
+            eu.id1.setText(""+model.getValueAt(rowindex, 0));
+            eu.loanamt.setSelectedItem(model.getValueAt(rowindex, 1));
+            eu.amt.setText(""+model.getValueAt(rowindex, 2));
+            eu.tenurebox.setSelectedItem(model.getValueAt(rowindex, 3));
+            eu.interest.setText(""+model.getValueAt(rowindex, 5));
+            eu.type.setSelectedItem(model.getValueAt(rowindex, 7));
+            eu.status.setSelectedItem(model.getValueAt(rowindex, 5));
+            eu.action = "UPDATE";
+            eu.label.setText("UPDATE");
+            eu.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_editMouseClicked
 
     private void addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseClicked
-//        new addUser().setVisible(true);
-//        this.dispose();
+       new StaffApplication().setVisible(true);
+       this.dispose();
+       StaffApplication ep = new StaffApplication();
+       ep.action = "ADD";
+       ep.label.setText("SAVE");
     }//GEN-LAST:event_addMouseClicked
 
     private void deleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteMouseClicked
-//        int rowIndex = user_tbl.getSelectedRow();
+        int rowIndex = application_tbl.getSelectedRow();
+        if (rowIndex < 0) {
+            JOptionPane.showMessageDialog(null, "Please SELECT data from Table");
+        } else {
+            TableModel model = application_tbl.getModel();
+            Object value = model.getValueAt(rowIndex, 0); 
+            String id = value.toString();
+
+        int a = JOptionPane.showConfirmDialog(null, "Are you sure to 'delete' ID: " + id + "?");
+        if (a == JOptionPane.YES_OPTION) {
+            dbConnector dbc = new dbConnector();
+            int uId = Integer.parseInt(id);
+            int actingUserId = Session.getInstance().getId();
+        if (actingUserId != 0) { 
+            String action = "Soft deleted Application ID: " + id;
+            dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
+        } else {
+            System.out.println("WARNING: No valid logged-in user for logging activity!");
+        }
+        
+        dbc.updateData("UPDATE tbl_application SET loan_status_id = 4 WHERE loan_id = '" + uId + "'");
+
+        displayData();
+        
+        JOptionPane.showMessageDialog(null, "Record marked as 'Deleted' successfully!");
+    }
+}
+
+
+//        int rowIndex = application_tbl.getSelectedRow();
 //        if(rowIndex < 0){
-//            JOptionPane.showMessageDialog(null, "Please SELECt data from Table");
+//            JOptionPane.showMessageDialog(null, "Please SELEC data from Table");
 //        }else{
-//            TableModel model = user_tbl.getModel();
+//            TableModel model = application_tbl.getModel();
 //            Object value = model.getValueAt(rowIndex, 0);
 //            String id = value.toString();
 //            int a = JOptionPane.showConfirmDialog(null, "Are you sure to DELETE ID: " + id);
 //            if(a == JOptionPane.YES_OPTION){
 //                dbConnector dbc = new dbConnector();
 //                int uId = Integer.parseInt(id);
-//                dbc.deleteData(uId, "tbl_user", "u_id");
+//                dbc.deleteData(uId, "tbl_application", "loan_id");
 //                int actingUserId = Session.getInstance().getId();
-//                String action = "Deleted User with ID: " + id;
+//                String action = "Deleted Loan Application with Loan ID: " + id;
 //                dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
 //                displayData();
 //            }
 //        }
     }//GEN-LAST:event_deleteMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

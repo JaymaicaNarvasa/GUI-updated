@@ -1,10 +1,11 @@
 package Reports;
 
+import ApplicationPage.CustomerApplication;
 import UsersPage.*;
-import config.dbConnector;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import config.*;
+import java.sql.*;
 import javax.swing.JOptionPane;
+import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
 
 public class ActivityDashboard extends javax.swing.JFrame {
@@ -15,96 +16,59 @@ public class ActivityDashboard extends javax.swing.JFrame {
         displayData();
     }
     
-    public void displayData() {
-        try {
+    public void displayData(){
+        try{
             dbConnector dbc = new dbConnector();
-            ResultSet rs = dbc.getData("SELECT l.loan_name AS 'Loan Type', a.amt_to_pay AS 'To Pay' " +
-                "FROM tbl_activity a "+
-                "INNER JOIN tbl_loan l ON a.loan_type_id = l.loan_type_id ");
-            
-            ResultSet rs1 = dbc.getData("SELECT a.date AS 'Date', s.status_name AS 'Status' " +
-                "FROM tbl_activity a " +
-                "INNER JOIN tbl_status s ON a.loan_status_id = s.loan_status_id");
+            ResultSet rs = dbc.getData("SELECT a.user_id AS 'User ID', a.amount AS 'Amount', a.amt_to_pay As 'To Pay', a.tenure_value , a.tenure_unit , "
+                    + "a.interest_rate , s.status_name AS 'Status', l.loan_name "
+                    + "FROM tbl_application a "
+                    + "INNER JOIN tbl_user u ON a.user_id = u.u_id "
+                    + "INNER JOIN tbl_loan l ON a.loan_type_id = l.loan_type_id "
+                    + "INNER JOIN tbl_status s ON a.loan_status_id = s.loan_status_id "
+                    + "WHERE a.loan_status_id != 4");
 
-            activity_tbl.setModel(DbUtils.resultSetToTableModel(rs));
-            activity_tbl1.setModel(DbUtils.resultSetToTableModel(rs1));
-            rs.close();
-        } catch (SQLException ex) {
-         System.out.println("Errors: " + ex.getMessage());
+            application_tbl.setModel(DbUtils.resultSetToTableModel(rs));
+            application_tbl.getColumnModel().getColumn(3).setMinWidth(0);
+            application_tbl.getColumnModel().getColumn(3).setMaxWidth(0);
+            application_tbl.getColumnModel().getColumn(3).setWidth(0);
+            application_tbl.getColumnModel().getColumn(4).setMinWidth(0);
+            application_tbl.getColumnModel().getColumn(4).setMaxWidth(0);
+            application_tbl.getColumnModel().getColumn(4).setWidth(0);
+            application_tbl.getColumnModel().getColumn(5).setMinWidth(0);
+            application_tbl.getColumnModel().getColumn(5).setMaxWidth(0);
+            application_tbl.getColumnModel().getColumn(5).setWidth(0);
+            application_tbl.getColumnModel().getColumn(7).setMinWidth(0);
+            application_tbl.getColumnModel().getColumn(7).setMaxWidth(0);
+            application_tbl.getColumnModel().getColumn(7).setWidth(0);
+             rs.close();
+        }catch(SQLException ex){
+            System.out.println("Errors: "+ex.getMessage());
+
         }
+
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        activity_tbl1 = new javax.swing.JTable();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        activity_tbl = new javax.swing.JTable();
-        logsname = new javax.swing.JLabel();
-        minimize = new javax.swing.JLabel();
-        home = new javax.swing.JLabel();
+        luyoCp3 = new javax.swing.JPanel();
         back = new javax.swing.JLabel();
+        home = new javax.swing.JLabel();
+        minimize = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        application_tbl = new javax.swing.JTable();
+        search = new javax.swing.JTextField();
+        edit = new javax.swing.JLabel();
+        cancel = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         cellphone = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel1.setPreferredSize(new java.awt.Dimension(352, 625));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        activity_tbl1.setBackground(new java.awt.Color(204, 204, 204));
-        activity_tbl1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        activity_tbl1.setSelectionBackground(new java.awt.Color(255, 204, 153));
-        activity_tbl1.setSelectionForeground(new java.awt.Color(0, 0, 0));
-        jScrollPane2.setViewportView(activity_tbl1);
-
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, 270, 230));
-
-        activity_tbl.setBackground(new java.awt.Color(204, 204, 204));
-        activity_tbl.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        activity_tbl.setSelectionBackground(new java.awt.Color(255, 204, 153));
-        activity_tbl.setSelectionForeground(new java.awt.Color(0, 0, 0));
-        jScrollPane1.setViewportView(activity_tbl);
-
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 270, 260));
-
-        logsname.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        logsname.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        logsname.setText("Activity");
-        jPanel1.add(logsname, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 60, 110, -1));
-
-        minimize.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        minimize.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                minimizeMouseClicked(evt);
-            }
-        });
-        jPanel1.add(minimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 590, 50, 20));
-
-        home.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        home.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                homeMouseClicked(evt);
-            }
-        });
-        jPanel1.add(home, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 590, 40, 20));
+        luyoCp3.setBackground(new java.awt.Color(0, 0, 0));
+        luyoCp3.setPreferredSize(new java.awt.Dimension(350, 625));
+        luyoCp3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         back.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         back.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -112,29 +76,104 @@ public class ActivityDashboard extends javax.swing.JFrame {
                 backMouseClicked(evt);
             }
         });
-        jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 590, 40, 20));
+        luyoCp3.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 580, 40, 30));
+
+        home.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        home.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                homeMouseClicked(evt);
+            }
+        });
+        luyoCp3.add(home, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 590, 40, 20));
+
+        minimize.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        minimize.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                minimizeMouseClicked(evt);
+            }
+        });
+        luyoCp3.add(minimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 580, 40, 30));
+
+        application_tbl.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        application_tbl.setGridColor(new java.awt.Color(255, 255, 255));
+        application_tbl.setSelectionBackground(new java.awt.Color(255, 204, 153));
+        application_tbl.setSelectionForeground(new java.awt.Color(0, 0, 0));
+        jScrollPane1.setViewportView(application_tbl);
+
+        luyoCp3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 270, 370));
+
+        search.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        search.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        search.setBorder(null);
+        search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchActionPerformed(evt);
+            }
+        });
+        luyoCp3.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 230, 10));
+
+        edit.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        edit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                editMouseClicked(evt);
+            }
+        });
+        luyoCp3.add(edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 60, 30));
+
+        cancel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        cancel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cancelMouseClicked(evt);
+            }
+        });
+        luyoCp3.add(cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 110, 70, 30));
+
+        jPanel1.setBackground(new java.awt.Color(255, 204, 102));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 30, Short.MAX_VALUE)
+        );
+
+        luyoCp3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 60, 30));
 
         cellphone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(cellphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 636));
+        cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ApplicationDashboard.png"))); // NOI18N
+        cellphone.setPreferredSize(new java.awt.Dimension(350, 625));
+        luyoCp3.add(cellphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 640));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(luyoCp3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
+            .addComponent(luyoCp3, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void minimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeMouseClicked
-        setState(ICONIFIED);
-    }//GEN-LAST:event_minimizeMouseClicked
+    private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
+        new CustomerDashboard().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_backMouseClicked
 
     private void homeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeMouseClicked
         int a = JOptionPane.showConfirmDialog(null, "Confirm EXIT?");
@@ -144,10 +183,102 @@ public class ActivityDashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_homeMouseClicked
 
-    private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
-        new CustomerDashboard().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_backMouseClicked
+    private void minimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeMouseClicked
+        setState(ICONIFIED);
+    }//GEN-LAST:event_minimizeMouseClicked
+
+    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchActionPerformed
+
+    private void editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseClicked
+        int rowindex = application_tbl.getSelectedRow();
+
+        if(rowindex < 0){
+            JOptionPane.showMessageDialog(null, "Please SELECt data from Table");
+        }else{
+            TableModel model = application_tbl.getModel();
+            CustomerApplication eu = new CustomerApplication();
+            eu.id1.setText(""+model.getValueAt(rowindex, 0));
+            eu.loanamt.setSelectedItem(model.getValueAt(rowindex, 1));
+            eu.amt.setText(""+model.getValueAt(rowindex, 2));
+            eu.tenurebox.setSelectedItem(model.getValueAt(rowindex, 3));
+            eu.interest.setText(""+model.getValueAt(rowindex, 5));
+            eu.type.setSelectedItem(model.getValueAt(rowindex, 7));
+            eu.status.setSelectedItem(model.getValueAt(rowindex, 5));
+            eu.action = "UPDATE";
+            eu.label.setText("UPDATE");
+            eu.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_editMouseClicked
+
+    private void cancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelMouseClicked
+        
+    int rowIndex = application_tbl.getSelectedRow();
+    
+    if (rowIndex < 0) {
+        JOptionPane.showMessageDialog(null, "Please SELECT an application to cancel.");
+    } else {
+        TableModel model = application_tbl.getModel();
+        String loanId = model.getValueAt(rowIndex, 0).toString(); 
+        
+        dbConnector dbc = new dbConnector();
+        
+        try {
+            String checkStatusQuery = "SELECT loan_status_id FROM tbl_application WHERE loan_id = '" + loanId + "'";
+            ResultSet rs = dbc.getData(checkStatusQuery);
+            
+            if (rs.next()) {
+                int statusId = rs.getInt("loan_status_id");
+                
+                if (statusId == 1) { 
+                    
+                    int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to CANCEL this application?");
+                    if (confirm == JOptionPane.YES_OPTION) {
+                        int cancelledStatusId = 5; 
+                        String updateQuery = "UPDATE tbl_application SET loan_status_id = '" + cancelledStatusId + "' WHERE loan_id = '" + loanId + "'";
+                        dbc.updateData(updateQuery);
+
+                        JOptionPane.showMessageDialog(null, "Application CANCELLED Successfully!");
+
+                        int actingUserId = Session.getInstance().getId();
+                        String action = "Cancelled Application ID: " + loanId;
+                        dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
+
+                        displayData(); 
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Cannot cancel. Application is already processed.");
+                }
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
+    }
+
+
+
+        //        int rowIndex = application_tbl.getSelectedRow();
+        //        if(rowIndex < 0){
+            //            JOptionPane.showMessageDialog(null, "Please SELEC data from Table");
+            //        }else{
+            //            TableModel model = application_tbl.getModel();
+            //            Object value = model.getValueAt(rowIndex, 0);
+            //            String id = value.toString();
+            //            int a = JOptionPane.showConfirmDialog(null, "Are you sure to DELETE ID: " + id);
+            //            if(a == JOptionPane.YES_OPTION){
+                //                dbConnector dbc = new dbConnector();
+                //                int uId = Integer.parseInt(id);
+                //                dbc.deleteData(uId, "tbl_application", "loan_id");
+                //                int actingUserId = Session.getInstance().getId();
+                //                String action = "Deleted Loan Application with Loan ID: " + id;
+                //                dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
+                //                displayData();
+                //            }
+            //        }
+    }//GEN-LAST:event_cancelMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -183,15 +314,16 @@ public class ActivityDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable activity_tbl;
-    private javax.swing.JTable activity_tbl1;
+    private javax.swing.JTable application_tbl;
     private javax.swing.JLabel back;
+    private javax.swing.JLabel cancel;
     private javax.swing.JLabel cellphone;
+    private javax.swing.JLabel edit;
     private javax.swing.JLabel home;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel logsname;
+    private javax.swing.JPanel luyoCp3;
     private javax.swing.JLabel minimize;
+    private javax.swing.JTextField search;
     // End of variables declaration//GEN-END:variables
 }

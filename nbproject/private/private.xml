@@ -3,18 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/Administrator/Desktop/NetBeansProjects/GUI-updated/src/ApplicationPage/application.java</file>
-            <file>file:/C:/Users/Administrator/Desktop/NetBeansProjects/GUI-updated/src/ProfilePage/CustomerProfile.java</file>
-            <file>file:/C:/Users/Administrator/Desktop/NetBeansProjects/GUI-updated/src/UsersPage/CustomerDashboard.java</file>
-            <file>file:/C:/Users/Administrator/Desktop/NetBeansProjects/GUI-updated/src/Authentication/LogIn.java</file>
-=======
-            <file>file:/C:/Users/Admin/Desktop/NetBeansProject/GUI-updated/src/ApplicationPage/application.java</file>
-            <file>file:/C:/Users/Admin/Desktop/NetBeansProject/GUI-updated/src/Authentication/LogIn.java</file>
-            <file>file:/C:/Users/Admin/Desktop/NetBeansProject/GUI-updated/src/ProfilePage/CustomerProfile.java</file>
-            <file>file:/C:/Users/Admin/Desktop/NetBeansProject/GUI-updated/src/UsersPage/CustomerDashboard.java</file>
-            <file>file:/C:/Users/Admin/Desktop/NetBeansProject/GUI-updated/src/Reports/ActivityDashboard.java</file>
->>>>>>> 6f61145b4faf5ed48d32e007832c307aafc21612
+            <file>file:/C:/Users/Administrator/Desktop/NetBeansProjects/GUI-updated/src/UsersPage/editUser.java</file>
+            <file>file:/C:/Users/Administrator/Desktop/NetBeansProjects/GUI-updated/src/ApplicationPage/ApplicationDashboard.java</file>
+            <file>file:/C:/Users/Administrator/Desktop/NetBeansProjects/GUI-updated/src/ApplicationPage/editApplication.java</file>
         </group>
     </open-files>
 </project-private>

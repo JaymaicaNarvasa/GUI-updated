@@ -22,7 +22,7 @@ public class adminDashboard extends javax.swing.JFrame {
 
         popupMenu = new javax.swing.JPopupMenu();
         Logs = new javax.swing.JMenuItem();
-        transaction = new javax.swing.JMenuItem();
+        activity = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -64,21 +64,21 @@ public class adminDashboard extends javax.swing.JFrame {
         });
         popupMenu.add(Logs);
 
-        transaction.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        transaction.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/transaction-35 (2).png"))); // NOI18N
-        transaction.setText("TRANSACTIONS");
-        transaction.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 153)));
-        transaction.addMouseListener(new java.awt.event.MouseAdapter() {
+        activity.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        activity.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/transaction-35 (2).png"))); // NOI18N
+        activity.setText("TRANSACTIONS");
+        activity.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 153)));
+        activity.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                transactionMouseClicked(evt);
+                activityMouseClicked(evt);
             }
         });
-        transaction.addActionListener(new java.awt.event.ActionListener() {
+        activity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                transactionActionPerformed(evt);
+                activityActionPerformed(evt);
             }
         });
-        popupMenu.add(transaction);
+        popupMenu.add(activity);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -426,10 +426,10 @@ public class adminDashboard extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_LogsActionPerformed
 
-    private void transactionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transactionActionPerformed
+    private void activityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_activityActionPerformed
         new ActivityDashboard().setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_transactionActionPerformed
+    }//GEN-LAST:event_activityActionPerformed
 
     private void user3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_user3MouseClicked
         new ManageUser().setVisible(true);
@@ -440,9 +440,9 @@ public class adminDashboard extends javax.swing.JFrame {
         
     }//GEN-LAST:event_LogsMouseClicked
 
-    private void transactionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_transactionMouseClicked
+    private void activityMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_activityMouseClicked
         
-    }//GEN-LAST:event_transactionMouseClicked
+    }//GEN-LAST:event_activityMouseClicked
 
     private void user3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_user3MouseEntered
        user3.setBackground(enter);
@@ -496,6 +496,7 @@ public class adminDashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem Logs;
+    private javax.swing.JMenuItem activity;
     private javax.swing.JPanel application;
     private javax.swing.JPanel applicationpane2;
     private javax.swing.JLabel cellphone;
@@ -515,7 +516,6 @@ public class adminDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel profilesettings;
     private javax.swing.JPanel reports;
     private javax.swing.JPanel reportspane2;
-    private javax.swing.JMenuItem transaction;
     private javax.swing.JPanel user3;
     private javax.swing.JPanel userpane2;
     // End of variables declaration//GEN-END:variables
