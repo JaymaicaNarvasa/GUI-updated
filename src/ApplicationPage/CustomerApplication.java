@@ -33,6 +33,7 @@ public class CustomerApplication extends javax.swing.JFrame {
         cellphone = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -62,7 +63,7 @@ public class CustomerApplication extends javax.swing.JFrame {
                 backMouseClicked(evt);
             }
         });
-        jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 580, 40, 30));
+        jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 590, 40, 20));
 
         home.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         home.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -70,7 +71,7 @@ public class CustomerApplication extends javax.swing.JFrame {
                 homeMouseClicked(evt);
             }
         });
-        jPanel1.add(home, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 580, 40, 30));
+        jPanel1.add(home, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 590, 40, 20));
 
         minimize.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         minimize.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -78,7 +79,7 @@ public class CustomerApplication extends javax.swing.JFrame {
                 minimizeMouseClicked(evt);
             }
         });
-        jPanel1.add(minimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 580, 50, 30));
+        jPanel1.add(minimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 590, 50, 20));
 
         tenurebox.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         tenurebox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Month", "Year" }));
@@ -162,6 +163,7 @@ public class CustomerApplication extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void amtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_amtActionPerformed

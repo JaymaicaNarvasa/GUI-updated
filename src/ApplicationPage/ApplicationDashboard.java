@@ -201,6 +201,10 @@ public class ApplicationDashboard extends javax.swing.JFrame {
             eu.interest.setText(""+model.getValueAt(rowindex, 5));
             eu.type.setSelectedItem(model.getValueAt(rowindex, 7));
             eu.status.setSelectedItem(model.getValueAt(rowindex, 5));
+            double loanAmount = Double.parseDouble(eu.loanamt.getSelectedItem().toString());
+            double interestRate = Double.parseDouble(eu.interest.getText()) / 100; 
+            double amountToPay = loanAmount + (loanAmount * interestRate);
+            eu.amt.setText(String.valueOf(amountToPay));
             eu.action = "UPDATE";
             eu.label.setText("UPDATE");
             eu.setVisible(true);

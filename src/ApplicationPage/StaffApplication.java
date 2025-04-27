@@ -8,15 +8,16 @@ public class StaffApplication extends javax.swing.JFrame {
 
     public StaffApplication() {
         initComponents();
+
     }
     public String action;
     public String tenureValue;
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        amt = new javax.swing.JTextField();
         id1 = new javax.swing.JLabel();
         id = new javax.swing.JLabel();
         back = new javax.swing.JLabel();
@@ -29,8 +30,9 @@ public class StaffApplication extends javax.swing.JFrame {
         status = new javax.swing.JComboBox<>();
         type = new javax.swing.JComboBox<>();
         label = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         interest = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        amt = new javax.swing.JLabel();
         cellphone = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -38,16 +40,6 @@ public class StaffApplication extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        amt.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        amt.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        amt.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        amt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                amtActionPerformed(evt);
-            }
-        });
-        jPanel1.add(amt, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 310, 200, 20));
 
         id1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jPanel1.add(id1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, 130, 20));
@@ -120,6 +112,11 @@ public class StaffApplication extends javax.swing.JFrame {
         type.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Home", "Personal", "Medical", "Education" }));
         type.setBorder(null);
+        type.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                typeMouseClicked(evt);
+            }
+        });
         type.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 typeActionPerformed(evt);
@@ -137,14 +134,18 @@ public class StaffApplication extends javax.swing.JFrame {
         });
         jPanel1.add(label, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 540, 120, 30));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("%");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(263, 190, 20, 20));
-
         interest.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         interest.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(interest, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 190, 50, 20));
+        jPanel1.add(interest, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 190, 40, 20));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("%");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(263, 190, 20, 20));
+
+        amt.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        amt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel1.add(amt, new org.netbeans.lib.awtextra.AbsoluteConstraints(91, 310, 180, 20));
 
         cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/EditApplication.png"))); // NOI18N
         jPanel1.add(cellphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 640));
@@ -167,15 +168,6 @@ public class StaffApplication extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void amtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_amtActionPerformed
-        
-        double loanAmount = Double.parseDouble(loanamt.getSelectedItem().toString());
-        double interestRate = Double.parseDouble(interest.getText()) / 100; 
-        double amountToPay = loanAmount + (loanAmount * interestRate);
-        amt.setText(String.valueOf(amountToPay));
-        
-    }//GEN-LAST:event_amtActionPerformed
 
     private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
         new ApplicationDashboard().setVisible(true);
@@ -276,6 +268,10 @@ public class StaffApplication extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_typeActionPerformed
 
+    private void typeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_typeMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_typeMouseClicked
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -310,14 +306,14 @@ public class StaffApplication extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JTextField amt;
+    public javax.swing.JLabel amt;
     private javax.swing.JLabel back;
     private javax.swing.JLabel cellphone;
     private javax.swing.JLabel home;
     private javax.swing.JLabel id;
     public javax.swing.JLabel id1;
     public javax.swing.JLabel interest;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     public javax.swing.JLabel label;
     public javax.swing.JComboBox<String> loanamt;

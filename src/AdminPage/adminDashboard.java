@@ -201,6 +201,7 @@ public class adminDashboard extends javax.swing.JFrame {
                 reportspane2MouseExited(evt);
             }
         });
+        reportspane2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         reports.setBackground(new java.awt.Color(0, 153, 204));
         reports.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -215,48 +216,19 @@ public class adminDashboard extends javax.swing.JFrame {
                 reportsMousePressed(evt);
             }
         });
+        reports.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel6.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Reports");
+        reports.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 63, 90, -1));
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/reports.png"))); // NOI18N
+        reports.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 2, 50, 55));
 
-        javax.swing.GroupLayout reportsLayout = new javax.swing.GroupLayout(reports);
-        reports.setLayout(reportsLayout);
-        reportsLayout.setHorizontalGroup(
-            reportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(reportsLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        reportsLayout.setVerticalGroup(
-            reportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(reportsLayout.createSequentialGroup()
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6))
-        );
-
-        javax.swing.GroupLayout reportspane2Layout = new javax.swing.GroupLayout(reportspane2);
-        reportspane2.setLayout(reportspane2Layout);
-        reportspane2Layout.setHorizontalGroup(
-            reportspane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(reportspane2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(reports, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        reportspane2Layout.setVerticalGroup(
-            reportspane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(reportspane2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(reports, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
-        );
+        reportspane2.add(reports, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 14, -1, -1));
 
         jPanel1.add(reportspane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 120, 110));
 
@@ -427,7 +399,7 @@ public class adminDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_LogsActionPerformed
 
     private void activityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_activityActionPerformed
-        new ActivityDashboard().setVisible(true);
+        new ApplicationDashboard().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_activityActionPerformed
 

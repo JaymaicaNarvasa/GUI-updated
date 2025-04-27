@@ -3,9 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Administrator/Desktop/NetBeansProjects/GUI-updated/src/UsersPage/editUser.java</file>
+            <file>file:/C:/Users/Administrator/Desktop/NetBeansProjects/GUI-updated/src/UsersPage/CustomerDashboard.java</file>
+            <file>file:/C:/Users/Administrator/Desktop/NetBeansProjects/GUI-updated/src/ApplicationPage/CustomerApplication.java</file>
+            <file>file:/C:/Users/Administrator/Desktop/NetBeansProjects/GUI-updated/src/Reports/ActivityDashboard.java</file>
             <file>file:/C:/Users/Administrator/Desktop/NetBeansProjects/GUI-updated/src/ApplicationPage/ApplicationDashboard.java</file>
-            <file>file:/C:/Users/Administrator/Desktop/NetBeansProjects/GUI-updated/src/ApplicationPage/editApplication.java</file>
+            <file>file:/C:/Users/Administrator/Desktop/NetBeansProjects/GUI-updated/src/ApplicationPage/StaffApplication.java</file>
         </group>
     </open-files>
 </project-private>

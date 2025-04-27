@@ -39,7 +39,7 @@ public class Logs extends javax.swing.JFrame {
     public void displayData(){
         try{
             dbConnector dbc = new dbConnector();
-            ResultSet rs = dbc.getData("SELECT tbl_user.u_id, tbl_log.action, tbl_log.log_date "
+            ResultSet rs = dbc.getData("SELECT tbl_user.u_id AS 'ID', tbl_log.action AS 'Action', tbl_log.log_date AS 'Date' "
                     + "FROM tbl_log INNER JOIN tbl_user ON tbl_log.user_id = tbl_user.u_id");
 
             log_tbl.setModel(DbUtils.resultSetToTableModel(rs));
@@ -55,14 +55,9 @@ public class Logs extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        logsname = new javax.swing.JLabel();
         minimize = new javax.swing.JLabel();
         home = new javax.swing.JLabel();
         back = new javax.swing.JLabel();
-        header = new javax.swing.JPanel();
-        userid = new javax.swing.JLabel();
-        action = new javax.swing.JLabel();
-        date = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         log_tbl = new javax.swing.JTable();
         cellphone = new javax.swing.JLabel();
@@ -73,11 +68,6 @@ public class Logs extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setPreferredSize(new java.awt.Dimension(352, 625));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        logsname.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        logsname.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        logsname.setText("LOGS");
-        jPanel1.add(logsname, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, -1, -1));
 
         minimize.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         minimize.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -103,45 +93,6 @@ public class Logs extends javax.swing.JFrame {
         });
         jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 590, 40, 20));
 
-        header.setBackground(new java.awt.Color(255, 255, 255));
-
-        userid.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        userid.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        userid.setText("User ID");
-
-        action.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        action.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        action.setText("Action");
-
-        date.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        date.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        date.setText("Date");
-
-        javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
-        header.setLayout(headerLayout);
-        headerLayout.setHorizontalGroup(
-            headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(headerLayout.createSequentialGroup()
-                .addComponent(userid, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52)
-                .addComponent(action, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        headerLayout.setVerticalGroup(
-            headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(headerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(userid, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(action, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel1.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 270, 30));
-
         log_tbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -154,17 +105,19 @@ public class Logs extends javax.swing.JFrame {
         log_tbl.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(log_tbl);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 270, 490));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 260, 400));
 
         cellphone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ReportsTable (2).png"))); // NOI18N
-        jPanel1.add(cellphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 636));
+        cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Logs.png"))); // NOI18N
+        jPanel1.add(cellphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 340, 636));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,17 +182,12 @@ public class Logs extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel action;
     private javax.swing.JLabel back;
     private javax.swing.JLabel cellphone;
-    private javax.swing.JLabel date;
-    private javax.swing.JPanel header;
     private javax.swing.JLabel home;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable log_tbl;
-    private javax.swing.JLabel logsname;
     private javax.swing.JLabel minimize;
-    private javax.swing.JLabel userid;
     // End of variables declaration//GEN-END:variables
 }
