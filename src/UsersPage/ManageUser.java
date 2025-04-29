@@ -43,7 +43,8 @@ public class ManageUser extends javax.swing.JFrame {
             ResultSet rs = dbc.getData("SELECT tbl_user.u_id AS 'ID', tbl_user.u_fname AS 'FirstName', tbl_user.u_lname AS 'LastName', "
                     + "tbl_user.u_status AS 'Status', tbl_role.role_name AS 'Role' "
                     + "FROM tbl_user "
-                    + "INNER JOIN tbl_role ON tbl_user.role_id = tbl_role.role_id");
+                    + "INNER JOIN tbl_role ON tbl_user.role_id = tbl_role.role_id "
+                    + "WHERE tbl_role.role_id != 4");
 
             user_tbl.setModel(DbUtils.resultSetToTableModel(rs));
              rs.close();
@@ -177,23 +178,32 @@ public class ManageUser extends javax.swing.JFrame {
 
     private void deleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteMouseClicked
         int rowIndex = user_tbl.getSelectedRow();
-        if(rowIndex < 0){
-            JOptionPane.showMessageDialog(null, "Please SELECt data from Table");
-        }else{
+        if (rowIndex < 0) {
+            JOptionPane.showMessageDialog(null, "Please SELECT data from Table");
+        } else {
             TableModel model = user_tbl.getModel();
-            Object value = model.getValueAt(rowIndex, 0);
+            Object value = model.getValueAt(rowIndex, 0); 
             String id = value.toString();
-            int a = JOptionPane.showConfirmDialog(null, "Are you sure to DELETE ID: " + id);
-            if(a == JOptionPane.YES_OPTION){
-                dbConnector dbc = new dbConnector();
-                int uId = Integer.parseInt(id);
-                dbc.deleteData(uId, "tbl_user", "u_id");
-                int actingUserId = Session.getInstance().getId(); 
-                String action = "Deleted User with ID: " + id;
-                dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
-                displayData();
-            }
+
+        int a = JOptionPane.showConfirmDialog(null, "Are you sure to 'delete' ID: " + id + "?");
+        if (a == JOptionPane.YES_OPTION) {
+            dbConnector dbc = new dbConnector();
+            int uId = Integer.parseInt(id);
+            int actingUserId = Session.getInstance().getId();
+        if (actingUserId != 0) { 
+            String action = "Soft deleted Application ID: " + id;
+            dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
+        } else {
+            System.out.println("WARNING: No valid logged-in user for logging activity!");
         }
+        
+        dbc.updateData("UPDATE tbl_user SET role_id = 4 WHERE u_id = '" + uId + "'");
+
+        displayData();
+        
+        JOptionPane.showMessageDialog(null, "Record marked as 'Deleted' successfully!");
+    }
+}
     }//GEN-LAST:event_deleteMouseClicked
 
     private void editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseClicked

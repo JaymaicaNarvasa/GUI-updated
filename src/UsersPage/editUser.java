@@ -52,7 +52,7 @@ public class editUser extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         role.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "User" }));
+        role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Staff", "Customer" }));
         role.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         role.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         role.addActionListener(new java.awt.event.ActionListener() {

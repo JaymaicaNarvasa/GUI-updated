@@ -256,7 +256,7 @@ public class addUser extends javax.swing.JFrame {
                 String pass1 = passwordHasher.hashPassword(pass.getText());
                 String selecrole = role.getSelectedItem().toString();
 
-                ResultSet rs = dbc.getData("SELECT role_id FROM role WHERE role_name = '" + selecrole + "'");
+                ResultSet rs = dbc.getData("SELECT role_id FROM tbl_role WHERE role_name = '" + selecrole + "'");
                 int roleId = 0;
                 if(rs.next()) {
                     roleId = rs.getInt("role_id");
@@ -264,6 +264,8 @@ public class addUser extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Role not found!");
                     return;
                 }
+                String destination = "";
+                String profilePicPath = (destination.isEmpty()) ? "src/images/default.png" : destination;
 
                 int result = dbc.insertData("INSERT INTO tbl_user(u_fname, u_lname, u_username, u_password, u_address, u_email, u_contact, u_status , role_id) "
                     + "VALUES ('"+fname.getText()+"', '"+lname.getText()+"', '"+user.getText()+"', '"+pass1+"', '"+address.getText()+"', "
