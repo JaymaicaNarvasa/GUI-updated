@@ -7,9 +7,9 @@ import javax.swing.*;
 import javax.swing.table.*;
 import net.proteanit.sql.DbUtils;
 
-public class ManageUser extends javax.swing.JFrame {
+public class ManageUserAdmin extends javax.swing.JFrame {
 
-    public ManageUser() {
+    public ManageUserAdmin() {
         initComponents();
         
 //        user_tbl.setShowGrid(false);
@@ -65,7 +65,6 @@ public class ManageUser extends javax.swing.JFrame {
         edit = new javax.swing.JLabel();
         add = new javax.swing.JLabel();
         delete = new javax.swing.JLabel();
-        search = new javax.swing.JTextField();
         back = new javax.swing.JLabel();
         home = new javax.swing.JLabel();
         minimize = new javax.swing.JLabel();
@@ -103,16 +102,6 @@ public class ManageUser extends javax.swing.JFrame {
             }
         });
         jPanel1.add(delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 90, 70, 40));
-
-        search.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        search.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        search.setBorder(null);
-        search.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchActionPerformed(evt);
-            }
-        });
-        jPanel1.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, 230, 10));
 
         back.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         back.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -230,8 +219,34 @@ public class ManageUser extends javax.swing.JFrame {
     }//GEN-LAST:event_addMouseClicked
 
     private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
-        new adminDashboard().setVisible(true);
-        this.dispose();
+       try {
+        dbConnector dbc = new dbConnector();
+        String sql = "SELECT role_id FROM tbl_user WHERE u_id = ?";
+        PreparedStatement pstmt = dbc.connect.prepareStatement(sql);
+        pstmt.setInt(1, Session.getInstance().getId());
+        ResultSet rs = pstmt.executeQuery();
+
+        if (rs.next()) {
+            int roleId = rs.getInt("role_id");
+
+            if (roleId == 1) {
+                new adminDashboard().setVisible(true);
+            } else if (roleId == 2) {
+                new staffDashboard().setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "UNKNOWN ROLE!");
+            }
+
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "User not found!");
+        }
+
+        rs.close();
+        pstmt.close();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(this, "Database error: " + ex.getMessage());
+    }
     }//GEN-LAST:event_backMouseClicked
 
     private void homeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeMouseClicked
@@ -245,10 +260,6 @@ public class ManageUser extends javax.swing.JFrame {
     private void minimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeMouseClicked
         setState(ICONIFIED);
     }//GEN-LAST:event_minimizeMouseClicked
-
-    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchActionPerformed
 
     public static void main(String args[]) {
         
@@ -264,21 +275,23 @@ public class ManageUser extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ManageUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageUserAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ManageUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageUserAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ManageUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageUserAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ManageUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageUserAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageUser().setVisible(true);
+                new ManageUserAdmin().setVisible(true);
             }
         });
     }
@@ -293,7 +306,6 @@ public class ManageUser extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel minimize;
-    private javax.swing.JTextField search;
     private javax.swing.JTable user_tbl;
     // End of variables declaration//GEN-END:variables
 }

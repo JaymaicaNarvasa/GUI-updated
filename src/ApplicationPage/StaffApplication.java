@@ -264,8 +264,14 @@ public class StaffApplication extends javax.swing.JFrame {
         }else if (type.getSelectedItem().equals ("Education")){
             interest.setText("4.5");
         }else{
-            interest.setText("ERROR");
+            interest.setText("0.0");
         }
+        
+        double loanAmount = Double.parseDouble(loanamt.getSelectedItem().toString());
+        double interestRate = Double.parseDouble(interest.getText()) / 100; 
+        double amountToPay = loanAmount + (loanAmount * interestRate);
+        amt.setText(String.valueOf(amountToPay));
+        
     }//GEN-LAST:event_typeActionPerformed
 
     private void typeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_typeMouseClicked

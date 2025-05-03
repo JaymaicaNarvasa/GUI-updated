@@ -61,7 +61,7 @@ public class addUser extends javax.swing.JFrame {
     }
     
     return exists;
-}
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -97,7 +97,7 @@ public class addUser extends javax.swing.JFrame {
                 contactActionPerformed(evt);
             }
         });
-        luyoCp.add(contact, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 260, 160, 20));
+        luyoCp.add(contact, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 260, 160, 30));
 
         Email.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         Email.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -267,13 +267,13 @@ public class addUser extends javax.swing.JFrame {
                 String destination = "";
                 String profilePicPath = (destination.isEmpty()) ? "src/images/default.png" : destination;
 
-                int result = dbc.insertData("INSERT INTO tbl_user(u_fname, u_lname, u_username, u_password, u_address, u_email, u_contact, u_status , role_id) "
+                int result = dbc.insertData("INSERT INTO tbl_user(u_fname, u_lname, u_username, u_password, u_address, u_email, u_contact, u_status , role_id , profile_pic) "
                     + "VALUES ('"+fname.getText()+"', '"+lname.getText()+"', '"+user.getText()+"', '"+pass1+"', '"+address.getText()+"', "
-                    + "'"+Email.getText()+"', '"+contact.getText()+"', 'Pending', "+ roleId +" )");
+                    + "'"+Email.getText()+"', '"+contact.getText()+"', 'Pending', "+ roleId +", '" + profilePicPath + "' )");
 
                 if(result == 1){
                     JOptionPane.showMessageDialog(null, "REGISTERED SUCCESSFULLY!");
-                    new ManageUser().setVisible(true);
+                    new ManageUserAdmin().setVisible(true);
                     this.dispose();
                     int actingUserId = Session.getInstance().getId();
                     String action = "Registered Successfully";
@@ -300,7 +300,7 @@ public class addUser extends javax.swing.JFrame {
     }//GEN-LAST:event_registerPaneMouseExited
 
     private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
-        new ManageUser().setVisible(true);
+        new ManageUserAdmin().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backMouseClicked
 

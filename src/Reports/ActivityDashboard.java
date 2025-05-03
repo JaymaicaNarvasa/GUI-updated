@@ -57,7 +57,6 @@ public class ActivityDashboard extends javax.swing.JFrame {
         minimize = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         application_tbl = new javax.swing.JTable();
-        search = new javax.swing.JTextField();
         edit = new javax.swing.JLabel();
         cancel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -108,16 +107,6 @@ public class ActivityDashboard extends javax.swing.JFrame {
         jScrollPane1.setViewportView(application_tbl);
 
         luyoCp3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 270, 370));
-
-        search.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        search.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        search.setBorder(null);
-        search.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchActionPerformed(evt);
-            }
-        });
-        luyoCp3.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 230, 10));
 
         edit.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         edit.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -186,10 +175,6 @@ public class ActivityDashboard extends javax.swing.JFrame {
     private void minimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeMouseClicked
         setState(ICONIFIED);
     }//GEN-LAST:event_minimizeMouseClicked
-
-    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchActionPerformed
 
     private void editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseClicked
         int rowindex = application_tbl.getSelectedRow();
@@ -324,6 +309,5 @@ public class ActivityDashboard extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel luyoCp3;
     private javax.swing.JLabel minimize;
-    private javax.swing.JTextField search;
     // End of variables declaration//GEN-END:variables
 }

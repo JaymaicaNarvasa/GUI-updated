@@ -1,13 +1,10 @@
 package UsersPage;
 
-import ApplicationPage.application;
-import ProfilePage.CustomerProfile;
-import static ProfilePage.CustomerProfile.getHeightFromWidth;
-import Reports.ActivityDashboard;
+import ApplicationPage.*;
+import ProfilePage.*;
+import Reports.*;
 import config.*;
-import java.awt.Image;
 import java.sql.*;
-import java.util.logging.*;
 import javax.swing.*;
 import net.proteanit.sql.DbUtils;
 
@@ -15,8 +12,6 @@ public class CustomerDashboard extends javax.swing.JFrame {
 
     public CustomerDashboard() {
         initComponents();
-        
-        displayImage();
         displayAmount();
         displayData();
     }
@@ -35,68 +30,40 @@ public class CustomerDashboard extends javax.swing.JFrame {
          System.out.println("Errors: " + ex.getMessage());
         }
     }
-        public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
-        ImageIcon MyImage = null;
-        if(ImagePath !=null){
-            MyImage = new ImageIcon(ImagePath);
-        }else{
-            MyImage = new ImageIcon(pic);
-        }
         
-    int newHeight = getHeightFromWidth(ImagePath, label.getWidth());
-
-    Image img = MyImage.getImage();
-    Image newImg = img.getScaledInstance(label.getWidth(), newHeight, Image.SCALE_SMOOTH);
-    ImageIcon image = new ImageIcon(newImg);
-    return image;
-    }
-    
     public void displayAmount(){
-       Session ses = Session.getInstance();
-       int userId = ses.getId();
-       
-       String sql = "SELECT ap.amount , s.status_name "
-               + "FROM tbl_application ap "
-               + "INNER JOIN tbl_status s "
-               + "ON ap.loan_status_id = s.loan_status_id "
-               + "WHERE user_id = ? AND status_name = 'Approved' ";
-       try{
-           dbConnector dbc = new dbConnector();
-           PreparedStatement pst = dbc.getConnection().prepareStatement(sql);
-           pst.setInt(1, userId);
-           
-           ResultSet rs = pst.executeQuery();
-           
-           if(rs.next()){
-               double amount = rs.getDouble("amount");
-               money.setText(String.valueOf(amount));
-           }else{
-               System.out.println("Your Application is not Approved by the administrator or staff. ");
-           }
-           rs.close();
-           pst.close();
-       }catch(SQLException ex){
-           System.out.println("ERROR fecthing loan: "+ ex.getMessage());
-       }
-    }
-       
-         private void displayImage() {
-                dbConnector dbc = new dbConnector();
-        try {
-            String sql = "SELECT profile_pic FROM tbl_user WHERE u_id = " + Session.getInstance().getId();
-            ResultSet rs = dbc.getData(sql);
+    Session ses = Session.getInstance();
+    int userId = ses.getId();
 
-        if (rs.next()) {
-            String imagePath = rs.getString("profile_pic");
-            if (imagePath != null && !imagePath.isEmpty()) {
-                image.setIcon(ResizeImage(imagePath, null, image));
-            }
+    String sql = "SELECT ap.amount , s.status_name "
+               + "FROM tbl_application ap "
+               + "INNER JOIN tbl_status s ON ap.loan_status_id = s.loan_status_id "
+               + "WHERE user_id = ? AND status_name = 'Approved'";
+    try {
+        dbConnector dbc = new dbConnector();
+        PreparedStatement pst = dbc.getConnection().prepareStatement(sql);
+        pst.setInt(1, userId);
+
+        ResultSet rs = pst.executeQuery();
+
+        double totalAmount = 0.0;
+        while(rs.next()) {
+            totalAmount += rs.getDouble("amount");
         }
+
+        if (totalAmount > 0) {
+            money.setText(String.valueOf(totalAmount));
+        } else {
+            System.out.println("Your Application is not Approved by the administrator or staff.");
+        }
+
         rs.close();
-    } catch (SQLException ex) {
-        System.out.println("Error loading profile image: " + ex.getMessage());
+        pst.close();
+    } catch(SQLException ex){
+        System.out.println("ERROR fetching loan: " + ex.getMessage());
     }
-}
+    }
+
 
     
     @SuppressWarnings("unchecked")
@@ -113,7 +80,6 @@ public class CustomerDashboard extends javax.swing.JFrame {
         customer_tbl = new javax.swing.JTable();
         seeall = new javax.swing.JLabel();
         refresh = new javax.swing.JLabel();
-        image = new javax.swing.JLabel();
         cellphone = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -180,20 +146,14 @@ public class CustomerDashboard extends javax.swing.JFrame {
                 seeallMouseClicked(evt);
             }
         });
-        jPanel1.add(seeall, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 340, 50, -1));
+        jPanel1.add(seeall, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 340, 50, -1));
 
-        refresh.setText("Refresh");
         refresh.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 refreshMouseClicked(evt);
             }
         });
-        jPanel1.add(refresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 340, -1, -1));
-
-        image.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/manage user.png"))); // NOI18N
-        image.setToolTipText("");
-        jPanel1.add(image, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, 50, 50));
+        jPanel1.add(refresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 330, 20, 30));
 
         cellphone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Customer.png"))); // NOI18N
@@ -235,7 +195,7 @@ public class CustomerDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_minimizeMouseClicked
 
     private void profilesettingsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profilesettingsMouseClicked
-        new CustomerProfile().setVisible(true);
+        new Profile().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_profilesettingsMouseClicked
 
@@ -288,7 +248,6 @@ public class CustomerDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel cellphone;
     public javax.swing.JTable customer_tbl;
     private javax.swing.JLabel home;
-    private javax.swing.JLabel image;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel minimize;

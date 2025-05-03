@@ -23,8 +23,6 @@ public class LogIn extends javax.swing.JFrame {
     private void initComponents() {
 
         LuyoCp = new javax.swing.JPanel();
-        forgotpassPane = new javax.swing.JPanel();
-        forgot = new javax.swing.JLabel();
         signupPane = new javax.swing.JPanel();
         signup = new javax.swing.JLabel();
         username = new javax.swing.JTextField();
@@ -34,6 +32,7 @@ public class LogIn extends javax.swing.JFrame {
         back = new javax.swing.JLabel();
         home = new javax.swing.JLabel();
         minimize = new javax.swing.JLabel();
+        forgot = new javax.swing.JLabel();
         cellphone = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -43,41 +42,6 @@ public class LogIn extends javax.swing.JFrame {
         LuyoCp.setBackground(new java.awt.Color(0, 0, 0));
         LuyoCp.setPreferredSize(new java.awt.Dimension(480, 645));
         LuyoCp.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        forgotpassPane.setBackground(new java.awt.Color(255, 255, 255));
-        forgotpassPane.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                forgotpassPaneMouseClicked(evt);
-            }
-        });
-
-        forgot.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        forgot.setForeground(new java.awt.Color(0, 102, 204));
-        forgot.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        forgot.setText("Forgot Password?");
-        forgot.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                forgotMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout forgotpassPaneLayout = new javax.swing.GroupLayout(forgotpassPane);
-        forgotpassPane.setLayout(forgotpassPaneLayout);
-        forgotpassPaneLayout.setHorizontalGroup(
-            forgotpassPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, forgotpassPaneLayout.createSequentialGroup()
-                .addGap(0, 3, Short.MAX_VALUE)
-                .addComponent(forgot))
-        );
-        forgotpassPaneLayout.setVerticalGroup(
-            forgotpassPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(forgotpassPaneLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(forgot)
-                .addContainerGap(14, Short.MAX_VALUE))
-        );
-
-        LuyoCp.add(forgotpassPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(177, 360, 100, 40));
 
         signupPane.setBackground(new java.awt.Color(255, 255, 255));
         signupPane.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -101,9 +65,9 @@ public class LogIn extends javax.swing.JFrame {
         signupPaneLayout.setHorizontalGroup(
             signupPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(signupPaneLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(23, 23, 23)
                 .addComponent(signup)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         signupPaneLayout.setVerticalGroup(
             signupPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,7 +76,7 @@ public class LogIn extends javax.swing.JFrame {
                 .addGap(0, 5, Short.MAX_VALUE))
         );
 
-        LuyoCp.add(signupPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 480, 90, 20));
+        LuyoCp.add(signupPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 490, 90, 20));
 
         username.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         username.setText("Username");
@@ -122,12 +86,12 @@ public class LogIn extends javax.swing.JFrame {
                 usernameActionPerformed(evt);
             }
         });
-        LuyoCp.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 240, 140, 30));
+        LuyoCp.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 250, 140, 20));
 
         pass.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         pass.setText("password");
         pass.setBorder(null);
-        LuyoCp.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 310, 140, 30));
+        LuyoCp.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 320, 140, 20));
 
         loginpane.setBackground(new java.awt.Color(0, 153, 204));
         loginpane.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -173,7 +137,7 @@ public class LogIn extends javax.swing.JFrame {
                 homeMouseClicked(evt);
             }
         });
-        LuyoCp.add(home, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 590, 40, 20));
+        LuyoCp.add(home, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 590, 40, 30));
 
         minimize.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         minimize.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -181,12 +145,23 @@ public class LogIn extends javax.swing.JFrame {
                 minimizeMouseClicked(evt);
             }
         });
-        LuyoCp.add(minimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 590, 50, 20));
+        LuyoCp.add(minimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 590, 50, 30));
+
+        forgot.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        forgot.setForeground(new java.awt.Color(0, 102, 204));
+        forgot.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        forgot.setText("Forgot Password?");
+        forgot.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                forgotMouseClicked(evt);
+            }
+        });
+        LuyoCp.add(forgot, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 370, -1, 20));
 
         cellphone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Log In.png"))); // NOI18N
         cellphone.setPreferredSize(new java.awt.Dimension(350, 625));
-        LuyoCp.add(cellphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 630));
+        LuyoCp.add(cellphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 640));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -196,7 +171,7 @@ public class LogIn extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(LuyoCp, javax.swing.GroupLayout.DEFAULT_SIZE, 638, Short.MAX_VALUE)
+            .addComponent(LuyoCp, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
         );
 
         pack();
@@ -207,12 +182,9 @@ public class LogIn extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_usernameActionPerformed
 
-    private void forgotpassPaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_forgotpassPaneMouseClicked
-        
-    }//GEN-LAST:event_forgotpassPaneMouseClicked
-
     private void forgotMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_forgotMouseClicked
-         
+         new forgotpass().setVisible(true);
+         this.dispose();
     }//GEN-LAST:event_forgotMouseClicked
 
     private void signupMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signupMouseClicked
@@ -231,10 +203,9 @@ public class LogIn extends javax.swing.JFrame {
     private void loginpaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginpaneMouseClicked
         try{
         dbConnector dbc = new dbConnector();
-        Connection conn = dbc.getConnection();
         
         String sql = "SELECT * FROM tbl_user WHERE u_username = ?";
-        PreparedStatement pstmt = conn.prepareStatement(sql);
+        PreparedStatement pstmt = dbc.connect.prepareStatement(sql);
         
         pstmt.setString(1, username.getText().trim());
         
@@ -272,7 +243,7 @@ public class LogIn extends javax.swing.JFrame {
             if(roleId == 1){
                 new adminDashboard().setVisible(true);
             }else if(roleId == 2){
-                new ManageUser().setVisible(true);
+                new staffDashboard().setVisible(true);
             }else if(roleId == 3){
                 new CustomerDashboard().setVisible(true);
             }else{
@@ -289,7 +260,6 @@ public class LogIn extends javax.swing.JFrame {
         
         rs.close();
         pstmt.close();
-        conn.close();
         
         } catch (SQLException ex) {
         System.out.println("Error: " + ex.getMessage());
@@ -354,7 +324,6 @@ public class LogIn extends javax.swing.JFrame {
     private javax.swing.JLabel back;
     private javax.swing.JLabel cellphone;
     private javax.swing.JLabel forgot;
-    private javax.swing.JPanel forgotpassPane;
     private javax.swing.JLabel home;
     private javax.swing.JLabel login;
     private javax.swing.JPanel loginpane;

@@ -2,6 +2,7 @@ package UsersPage;
 
 import config.*;
 import java.awt.*;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -18,14 +19,48 @@ public class editUser extends javax.swing.JFrame {
     int validateTegister(){
         int result;
         
-        if(fname.getText().trim().isEmpty() || lname.getText().trim().isEmpty()){
+        if(fname.getText().trim().isEmpty() || lname.getText().trim().isEmpty() || Email.getText().trim().isEmpty() ||
+                contact.getText().trim().isEmpty() || address.getText().trim().isEmpty()){
             result = 0;
-        }else{
+        }else if(!contact.getText().matches("\\d+")) {  
+            JOptionPane.showMessageDialog(null, "Contact number should contain only numbers!");
+             result = 0;
+        }else if(!Email.getText().matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) { 
+             JOptionPane.showMessageDialog(null, "Please enter a valid email address!");
+             result = 0;
+        } else if(duplicateCheck()) {             
+            JOptionPane.showMessageDialog(this, "DUPLICATE EXISTS!");
+            result = 0;
+        } else{
             result = 1;
         }
         return result;
     }          
     
+    public boolean duplicateCheck() {
+    boolean exists = false;
+    dbConnector dbc = new dbConnector();
+    
+    try {
+        String sql = "SELECT * FROM tbl_user WHERE u_email = ?";
+        
+        PreparedStatement pstmt = dbc.connect.prepareStatement(sql);
+        pstmt.setString(1, Email.getText()); 
+        
+        ResultSet rs = pstmt.executeQuery(); 
+        
+        if (rs.next()) { 
+            exists = true;
+        }
+        rs.close();
+        pstmt.close();
+        
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    
+    return exists;
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -38,10 +73,13 @@ public class editUser extends javax.swing.JFrame {
         lname = new javax.swing.JTextField();
         save = new javax.swing.JLabel();
         id1 = new javax.swing.JLabel();
-        id = new javax.swing.JLabel();
         back = new javax.swing.JLabel();
         home = new javax.swing.JLabel();
         minimize = new javax.swing.JLabel();
+        Email = new javax.swing.JTextField();
+        contact = new javax.swing.JTextField();
+        addressjScrollPane1 = new javax.swing.JScrollPane();
+        address = new javax.swing.JTextArea();
         cellphone = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -51,7 +89,7 @@ public class editUser extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(352, 625));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        role.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        role.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Staff", "Customer" }));
         role.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         role.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -60,13 +98,13 @@ public class editUser extends javax.swing.JFrame {
                 roleActionPerformed(evt);
             }
         });
-        jPanel1.add(role, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 390, 160, -1));
+        jPanel1.add(role, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 350, 160, -1));
 
-        status.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        status.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pending", "Active" }));
         status.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         status.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jPanel1.add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, 160, -1));
+        jPanel1.add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 290, 160, -1));
 
         fname.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         fname.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -77,7 +115,7 @@ public class editUser extends javax.swing.JFrame {
                 fnameActionPerformed(evt);
             }
         });
-        jPanel1.add(fname, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 160, 20));
+        jPanel1.add(fname, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, 80, 30));
 
         lname.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         lname.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -88,7 +126,7 @@ public class editUser extends javax.swing.JFrame {
                 lnameActionPerformed(evt);
             }
         });
-        jPanel1.add(lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 240, 160, 20));
+        jPanel1.add(lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, 80, 30));
 
         save.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         save.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -97,15 +135,11 @@ public class editUser extends javax.swing.JFrame {
                 saveMouseClicked(evt);
             }
         });
-        jPanel1.add(save, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 440, 110, 30));
+        jPanel1.add(save, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 530, 110, 30));
 
         id1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jPanel1.add(id1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 130, 20));
-
-        id.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        id.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        id.setText("ID");
-        jPanel1.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 30, 20));
+        id1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel1.add(id1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 60, 40, 30));
 
         back.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         back.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -130,6 +164,34 @@ public class editUser extends javax.swing.JFrame {
             }
         });
         jPanel1.add(minimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 580, 50, 30));
+
+        Email.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        Email.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        Email.setText("@gmail.com");
+        Email.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        Email.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EmailActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Email, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 160, 30));
+
+        contact.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        contact.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        contact.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        contact.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                contactActionPerformed(evt);
+            }
+        });
+        jPanel1.add(contact, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, 160, 30));
+
+        address.setColumns(20);
+        address.setRows(5);
+        address.setBorder(null);
+        addressjScrollPane1.setViewportView(address);
+
+        jPanel1.add(addressjScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 400, 220, 120));
 
         cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/EditUser.png"))); // NOI18N
         jPanel1.add(cellphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -181,14 +243,15 @@ public class editUser extends javax.swing.JFrame {
 
                 if (roleId != 0) {
                     dbc.updateData("UPDATE tbl_user SET u_fname = '"+fname.getText().trim()+"', u_lname = '"+lname.getText().trim()+"',"
-                            + "u_status = '"+status.getSelectedItem()+"', role_id = '"+roleId+"' "
+                            + "u_status = '"+status.getSelectedItem()+"', role_id = '"+roleId+"', u_email = '" + Email.getText().trim() + "', "
+                            + "u_contact = '" + contact.getText().trim() + "', u_address = '" + address.getText().trim() + "'  "
                             + "WHERE u_id = '"+id1.getText()+"' ");
                     
                     int actingUserId = Session.getInstance().getId(); 
                     String action = "Updated User with ID: " + id1.getText();
                     dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
                 }
-            new ManageUser().setVisible(true);
+            new ManageUserAdmin().setVisible(true);
             this.dispose();
         } else {
              JOptionPane.showMessageDialog(null, "ALL FIELDS REQUIRED!");
@@ -202,7 +265,7 @@ public class editUser extends javax.swing.JFrame {
     }//GEN-LAST:event_saveMouseClicked
 
     private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
-        new ManageUser().setVisible(true);
+        new ManageUserAdmin().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backMouseClicked
 
@@ -221,6 +284,14 @@ public class editUser extends javax.swing.JFrame {
     private void roleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roleActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_roleActionPerformed
+
+    private void EmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EmailActionPerformed
+
+    private void contactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contactActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_contactActionPerformed
 
     /**
      * @param args the command line arguments
@@ -259,11 +330,14 @@ public class editUser extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField Email;
+    private javax.swing.JTextArea address;
+    private javax.swing.JScrollPane addressjScrollPane1;
     private javax.swing.JLabel back;
     private javax.swing.JLabel cellphone;
+    private javax.swing.JTextField contact;
     public javax.swing.JTextField fname;
     private javax.swing.JLabel home;
-    private javax.swing.JLabel id;
     public javax.swing.JLabel id1;
     private javax.swing.JPanel jPanel1;
     public javax.swing.JTextField lname;

@@ -1,25 +1,25 @@
 package ProfilePage;
 
-import Authentication.changepassAdmin;
+import AdminPage.*;
 import Authentication.*;
-import UsersPage.*;
+import UsersPage.CustomerDashboard;
 import config.*;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.*;
 import java.sql.*;
-import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.image.*;
+import java.io.*;
+import java.nio.file.*;
+import javax.imageio.ImageIO;
 
-public class CustomerProfile extends javax.swing.JFrame {
+public class Profile extends javax.swing.JFrame {
 
-    public CustomerProfile() {
+    public Profile() {
         initComponents();
-    
         displayUserDetails();
+        Image();
     }
+    
     private void displayUserDetails() {
     Session ses = Session.getInstance();
     
@@ -27,7 +27,7 @@ public class CustomerProfile extends javax.swing.JFrame {
         System.out.println("Session ID: "+ses.getId());
         JOptionPane.showMessageDialog(this, "No Account Found, Please Log In First.");
         //new LogIn().setVisible(true);
-         LogIn login = new LogIn();
+        LogIn login = new LogIn();
         login.setVisible(true);
         this.setVisible(false);
         this.dispose();
@@ -41,31 +41,91 @@ public class CustomerProfile extends javax.swing.JFrame {
     address.setText(""+ses.getAddress());
     }
     }   
+
+
+    public void Image (){
+        try {
+    dbConnector dbc = new dbConnector();
+    Session sess = Session.getInstance();
+
+    ResultSet rs = dbc.getData("SELECT profile_pic FROM tbl_user WHERE u_id = " + sess.getId());
+
+    if (rs.next()) {
+        String path = rs.getString("profile_pic");
+        if (path == null || path.trim().isEmpty()) {
+            image.setIcon(new ImageIcon("src/userimages/default.png"));
+        } else {
+            image.setIcon(new ImageIcon(path));
+        }
+    }
+        rs.close();
+    } catch (SQLException ex) {
+        System.out.println("Error loading profile image: " + ex.getMessage());
+    }
+    }
     
     
     int validateTegister(){
         int result;
         
-        if(fname.getText().isEmpty() || lname.getText().isEmpty() || address.getText().isEmpty() ||
-           email.getText().isEmpty() || contact.getText().isEmpty()){
+        if(fname.getText().trim().isEmpty() || lname.getText().trim().isEmpty() || email.getText().trim().isEmpty() ||
+                contact.getText().trim().isEmpty() || address.getText().trim().isEmpty()){
             result = 0;
-        }else{
+        }else if(!contact.getText().matches("\\d+")) {  
+            JOptionPane.showMessageDialog(null, "Contact number should contain only numbers!");
+             result = 0;
+        }else if(!email.getText().matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) { 
+             JOptionPane.showMessageDialog(null, "Please enter a valid email address!");
+             result = 0;
+        } else if(duplicateCheck()) {             
+            JOptionPane.showMessageDialog(this, "EMAIL EXISTS!");
+            result = 0;
+        } else{
             result = 1;
         }
         return result;
     }
+    
+    
+    
+    public boolean duplicateCheck() {
+    boolean exists = false;
+    dbConnector dbc = new dbConnector();
+    
+    try {
+        String sql = "SELECT * FROM tbl_user WHERE u_email = ?";
+        
+        PreparedStatement pstmt = dbc.connect.prepareStatement(sql);
+        pstmt.setString(1, email.getText()); 
+        
+        ResultSet rs = pstmt.executeQuery(); 
+        
+        if (rs.next()) { 
+            exists = true;
+        }
+        rs.close();
+        pstmt.close();
+        
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    
+    return exists;
+    }
+    
     public String destination = "";
     File selectedFile;
     public String oldpath;
     public String path;
-//--------------------------------------------------------------------------
 
-
-public int FileExistenceChecker(String path){
+    
+    
+    
+    public int FileExistenceChecker(String path){
         File file = new File(path);
         String fileName = file.getName();
         
-        Path filePath = Paths.get("src/images", fileName);
+        Path filePath = Paths.get("src/userimages", fileName);
         boolean fileExists = Files.exists(filePath);
         
         if (fileExists) {
@@ -120,28 +180,34 @@ public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
 
 //----------------------------------------------------------------------------------------
 
-    public void imageUpdater(String existingFilePath, String newFilePath){
+    public void imageUpdater(String existingFilePath, String newFilePath) {
+    try {
         File existingFile = new File(existingFilePath);
-        if (existingFile.exists()) {
-            String parentDirectory = existingFile.getParent();
-            File newFile = new File(newFilePath);
-            String newFileName = newFile.getName();
-            File updatedFile = new File(parentDirectory, newFileName);
-            existingFile.delete();
-            try {
-                Files.copy(newFile.toPath(), updatedFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                System.out.println("Image updated successfully.");
-            } catch (IOException e) {
-                System.out.println("Error occurred while updating the image: "+e);
+        File newFile = new File(newFilePath);
+        
+        if (existingFilePath.contains("default.png")) {
+            System.out.println("Default image is protected. Skipping update.");
+            return;
+        }
+        
+        if (!existingFilePath.equals(newFilePath)) {
+            File targetFile = new File(existingFile.getParent(), newFile.getName());
+
+            Files.copy(newFile.toPath(), targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("Image updated successfully.");
+
+            if (!existingFile.getName().equals(newFile.getName())) {
+                existingFile.delete();
             }
         } else {
-            try{
-                Files.copy(selectedFile.toPath(), new File(destination).toPath(), StandardCopyOption.REPLACE_EXISTING);
-            }catch(IOException e){
-                System.out.println("Error on update!");
-            }
+            System.out.println("No image change detected.");
         }
-   }
+
+    } catch (IOException e) {
+        System.out.println("Error occurred while updating the image: " + e.getMessage());
+    }
+}
+
 
 
 
@@ -149,6 +215,7 @@ public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         save = new javax.swing.JLabel();
         logout = new javax.swing.JLabel();
@@ -166,9 +233,11 @@ public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
         email = new javax.swing.JTextField();
         fname = new javax.swing.JTextField();
         lname = new javax.swing.JTextField();
-        image1 = new javax.swing.JLabel();
         image = new javax.swing.JLabel();
+        image1 = new javax.swing.JLabel();
         cellphone = new javax.swing.JLabel();
+
+        jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -220,11 +289,11 @@ public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
 
         id1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         id1.setText("ID");
-        jPanel1.add(id1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 20, 20));
+        jPanel1.add(id1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 20, 20));
 
         id.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         id.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 150, 70, 20));
+        jPanel1.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 60, 20));
 
         exit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -278,19 +347,20 @@ public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
         lname.setBorder(null);
         jPanel1.add(lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(119, 210, 70, 20));
 
-        image1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                image1MouseClicked(evt);
-            }
-        });
-        jPanel1.add(image1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, 20, 20));
-
         image.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 imageMouseClicked(evt);
             }
         });
-        jPanel1.add(image, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, 110, 90));
+        jPanel1.add(image, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, 180, 90));
+
+        image1.setText("Image");
+        image1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                image1MouseClicked(evt);
+            }
+        });
+        jPanel1.add(image1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 40, 20));
 
         cellphone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/updateadminProfile.png"))); // NOI18N
@@ -313,106 +383,168 @@ public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void saveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMouseClicked
-        dbConnector dbc = new dbConnector();
-        int check = validateTegister();
-
-        if (check == 1) {
-            try {
-
-                String sql = "UPDATE tbl_user SET u_fname = ?, u_lname = ?, u_address = ?, u_contact = ?, u_email = ?, validid_path = ? WHERE u_id = ?";
-
-                PreparedStatement pstmt = dbc.getConnection().prepareStatement(sql);
-
-                pstmt.setString(1, fname.getText().trim());
-                pstmt.setString(2, lname.getText().trim());
-                pstmt.setString(3, address.getText().trim());
-                pstmt.setString(4, contact.getText().trim());
-                pstmt.setString(5, email.getText().trim());// pstmt.setInt(6, Integer.parseInt(id.getText().trim()));
-                pstmt.setString(6, destination);
-                pstmt.setInt(7, Integer.parseInt(id.getText().trim()));
-                    
-                if (destination == null || destination.isEmpty()) {
-                    if (oldpath != null) {
-                        File existingFile = new File(oldpath);
-                            if (existingFile.exists()) {
-                                existingFile.delete();
-                            }
-                    }
-                } else {
-                    if (oldpath != null && path != null && !oldpath.equals(path)) {
-                        imageUpdater(oldpath, path);
-                    }
-                }
-
-                int actingUserId = Session.getInstance().getId();
-                String action = "Saving data admin profile";
-                dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
-
-                int result = pstmt.executeUpdate();
-
-                if (result > 0) {
-                    JOptionPane.showMessageDialog(null, "User details updated successfully!");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Update failed! User ID not found.");
-                }
-                pstmt.close();
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Something ERROR!");
-                System.out.println("Error: " + ex.getMessage());
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "ALL FIELDS REQUIRED!");
-        }
-    }//GEN-LAST:event_saveMouseClicked
-
-    private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
-        dbConnector dbc = new dbConnector();
-        int actingUserId = Session.getInstance().getId();
-        String action = "Log Out";
-        dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
-        new LogIn().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_logoutMouseClicked
-
-    private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
-        new CustomerDashboard().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_backMouseClicked
-
     private void homeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeMouseClicked
         int a = JOptionPane.showConfirmDialog(null, "Confirm EXIT?");
 
         if(a == JOptionPane.YES_OPTION){
             System.exit(0);
-        }
+        }       
     }//GEN-LAST:event_homeMouseClicked
 
     private void minimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeMouseClicked
         setState(ICONIFIED);
     }//GEN-LAST:event_minimizeMouseClicked
 
-    private void exitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitMouseClicked
-        new CustomerDashboard().setVisible(true);
+    private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
+        dbConnector dbc = new dbConnector();
+        int actingUserId = Session.getInstance().getId(); 
+        String action = "Log Out";
+        dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
+        new LogIn().setVisible(true);
         this.dispose();
+    }//GEN-LAST:event_logoutMouseClicked
+
+    private void saveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMouseClicked
+           dbConnector dbc = new dbConnector();
+            int check = validateTegister();
+    
+    if (check == 1) {
+        try {
+            String sql = "UPDATE tbl_user SET u_fname = ?, u_lname = ?, u_address = ?, u_contact = ?, u_email = ?, profile_pic = ? WHERE u_id = ?";
+            PreparedStatement pstmt = dbc.getConnection().prepareStatement(sql);
+
+            pstmt.setString(1, fname.getText().trim());
+            pstmt.setString(2, lname.getText().trim());
+            pstmt.setString(3, address.getText().trim());
+            pstmt.setString(4, contact.getText().trim());
+            pstmt.setString(5, email.getText().trim());
+            pstmt.setString(6, destination);
+            pstmt.setInt(7, Integer.parseInt(id.getText().trim()));
+                int actingUserId = Session.getInstance().getId(); 
+                String action = "Saving data admin profile";
+                dbc.insertData("INSERT INTO tbl_log(user_id, action, log_date) VALUES (" + actingUserId + ", '" + action + "', NOW())");
+            
+            int result = pstmt.executeUpdate();
+
+            if (result > 0) {
+                JOptionPane.showMessageDialog(null, "User details updated successfully!");
+            }else {
+                JOptionPane.showMessageDialog(null, "Update failed! User ID not found.");
+            }
+            pstmt.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Something ERROR!");
+            System.out.println("Error: " + ex.getMessage());
+        }
+    } else {
+        JOptionPane.showMessageDialog(null, "ALL FIELDS REQUIRED!");
+    }
+    }//GEN-LAST:event_saveMouseClicked
+
+    private void exitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitMouseClicked
+        try {
+        dbConnector dbc = new dbConnector();
+        String sql = "SELECT role_id FROM tbl_user WHERE u_id = ?";
+        PreparedStatement pstmt = dbc.connect.prepareStatement(sql);
+        pstmt.setInt(1, Session.getInstance().getId());
+        ResultSet rs = pstmt.executeQuery();
+
+        if (rs.next()) {
+            int roleId = rs.getInt("role_id");
+
+            if (roleId == 1) {
+                new adminDashboard().setVisible(true);
+            } else if (roleId == 2) {
+                new staffDashboard().setVisible(true);
+            } else if (roleId == 3) {
+                new CustomerDashboard().setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "UNKNOWN ROLE!");
+            }
+
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "User not found!");
+        }
+
+        rs.close();
+        pstmt.close();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(this, "Database error: " + ex.getMessage());
+    }
     }//GEN-LAST:event_exitMouseClicked
 
-    private void securityMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_securityMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_securityMouseClicked
+    private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
+         try {
+        dbConnector dbc = new dbConnector();
+        String sql = "SELECT role_id FROM tbl_user WHERE u_id = ?";
+        PreparedStatement pstmt = dbc.connect.prepareStatement(sql);
+        pstmt.setInt(1, Session.getInstance().getId());
+        ResultSet rs = pstmt.executeQuery();
+
+        if (rs.next()) {
+            int roleId = rs.getInt("role_id");
+
+            if (roleId == 1) {
+                new adminDashboard().setVisible(true);
+            } else if (roleId == 2) {
+                new staffDashboard().setVisible(true);
+            } else if (roleId == 3) {
+                new CustomerDashboard().setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "UNKNOWN ROLE!");
+            }
+
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "User not found!");
+        }
+
+        rs.close();
+        pstmt.close();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(this, "Database error: " + ex.getMessage());
+    }
+    }//GEN-LAST:event_backMouseClicked
 
     private void changepassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changepassMouseClicked
         new changepassAdmin().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_changepassMouseClicked
 
+    private void imageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageMouseClicked
+            JFileChooser fileChooser = new JFileChooser();
+                int returnValue = fileChooser.showOpenDialog(null);
+                if (returnValue == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        selectedFile = fileChooser.getSelectedFile();
+                        destination = "src/userimages/" + selectedFile.getName();
+                        path  = selectedFile.getAbsolutePath();
+                        
+                        
+                        if(FileExistenceChecker(path) == 1){
+                          JOptionPane.showMessageDialog(null, "File Already Exist, Rename or Choose another!");
+                            destination = "";
+                            path="";
+                        }else{
+                            image.setIcon(ResizeImage(path, null, image));
+                            
+                        }
+                    } catch (Exception ex) {
+                        System.out.println("File Error!");
+                    }
+                }
+
+    }//GEN-LAST:event_imageMouseClicked
+
     private void image1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_image1MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_image1MouseClicked
 
-    private void imageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageMouseClicked
-
-    }//GEN-LAST:event_imageMouseClicked
+    private void securityMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_securityMouseClicked
+        new SecurityDashboard().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_securityMouseClicked
 
     /**
      * @param args the command line arguments
@@ -420,7 +552,7 @@ public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with cellphoneault look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
@@ -431,13 +563,13 @@ public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CustomerProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Profile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CustomerProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Profile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CustomerProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Profile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CustomerProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Profile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -445,7 +577,7 @@ public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CustomerProfile().setVisible(true);
+                new Profile().setVisible(true);
             }
         });
     }
@@ -465,6 +597,7 @@ public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
     private javax.swing.JLabel id1;
     private javax.swing.JLabel image;
     private javax.swing.JLabel image1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField lname;
     private javax.swing.JLabel logout;
@@ -472,5 +605,4 @@ public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
     private javax.swing.JLabel save;
     private javax.swing.JLabel security;
     // End of variables declaration//GEN-END:variables
-
 }

@@ -1,6 +1,6 @@
 package ApplicationPage;
 
-import AdminPage.adminDashboard;
+import AdminPage.*;
 import config.Session;
 import config.dbConnector;
 import java.sql.*;
@@ -166,8 +166,35 @@ public class ApplicationDashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
-        new adminDashboard().setVisible(true);
-        this.dispose();
+        try {
+        dbConnector dbc = new dbConnector();
+        String sql = "SELECT role_id FROM tbl_user WHERE u_id = ?";
+        PreparedStatement pstmt = dbc.connect.prepareStatement(sql);
+        pstmt.setInt(1, Session.getInstance().getId());
+        ResultSet rs = pstmt.executeQuery();
+
+        if (rs.next()) {
+            int roleId = rs.getInt("role_id");
+
+            if (roleId == 1) {
+                new adminDashboard().setVisible(true);
+            } else if (roleId == 2) {
+                new staffDashboard().setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "UNKNOWN ROLE!");
+            }
+
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "User not found!");
+        }
+
+        rs.close();
+        pstmt.close();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(this, "Database error: " + ex.getMessage());
+    }
+
     }//GEN-LAST:event_backMouseClicked
 
     private void homeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeMouseClicked
@@ -228,6 +255,12 @@ public class ApplicationDashboard extends javax.swing.JFrame {
             TableModel model = application_tbl.getModel();
             Object value = model.getValueAt(rowIndex, 0); 
             String id = value.toString();
+            String status = model.getValueAt(rowIndex, 6).toString(); 
+
+        if (status.equalsIgnoreCase("Approved")) {
+            JOptionPane.showMessageDialog(null, "Cannot delete an Approved loan application!");
+            return;
+        }
 
         int a = JOptionPane.showConfirmDialog(null, "Are you sure to 'delete' ID: " + id + "?");
         if (a == JOptionPane.YES_OPTION) {

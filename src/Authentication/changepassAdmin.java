@@ -1,6 +1,6 @@
 package Authentication;
 
-import ProfilePage.adminProfile;
+import ProfilePage.Profile;
 import config.*;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
@@ -181,7 +181,7 @@ public class changepassAdmin extends javax.swing.JFrame {
        dbConnector dbc = new dbConnector();
        Session sess = Session.getInstance();   
 
-try {
+    try {
     String sql = "SELECT u_password FROM tbl_user WHERE u_id = ?";
     PreparedStatement pstmt = dbc.getConnection().prepareStatement(sql);
     pstmt.setInt(1, sess.getId()); 
@@ -189,7 +189,7 @@ try {
     ResultSet rs = pstmt.executeQuery();
     
     int check = validateTegister();
-if(check == 1){
+    if(check == 1){
     if (rs.next()) {
         String olddbpass = rs.getString("u_password");
         String oldhash = passwordHasher.hashPassword(oldpass.getText().trim());
@@ -209,7 +209,7 @@ if(check == 1){
             int result = updateStmt.executeUpdate();
             if (result > 0) {
                 JOptionPane.showMessageDialog(null, "SAVE SUCCESS!");
-                new adminProfile().setVisible(true);
+                new Profile().setVisible(true);
                 this.dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Update Failed!");
@@ -239,12 +239,12 @@ if(check == 1){
     }//GEN-LAST:event_idMouseClicked
 
     private void exitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitMouseClicked
-        new adminProfile().setVisible(true);
+        new Profile().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_exitMouseClicked
 
     private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
-        new adminProfile().setVisible(true);
+        new Profile().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backMouseClicked
 

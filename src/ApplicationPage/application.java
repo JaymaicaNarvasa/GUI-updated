@@ -1,6 +1,6 @@
 package ApplicationPage;
 
-import ProfilePage.CustomerProfile;
+import ProfilePage.Profile;
 import UsersPage.*;
 import config.*;
 import java.awt.*;
@@ -136,7 +136,7 @@ public class application extends javax.swing.JFrame {
         name = new javax.swing.JLabel();
         edit = new javax.swing.JLabel();
         loanamt = new javax.swing.JComboBox<>();
-        type = new javax.swing.JComboBox<>();
+        interest1 = new javax.swing.JLabel();
         interest = new javax.swing.JLabel();
         addpane = new javax.swing.JPanel();
         add = new javax.swing.JLabel();
@@ -150,6 +150,8 @@ public class application extends javax.swing.JFrame {
         home = new javax.swing.JLabel();
         minimize = new javax.swing.JLabel();
         profile = new javax.swing.JLabel();
+        type = new javax.swing.JComboBox<>();
+        amt = new javax.swing.JTextField();
         cellphone = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -161,11 +163,11 @@ public class application extends javax.swing.JFrame {
 
         email.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         email.setText("email@gmail.com");
-        luyoCp3.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 180, 30));
+        luyoCp3.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 180, 30));
 
         name.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         name.setText("Name");
-        luyoCp3.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, 180, 30));
+        luyoCp3.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, 180, 30));
 
         edit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         edit.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -187,20 +189,14 @@ public class application extends javax.swing.JFrame {
         });
         luyoCp3.add(loanamt, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 340, 110, 20));
 
-        type.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Home", "Personal", "Medical", "Education" }));
-        type.setBorder(null);
-        type.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                typeActionPerformed(evt);
-            }
-        });
-        luyoCp3.add(type, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, 110, 20));
+        interest1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        interest1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        luyoCp3.add(interest1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 50, 20));
 
         interest.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         interest.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         interest.setText("%");
-        luyoCp3.add(interest, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 280, 140, 20));
+        luyoCp3.add(interest, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 220, 20, 20));
 
         addpane.setBackground(new java.awt.Color(255, 204, 153));
         addpane.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -315,6 +311,27 @@ public class application extends javax.swing.JFrame {
         profile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/manage user.png"))); // NOI18N
         profile.setToolTipText("");
         luyoCp3.add(profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, 60, 60));
+
+        type.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Home", "Personal", "Medical", "Education" }));
+        type.setBorder(null);
+        type.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                typeActionPerformed(evt);
+            }
+        });
+        luyoCp3.add(type, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, 120, 20));
+
+        amt.setEditable(false);
+        amt.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        amt.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        amt.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        amt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                amtActionPerformed(evt);
+            }
+        });
+        luyoCp3.add(amt, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 280, 200, 20));
 
         cellphone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Application.png"))); // NOI18N
@@ -431,20 +448,6 @@ public class application extends javax.swing.JFrame {
         
     }//GEN-LAST:event_imageMouseClicked
 
-    private void typeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typeActionPerformed
-        if(type.getSelectedItem().equals("Home")){
-            interest.setText("5");
-        }else if (type.getSelectedItem().equals("Personal")){
-            interest.setText("6");
-        }else if (type.getSelectedItem().equals("Medical")){
-            interest.setText("4");
-        }else if (type.getSelectedItem().equals ("Education")){
-            interest.setText("4.5");
-        }else{
-            interest.setText("ERROR");
-        }
-    }//GEN-LAST:event_typeActionPerformed
-
     private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
         new CustomerDashboard().setVisible(true);
         this.dispose();
@@ -515,9 +518,33 @@ public class application extends javax.swing.JFrame {
     }//GEN-LAST:event_loanamtActionPerformed
 
     private void editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseClicked
-        new CustomerProfile().setVisible(true);
+        new Profile().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_editMouseClicked
+
+    private void amtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_amtActionPerformed
+        
+    }//GEN-LAST:event_amtActionPerformed
+
+    private void typeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typeActionPerformed
+        if(type.getSelectedItem().equals("Home")){
+            interest1.setText("5");
+        }else if (type.getSelectedItem().equals("Personal")){
+            interest1.setText("6");
+        }else if (type.getSelectedItem().equals("Medical")){
+            interest1.setText("4");
+        }else if (type.getSelectedItem().equals ("Education")){
+            interest1.setText("4.5");
+        }else{
+            interest1.setText("0.0");
+        }
+
+        double loanAmount = Double.parseDouble(loanamt.getSelectedItem().toString());
+        double interestRate = Double.parseDouble(interest1.getText()) / 100;
+        double amountToPay = loanAmount + (loanAmount * interestRate);
+        amt.setText(String.valueOf(amountToPay));
+
+    }//GEN-LAST:event_typeActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -556,6 +583,7 @@ public class application extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel add;
     private javax.swing.JPanel addpane;
+    public javax.swing.JTextField amt;
     private javax.swing.JLabel back;
     private javax.swing.JLabel cellphone;
     private javax.swing.JLabel edit;
@@ -563,6 +591,7 @@ public class application extends javax.swing.JFrame {
     private javax.swing.JLabel home;
     public javax.swing.JLabel image;
     private javax.swing.JLabel interest;
+    private javax.swing.JLabel interest1;
     private javax.swing.JComboBox<String> loanamt;
     private javax.swing.JPanel luyoCp3;
     private javax.swing.JLabel minimize;
@@ -572,7 +601,7 @@ public class application extends javax.swing.JFrame {
     public javax.swing.JLabel remove;
     public javax.swing.JLabel selec;
     private javax.swing.JComboBox<String> tenurebox;
-    private javax.swing.JComboBox<String> type;
+    public javax.swing.JComboBox<String> type;
     private javax.swing.JComboBox<String> yearbox;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,5 +1,6 @@
 package ApplicationPage;
 
+import Reports.ActivityDashboard;
 import config.*;
 import javax.swing.*;
 
@@ -168,15 +169,10 @@ public class CustomerApplication extends javax.swing.JFrame {
 
     private void amtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_amtActionPerformed
         
-        double loanAmount = Double.parseDouble(loanamt.getSelectedItem().toString());
-        double interestRate = Double.parseDouble(interest.getText()) / 100; 
-        double amountToPay = loanAmount + (loanAmount * interestRate);
-        amt.setText(String.valueOf(amountToPay));
-        
     }//GEN-LAST:event_amtActionPerformed
 
     private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
-        new ApplicationDashboard().setVisible(true);
+        new ActivityDashboard().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backMouseClicked
 
@@ -221,8 +217,14 @@ public class CustomerApplication extends javax.swing.JFrame {
         }else if (type.getSelectedItem().equals ("Education")){
             interest.setText("4.5");
         }else{
-            interest.setText("ERROR");
+            interest.setText("0.0");
         }
+        
+        double loanAmount = Double.parseDouble(loanamt.getSelectedItem().toString());
+        double interestRate = Double.parseDouble(interest.getText()) / 100; 
+        double amountToPay = loanAmount + (loanAmount * interestRate);
+        amt.setText(String.valueOf(amountToPay));
+        
     }//GEN-LAST:event_typeActionPerformed
 
     private void labelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelMouseClicked

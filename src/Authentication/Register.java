@@ -267,13 +267,13 @@ public class Register extends javax.swing.JFrame {
     private void registerPaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerPaneMouseClicked
        int check = validateTegister(); 
 
-if(check == 1){
+    if(check == 1){
     dbConnector dbc = new dbConnector();
     try{
         String pass1 = passwordHasher.hashPassword(pass.getText());
         String selecrole = role.getSelectedItem().toString();
         
-        ResultSet rs = dbc.getData("SELECT role_id FROM role WHERE role_name = '" + selecrole + "'");
+        ResultSet rs = dbc.getData("SELECT role_id FROM tbl_role WHERE role_name = '" + selecrole + "'");
         int roleId = 0;
         if(rs.next()) {
             roleId = rs.getInt("role_id");
@@ -281,10 +281,12 @@ if(check == 1){
             JOptionPane.showMessageDialog(null, "Role not found!");
             return;
         }
-
-        int result = dbc.insertData("INSERT INTO tbl_user(u_fname, u_lname, u_username, u_password, u_address, u_email, u_contact, u_status , role_id) "
+        String destination = "";
+        String profilePicPath = (destination.isEmpty()) ? "src/images/default.png" : destination;
+        
+        int result = dbc.insertData("INSERT INTO tbl_user(u_fname, u_lname, u_username, u_password, u_address, u_email, u_contact, u_status , role_id , profile_pic) "
               + "VALUES ('"+fname.getText()+"', '"+lname.getText()+"', '"+user.getText()+"', '"+pass1+"', '"+address.getText()+"', "
-                      + "'"+Email.getText()+"', '"+contact.getText()+"', 'Pending', "+ roleId +" )");
+                      + "'"+Email.getText()+"', '"+contact.getText()+"', 'Pending', "+ roleId +", '" + profilePicPath + "' )");
 
         if(result == 1){
             JOptionPane.showMessageDialog(null, "REGISTERED SUCCESSFULLY!");
@@ -297,14 +299,13 @@ if(check == 1){
             JOptionPane.showMessageDialog(null, "Saving Data FAILED!");
         }
 
-    } catch(NoSuchAlgorithmException | SQLException ex){
+        } catch(NoSuchAlgorithmException | SQLException ex){
         System.out.println("Error: " + ex);
-    }
+        }
 
-} else {
+    } else {
     System.out.println("ALL FIELDS REQUIRED!");
-}
-
+    }
     }//GEN-LAST:event_registerPaneMouseClicked
 
     /**
