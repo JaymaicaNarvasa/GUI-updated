@@ -5,12 +5,15 @@ import config.*;
 import java.awt.*;
 import java.sql.*;
 import javax.swing.*;
+import javax.swing.event.*;
+import javax.swing.table.*;
 import net.proteanit.sql.DbUtils;
 
 public class Logs extends javax.swing.JFrame {
 
     public Logs() {
         initComponents();
+        
         
 //        log_tbl.setShowGrid(false);
 //        log_tbl.setIntercellSpacing(new Dimension(0, 0)); 
@@ -50,6 +53,19 @@ public class Logs extends javax.swing.JFrame {
         }
 
     }
+    
+    JTextField searchField = new JTextField(20);
+    JTable userTable = new JTable();
+    DefaultTableModel model = (DefaultTableModel) userTable.getModel();
+
+    
+    public void search(String keyword) {
+    TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
+    userTable.setRowSorter(sorter);
+    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + keyword)); 
+    }
+    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -60,6 +76,8 @@ public class Logs extends javax.swing.JFrame {
         back = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         log_tbl = new javax.swing.JTable();
+        search = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         cellphone = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -107,6 +125,27 @@ public class Logs extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 260, 400));
 
+        search.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        search.setBorder(null);
+        search.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                searchMouseClicked(evt);
+            }
+        });
+        search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchActionPerformed(evt);
+            }
+        });
+        jPanel1.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, 230, 20));
+
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 20, 20));
+
         cellphone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Logs.png"))); // NOI18N
         jPanel1.add(cellphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 340, 636));
@@ -115,9 +154,7 @@ public class Logs extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,6 +185,20 @@ public class Logs extends javax.swing.JFrame {
         new adminDashboard().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backMouseClicked
+
+    private void searchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchMouseClicked
+
+    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
+        String keyword = searchField.getText();
+        search(keyword);
+    }//GEN-LAST:event_searchActionPerformed
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        String keyword = searchField.getText();
+        search(keyword);
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -185,9 +236,11 @@ public class Logs extends javax.swing.JFrame {
     private javax.swing.JLabel back;
     private javax.swing.JLabel cellphone;
     private javax.swing.JLabel home;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable log_tbl;
     private javax.swing.JLabel minimize;
+    private javax.swing.JTextField search;
     // End of variables declaration//GEN-END:variables
 }

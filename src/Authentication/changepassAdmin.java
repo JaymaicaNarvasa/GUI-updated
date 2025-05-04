@@ -1,6 +1,8 @@
 package Authentication;
 
+import AdminPage.*;
 import ProfilePage.Profile;
+import UsersPage.CustomerDashboard;
 import config.*;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
@@ -239,13 +241,69 @@ public class changepassAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_idMouseClicked
 
     private void exitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitMouseClicked
-        new Profile().setVisible(true);
-        this.dispose();
+                 try {
+        dbConnector dbc = new dbConnector();
+        String sql = "SELECT role_id FROM tbl_user WHERE u_id = ?";
+        PreparedStatement pstmt = dbc.connect.prepareStatement(sql);
+        pstmt.setInt(1, Session.getInstance().getId());
+        ResultSet rs = pstmt.executeQuery();
+
+        if (rs.next()) {
+            int roleId = rs.getInt("role_id");
+
+            if (roleId == 1) {
+                new adminDashboard().setVisible(true);
+            } else if (roleId == 2) {
+                new staffDashboard().setVisible(true);
+            } else if (roleId == 3) {
+                new CustomerDashboard().setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "UNKNOWN ROLE!");
+            }
+
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "User not found!");
+        }
+
+        rs.close();
+        pstmt.close();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(this, "Database error: " + ex.getMessage());
+    }
     }//GEN-LAST:event_exitMouseClicked
 
     private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
-        new Profile().setVisible(true);
-        this.dispose();
+                try {
+        dbConnector dbc = new dbConnector();
+        String sql = "SELECT role_id FROM tbl_user WHERE u_id = ?";
+        PreparedStatement pstmt = dbc.connect.prepareStatement(sql);
+        pstmt.setInt(1, Session.getInstance().getId());
+        ResultSet rs = pstmt.executeQuery();
+
+        if (rs.next()) {
+            int roleId = rs.getInt("role_id");
+
+            if (roleId == 1) {
+                new adminDashboard().setVisible(true);
+            } else if (roleId == 2) {
+                new staffDashboard().setVisible(true);
+            } else if (roleId == 3) {
+                new CustomerDashboard().setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "UNKNOWN ROLE!");
+            }
+
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "User not found!");
+        }
+
+        rs.close();
+        pstmt.close();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(this, "Database error: " + ex.getMessage());
+    }
     }//GEN-LAST:event_backMouseClicked
 
     private void showpasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showpasswordMouseClicked

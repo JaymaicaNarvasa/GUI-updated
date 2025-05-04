@@ -11,8 +11,6 @@ public class forgotpass extends javax.swing.JFrame {
 
     public forgotpass() {
         initComponents();
-        Session ses = Session.getInstance();
-        id.setText(""+ses.getId());
     }
        
     @SuppressWarnings("unchecked")
@@ -21,19 +19,17 @@ public class forgotpass extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         save = new javax.swing.JLabel();
-        id = new javax.swing.JLabel();
         home = new javax.swing.JLabel();
         minimize = new javax.swing.JLabel();
         exit = new javax.swing.JLabel();
         back = new javax.swing.JLabel();
         answer1 = new javax.swing.JPasswordField();
-        showpassword2 = new javax.swing.JLabel();
-        showpassword1 = new javax.swing.JLabel();
-        showpassword = new javax.swing.JLabel();
         secu1 = new javax.swing.JComboBox<>();
+        email = new javax.swing.JTextField();
         cellphone = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -47,13 +43,6 @@ public class forgotpass extends javax.swing.JFrame {
             }
         });
         jPanel1.add(save, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 460, 110, 30));
-
-        id.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                idMouseClicked(evt);
-            }
-        });
-        jPanel1.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, 100, 20));
 
         home.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         home.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -98,25 +87,17 @@ public class forgotpass extends javax.swing.JFrame {
         answer1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         answer1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         answer1.setBorder(null);
-        jPanel1.add(answer1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 340, 170, 20));
-
-        showpassword2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(showpassword2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 230, 30, 20));
-
-        showpassword1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(showpassword1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 300, 30, 20));
-
-        showpassword.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        showpassword.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                showpasswordMouseClicked(evt);
-            }
-        });
-        jPanel1.add(showpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 370, 30, 20));
+        jPanel1.add(answer1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 410, 170, 20));
 
         secu1.setBackground(new java.awt.Color(255, 212, 157));
         secu1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "What is the name of your first pet?", " ", "What was your childhood nickname?", " ", "In what city were you born?", " ", "What is your mother’s maiden name?", " ", "What is your favorite book or movie?", " ", "What was the name of your elementary school?", " ", "What is the name of your best friend from high school?", " ", "What was the make/model of your first car?", " ", "What was the name of your first teacher?", " ", "Where did you go on your first vacation?" }));
-        jPanel1.add(secu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 270, 210, -1));
+        jPanel1.add(secu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 340, 210, -1));
+
+        email.setBackground(new java.awt.Color(255, 212, 157));
+        email.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        email.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        email.setBorder(null);
+        jPanel1.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(69, 220, 210, 20));
 
         cellphone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/security.png"))); // NOI18N
@@ -134,46 +115,57 @@ public class forgotpass extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void saveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMouseClicked
+                                     
     try {
-    dbConnector dbc = new dbConnector();
+        dbConnector dbc = new dbConnector();
 
-    String selectedQuestion = secu1.getSelectedItem().toString();
-    String enteredAnswer = answer1.getText().trim();
-    String hashedAnswer = passwordHasher.hashPassword(enteredAnswer);
-    
-    if(enteredAnswer.isEmpty()){
-        JOptionPane.showMessageDialog(this, "Answer shoudn't be Empty.");
-    }else{
-    String query = "SELECT * FROM tbl_security WHERE u_id = ? AND question = ? AND answer = ?";
-    PreparedStatement pst = dbc.getConnection().prepareStatement(query);
-    pst.setInt(1, Session.getInstance().getId()); 
-    pst.setString(2, selectedQuestion);
-    pst.setString(3, hashedAnswer);
+        String selectedQuestion = secu1.getSelectedItem().toString();
+        String enteredAnswer = answer1.getText().trim();
+        String enteredEmail = email.getText().trim();
+        String hashedAnswer = passwordHasher.hashPassword(enteredAnswer);
 
-    ResultSet rs = pst.executeQuery();
+        if (enteredAnswer.isEmpty() || enteredEmail.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Fields shouldn't be empty.");
+            return;
+        }
 
-    if (rs.next()) {
-        new changepassAdmin().setVisible(true);
-        this.dispose();
-    } else {
-        JOptionPane.showMessageDialog(null, "Incorrect answer or question. Please try again.");
-    }
+        String emailQuery = "SELECT * FROM tbl_user WHERE u_email = ?";
+        PreparedStatement emailPst = dbc.getConnection().prepareStatement(emailQuery);
+        emailPst.setString(1, enteredEmail);
+        ResultSet emailRs = emailPst.executeQuery();
 
-    rs.close();
-    pst.close();
-    }
-    } catch (SQLException | NoSuchAlgorithmException ex) {
-    ex.printStackTrace();
-    JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
-    }
+        if (emailRs.next()) {
+            String verifyQuery = "SELECT * FROM tbl_security WHERE question = ? AND answer = ?";
+            PreparedStatement verifyPst = dbc.getConnection().prepareStatement(verifyQuery);
+            verifyPst.setString(1, selectedQuestion);
+            verifyPst.setString(2, hashedAnswer);
+            ResultSet verifyRs = verifyPst.executeQuery();
+
+            if (verifyRs.next()) {
+                new changepassAdmin().setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Incorrect security question or answer.");
+            }
+
+            verifyRs.close();
+            verifyPst.close();
+        } else {
+            JOptionPane.showMessageDialog(null, "Email doesn't exist.");
+        }
+
+        emailRs.close();
+        emailPst.close();
+        } catch (SQLException | NoSuchAlgorithmException ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+        }
+
     }//GEN-LAST:event_saveMouseClicked
-
-    private void idMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_idMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_idMouseClicked
 
     private void homeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeMouseClicked
         int a = JOptionPane.showConfirmDialog(null, "Confirm EXIT?");
@@ -204,10 +196,6 @@ public class forgotpass extends javax.swing.JFrame {
         new LogIn().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backMouseClicked
-
-    private void showpasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showpasswordMouseClicked
-
-    }//GEN-LAST:event_showpasswordMouseClicked
 
     /**
      * @param args the command line arguments
@@ -248,15 +236,12 @@ public class forgotpass extends javax.swing.JFrame {
     private javax.swing.JPasswordField answer1;
     private javax.swing.JLabel back;
     private javax.swing.JLabel cellphone;
+    private javax.swing.JTextField email;
     private javax.swing.JLabel exit;
     private javax.swing.JLabel home;
-    private javax.swing.JLabel id;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel minimize;
     private javax.swing.JLabel save;
     private javax.swing.JComboBox<String> secu1;
-    private javax.swing.JLabel showpassword;
-    private javax.swing.JLabel showpassword1;
-    private javax.swing.JLabel showpassword2;
     // End of variables declaration//GEN-END:variables
 }

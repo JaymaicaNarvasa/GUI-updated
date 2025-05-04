@@ -89,7 +89,7 @@ public class Register extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        luyoCp.setBackground(new java.awt.Color(255, 255, 255));
+        luyoCp.setBackground(new java.awt.Color(0, 0, 0));
         luyoCp.setPreferredSize(new java.awt.Dimension(350, 625));
         luyoCp.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -214,7 +214,7 @@ public class Register extends javax.swing.JFrame {
         cellphone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Registration.png"))); // NOI18N
         cellphone.setPreferredSize(new java.awt.Dimension(350, 625));
-        luyoCp.add(cellphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 630));
+        luyoCp.add(cellphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 350, 650));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -224,7 +224,7 @@ public class Register extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(luyoCp, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
+            .addComponent(luyoCp, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
         );
 
         pack();
