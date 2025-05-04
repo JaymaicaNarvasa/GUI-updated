@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 25, 2025 at 02:20 PM
+-- Generation Time: May 04, 2025 at 01:49 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -42,7 +42,8 @@ CREATE TABLE `tbl_activity` (
 
 INSERT INTO `tbl_activity` (`activity_id`, `loan_id`, `loan_status_id`, `loan_type_id`, `amt_to_pay`, `date`) VALUES
 (1, 4, 1, 4, 100000.00, '2025-04-24 08:25:30'),
-(5, 4, 1, 4, 10000.00, '2025-04-24 09:01:46');
+(5, 4, 1, 4, 10000.00, '2025-04-24 09:01:46'),
+(6, 4, 1, 4, 5000.00, '2025-04-25 10:08:02');
 
 --
 -- Indexes for dumped tables
@@ -65,7 +66,7 @@ ALTER TABLE `tbl_activity`
 -- AUTO_INCREMENT for table `tbl_activity`
 --
 ALTER TABLE `tbl_activity`
-  MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables

@@ -24,44 +24,54 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_status`
+-- Table structure for table `tbl_security`
 --
 
-CREATE TABLE `tbl_status` (
-  `loan_status_id` int(20) NOT NULL,
-  `status_name` varchar(50) NOT NULL
+CREATE TABLE `tbl_security` (
+  `sq_id` int(11) NOT NULL,
+  `u_id` int(11) NOT NULL,
+  `question` varchar(100) NOT NULL,
+  `answer` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `tbl_status`
+-- Dumping data for table `tbl_security`
 --
 
-INSERT INTO `tbl_status` (`loan_status_id`, `status_name`) VALUES
-(1, 'Pending'),
-(2, 'Approved'),
-(3, 'Rejected'),
-(4, 'Inactive'),
-(5, 'Cancelled');
+INSERT INTO `tbl_security` (`sq_id`, `u_id`, `question`, `answer`) VALUES
+(2, 8, 'What is the name of your first pet?', 'Fc9NSLPB/4svSjCvUwZ+KXLgjsHoW4AbQmjgFhq+TuA='),
+(3, 8, 'What is the name of your first pet?', 'Fc9NSLPB/4svSjCvUwZ+KXLgjsHoW4AbQmjgFhq+TuA=');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `tbl_status`
+-- Indexes for table `tbl_security`
 --
-ALTER TABLE `tbl_status`
-  ADD PRIMARY KEY (`loan_status_id`);
+ALTER TABLE `tbl_security`
+  ADD PRIMARY KEY (`sq_id`),
+  ADD KEY `u_id` (`u_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `tbl_status`
+-- AUTO_INCREMENT for table `tbl_security`
 --
-ALTER TABLE `tbl_status`
-  MODIFY `loan_status_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+ALTER TABLE `tbl_security`
+  MODIFY `sq_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `tbl_security`
+--
+ALTER TABLE `tbl_security`
+  ADD CONSTRAINT `tbl_security_ibfk_1` FOREIGN KEY (`u_id`) REFERENCES `tbl_user` (`u_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

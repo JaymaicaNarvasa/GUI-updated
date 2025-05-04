@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 24, 2025 at 10:16 AM
+-- Generation Time: May 04, 2025 at 01:49 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -33,10 +33,11 @@ CREATE TABLE `tbl_application` (
   `loan_status_id` int(20) NOT NULL,
   `loan_type_id` int(20) NOT NULL,
   `amount` int(20) NOT NULL,
-  `application_date` varchar(20) NOT NULL,
+  `amt_to_pay` decimal(10,2) NOT NULL,
+  `application_date` datetime NOT NULL,
   `tenure_value` int(11) NOT NULL,
   `tenure_unit` enum('Month','Year') NOT NULL,
-  `interest_rate` int(11) NOT NULL,
+  `interest_rate` decimal(5,2) NOT NULL,
   `validid_path` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -44,8 +45,13 @@ CREATE TABLE `tbl_application` (
 -- Dumping data for table `tbl_application`
 --
 
-INSERT INTO `tbl_application` (`loan_id`, `user_id`, `loan_status_id`, `loan_type_id`, `amount`, `application_date`, `tenure_value`, `tenure_unit`, `interest_rate`, `validid_path`) VALUES
-(1, 9, 3, 2, 500000, '5/20/2019', 5, 'Month', 6, '');
+INSERT INTO `tbl_application` (`loan_id`, `user_id`, `loan_status_id`, `loan_type_id`, `amount`, `amt_to_pay`, `application_date`, `tenure_value`, `tenure_unit`, `interest_rate`, `validid_path`) VALUES
+(1, 9, 3, 1, 80000, 0.00, '2025-04-24 07:23:58', 1, 'Month', 5.00, ''),
+(2, 4, 3, 1, 80000, 0.00, '2025-04-24 07:23:58', 1, 'Month', 5.00, 'src/userimages/login.png'),
+(3, 4, 3, 1, 80000, 0.00, '2025-04-24 08:12:42', 1, 'Month', 5.00, ''),
+(4, 4, 4, 1, 5000, 84000.00, '2025-04-24 08:25:27', 1, 'Month', 5.00, ''),
+(6, 4, 3, 1, 80000, 0.00, '2025-04-24 09:01:44', 1, 'Month', 5.00, 'src/userimages/BG1.png'),
+(7, 4, 3, 1, 80000, 0.00, '2025-04-25 10:08:01', 1, 'Month', 5.00, 'src/userimages/b0b516765c626e366ff657c7f50e68f4.jpg');
 
 --
 -- Indexes for dumped tables
@@ -68,7 +74,7 @@ ALTER TABLE `tbl_application`
 -- AUTO_INCREMENT for table `tbl_application`
 --
 ALTER TABLE `tbl_application`
-  MODIFY `loan_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `loan_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
