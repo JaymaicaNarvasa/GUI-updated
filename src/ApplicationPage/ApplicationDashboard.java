@@ -240,11 +240,11 @@ public class ApplicationDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_editMouseClicked
 
     private void addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseClicked
-       new StaffApplication().setVisible(true);
-       this.dispose();
        StaffApplication ep = new StaffApplication();
        ep.action = "ADD";
        ep.label.setText("SAVE");
+       ep.setVisible(true);
+       this.dispose();
     }//GEN-LAST:event_addMouseClicked
 
     private void deleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteMouseClicked

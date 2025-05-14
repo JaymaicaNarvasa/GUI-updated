@@ -201,10 +201,11 @@ public class CustomerApplication extends javax.swing.JFrame {
             monthbox.setEnabled(false);
             yearbox.setEnabled(true);
         }
+        
     }//GEN-LAST:event_tenureboxActionPerformed
 
     private void loanamtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loanamtActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_loanamtActionPerformed
 
     private void typeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typeActionPerformed
@@ -226,53 +227,72 @@ public class CustomerApplication extends javax.swing.JFrame {
         amt.setText(String.valueOf(amountToPay));
         
     }//GEN-LAST:event_typeActionPerformed
-
+    
     private void labelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelMouseClicked
-        dbConnector dbc = new dbConnector();
-        tenureValue = tenurebox.equals("Month") ? monthbox.getSelectedItem().toString() : yearbox.getSelectedItem().toString();
-        int userId = Session.getInstance().getId();
+         String selectedLoanType = type.getSelectedItem().toString();
+        double enteredAmount = Double.parseDouble(loanamt.getSelectedItem().toString());
+        
+        boolean isValid = false;
 
-        int loanStatusId = 1;
-        if (status.getSelectedItem().toString().equals("Pending")) {
-            loanStatusId = 1;
-        } else if (status.getSelectedItem().toString().equals("Approved")) {
-            loanStatusId = 2;
-        } else if (status.getSelectedItem().toString().equals("Rejected")) {
-            loanStatusId = 3;
-        }
+    switch (selectedLoanType) {
+        case "Home":
+            isValid = enteredAmount >= 100000 && enteredAmount <= 2000000;
+            break;
+        case "Personal":
+            isValid = enteredAmount >= 50000 && enteredAmount <= 1000000;
+            break;
+        case "Education":
+            isValid = enteredAmount >= 5000 && enteredAmount <= 500000;
+            break;
+        case "Medical":
+            isValid = enteredAmount >= 10000 && enteredAmount <= 300000;
+            break;
+    }
 
-        int typeId = 1;
-        if(type.getSelectedItem().toString().equals("Pending")){
-            typeId = 1;
-        }else if(type.getSelectedItem().toString().equals("Approved")){
-            typeId = 2;
-        }else if (type.getSelectedItem().toString().equals("Rejected")){
-            typeId = 3;
-        }
-
-        if(action.equals("ADD")){
-
-            int result = dbc.insertData( "INSERT INTO tbl_application(user_id, amount, amt_to_pay, tenure_unit, tenure_value, loan_status_id , loan_type_id , interest_rate) " +
-                "VALUES ('" + userId + "', '" + loanamt.getSelectedItem().toString() + "', '" + amt.getText() + "', "
-                + "'" + tenurebox.getSelectedItem() + "', '" + tenureValue + "', '" + loanStatusId + "', '" + typeId + "', '" + interest.getText() + "')");
-            if(result == 1){
-                JOptionPane.showMessageDialog(null, "SUCCESSFULLY SAVE");
-                new ApplicationDashboard().setVisible(true);
-                this.dispose();
-            }else {
-                System.out.println("Saving DATA FAILED!");
+    if (!isValid) {
+        JOptionPane.showMessageDialog(null, "Amount is not valid for selected loan type!");
+        System.out.println("LoanType: Minimum  - Maximum"
+                         + "\nHome: 100,000 - 2,000,000"
+                         + "\nPersonal: 50,000 - 1,000,000"
+                         + "\nMedical: 10,000 - 300,000"
+                         + "\nEducation: 5,000 - 500,000");
+        
+        return;
+    }   
+        
+        
+            dbConnector dbc = new dbConnector();
+            tenureValue = tenurebox.equals("Month") ? monthbox.getSelectedItem().toString() : yearbox.getSelectedItem().toString();
+            int userId = Session.getInstance().getId();
+            
+            int loanStatusId = 1; 
+            if (status.getSelectedItem().toString().equals("Pending")) {
+                loanStatusId = 1;
+            } else if (status.getSelectedItem().toString().equals("Approved")) {
+                loanStatusId = 2;
+            } else if (status.getSelectedItem().toString().equals("Rejected")) {
+                loanStatusId = 3;
             }
-
-        }else if(action.equals("UPDATE")){
-            dbc.updateData("UPDATE tbl_application SET amount = '" + loanamt.getSelectedItem().toString() + "', amt_to_pay = '" + amt.getText() + "' ,"
-                + "tenure_unit = '" + tenurebox.getSelectedItem() + "' , tenure_value = '" + tenureValue + "' , loan_status_id = '" + loanStatusId + "' , "
-                + "loan_type_id = '" + typeId + "', interest_rate = '" + interest.getText() + "' WHERE loan_id = '" + id1.getText() + "' ");
-            new ApplicationDashboard().setVisible(true);
-            this.dispose();
-        }else {
-            JOptionPane.showMessageDialog(null, "NO Action SELECTED!");
-            this.dispose();
-        }
+            
+            int typeId = 1;
+            if(type.getSelectedItem().toString().equals("Pending")){
+                typeId = 1;
+            }else if(type.getSelectedItem().toString().equals("Approved")){
+                typeId = 2;
+            }else if (type.getSelectedItem().toString().equals("Rejected")){
+                typeId = 3;
+            }
+            
+        if(action.equals("UPDATE")){
+           dbc.updateData("UPDATE tbl_application SET amount = '" + loanamt.getSelectedItem().toString() + "', amt_to_pay = '" + amt.getText() + "' ,"
+                   + "tenure_unit = '" + tenurebox.getSelectedItem() + "' , tenure_value = '" + tenureValue + "' , loan_status_id = '" + loanStatusId + "' , "
+                           + "loan_type_id = '" + typeId + "', interest_rate = '" + interest.getText() + "' WHERE loan_id = '" + id1.getText() + "' ");
+           new ApplicationDashboard().setVisible(true);
+           this.dispose();
+       }else {
+           JOptionPane.showMessageDialog(null, "NO Action SELECTED!");
+          this.dispose();
+       }
     }//GEN-LAST:event_labelMouseClicked
 
     /**

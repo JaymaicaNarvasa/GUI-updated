@@ -19,7 +19,7 @@ public class ActivityDashboard extends javax.swing.JFrame {
     public void displayData(){
         try{
             dbConnector dbc = new dbConnector();
-            ResultSet rs = dbc.getData("SELECT a.user_id AS 'User ID', a.amount AS 'Amount', a.amt_to_pay As 'To Pay', a.tenure_value , a.tenure_unit , "
+            ResultSet rs = dbc.getData("SELECT a.loan_id, a.user_id AS 'User ID', a.amount AS 'Amount', a.amt_to_pay As 'To Pay', a.tenure_value , a.tenure_unit , "
                     + "a.interest_rate , s.status_name AS 'Status', l.loan_name "
                     + "FROM tbl_application a "
                     + "INNER JOIN tbl_user u ON a.user_id = u.u_id "
@@ -28,6 +28,9 @@ public class ActivityDashboard extends javax.swing.JFrame {
                     + "WHERE a.loan_status_id != 4");
 
             application_tbl.setModel(DbUtils.resultSetToTableModel(rs));
+            application_tbl.getColumnModel().getColumn(0).setMinWidth(0);
+            application_tbl.getColumnModel().getColumn(0).setMaxWidth(0);
+            application_tbl.getColumnModel().getColumn(0).setWidth(0);
             application_tbl.getColumnModel().getColumn(3).setMinWidth(0);
             application_tbl.getColumnModel().getColumn(3).setMaxWidth(0);
             application_tbl.getColumnModel().getColumn(3).setWidth(0);
@@ -185,12 +188,13 @@ public class ActivityDashboard extends javax.swing.JFrame {
             TableModel model = application_tbl.getModel();
             CustomerApplication eu = new CustomerApplication();
             eu.id1.setText(""+model.getValueAt(rowindex, 0));
-            eu.loanamt.setSelectedItem(model.getValueAt(rowindex, 1));
-            eu.amt.setText(""+model.getValueAt(rowindex, 2));
-            eu.tenurebox.setSelectedItem(model.getValueAt(rowindex, 3));
-            eu.interest.setText(""+model.getValueAt(rowindex, 5));
-            eu.type.setSelectedItem(model.getValueAt(rowindex, 7));
-            eu.status.setSelectedItem(model.getValueAt(rowindex, 5));
+            eu.loanamt.setSelectedItem(model.getValueAt(rowindex, 2));
+            eu.amt.setText(""+model.getValueAt(rowindex, 3));
+            eu.tenurebox.setSelectedItem(model.getValueAt(rowindex, 5));
+            eu.interest.setText(""+model.getValueAt(rowindex, 6));
+            eu.status.setSelectedItem(model.getValueAt(rowindex, 7));
+            eu.status.setEnabled(false);
+            eu.type.setSelectedItem(model.getValueAt(rowindex, 8));
             eu.action = "UPDATE";
             eu.label.setText("UPDATE");
             eu.setVisible(true);
@@ -299,7 +303,7 @@ public class ActivityDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable application_tbl;
+    public javax.swing.JTable application_tbl;
     private javax.swing.JLabel back;
     private javax.swing.JLabel cancel;
     private javax.swing.JLabel cellphone;

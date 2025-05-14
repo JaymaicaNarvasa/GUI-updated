@@ -214,6 +214,11 @@ public class application extends javax.swing.JFrame {
 
         add.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         add.setText("APPLY NOW");
+        add.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout addpaneLayout = new javax.swing.GroupLayout(addpane);
         addpane.setLayout(addpaneLayout);
@@ -545,6 +550,10 @@ public class application extends javax.swing.JFrame {
         amt.setText(String.valueOf(amountToPay));
 
     }//GEN-LAST:event_typeActionPerformed
+
+    private void addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addMouseClicked
     /**
      * @param args the command line arguments
      */
