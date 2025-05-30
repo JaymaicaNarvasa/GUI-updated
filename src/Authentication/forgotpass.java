@@ -146,7 +146,7 @@ public class forgotpass extends javax.swing.JFrame {
             ResultSet verifyRs = verifyPst.executeQuery();
 
             if (verifyRs.next()) {
-                new changepassAdmin().setVisible(true);
+                new newpass().setVisible(true);
                 this.dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Incorrect security question or answer.");
