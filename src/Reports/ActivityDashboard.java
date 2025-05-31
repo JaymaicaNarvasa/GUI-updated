@@ -5,6 +5,7 @@ import UsersPage.*;
 import config.*;
 import java.sql.*;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
 
@@ -63,6 +64,7 @@ public class ActivityDashboard extends javax.swing.JFrame {
         edit = new javax.swing.JLabel();
         cancel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        printer3 = new javax.swing.JLabel();
         cellphone = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -141,6 +143,15 @@ public class ActivityDashboard extends javax.swing.JFrame {
         );
 
         luyoCp3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 60, 30));
+
+        printer3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        printer3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/print.png"))); // NOI18N
+        printer3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                printer3MouseClicked(evt);
+            }
+        });
+        luyoCp3.add(printer3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, -1, -1));
 
         cellphone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ApplicationDashboard.png"))); // NOI18N
@@ -269,6 +280,73 @@ public class ActivityDashboard extends javax.swing.JFrame {
             //        }
     }//GEN-LAST:event_cancelMouseClicked
 
+    private void printer3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_printer3MouseClicked
+        int rowindex = application_tbl.getSelectedRow();
+
+        if (rowindex < 0) {
+            JOptionPane.showMessageDialog(null, "Please SELECT data from the table.");
+            return;
+        }
+
+        try {
+            TableModel model = application_tbl.getModel();
+            int userId = Integer.parseInt(model.getValueAt(rowindex, 0).toString());
+            double amount = Double.parseDouble(model.getValueAt(rowindex, 1).toString());
+            double interest = Double.parseDouble(model.getValueAt(rowindex, 5).toString());
+            String tenureUnit = model.getValueAt(rowindex, 4).toString();
+            String date = model.getValueAt(rowindex, 8).toString();
+
+            double amountToPay = amount + (amount * (interest / 100));
+
+            dbConnector dbc = new dbConnector();
+            String sql = "SELECT u_fname, u_lname, u_address FROM tbl_user WHERE u_id = ?";
+            PreparedStatement pst = dbc.getConnection().prepareStatement(sql);
+            pst.setInt(1, userId);
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                String fName = rs.getString("u_fname");
+                String lName = rs.getString("u_lname");
+                String address = rs.getString("u_address");
+                Print eu = new Print();
+                eu.fname.setText(fName);
+                eu.lname.setText(lName);
+                eu.address.setText(address);
+                eu.amount.setText(String.valueOf(amount));
+                eu.totalToPay.setText(String.format("%.2f", amountToPay));
+                eu.date.setText(date);
+                eu.date1.setText(date);
+                String installmentText = "";
+
+                if (tenureUnit.equalsIgnoreCase("Month")) {
+                    installmentText = "Monthly installments of ₱" + amountToPay +
+                    " beginning on " + date +
+                    " and continuing every month until the entire balance is paid in full.";
+                } else if (tenureUnit.equalsIgnoreCase("Year")) {
+                    installmentText = "Yearly installments of ₱" + amountToPay +
+                    " beginning on " + date +
+                    " and continuing every year until the entire balance is paid in full.";
+                } else {
+                    installmentText = "Installment plan not specified.";
+                }
+                eu.tenure.setText(""+installmentText);
+                JPanel myPrint = new JPanel();
+                PanelPrinter pt = new PanelPrinter(eu.page);
+                pt.printPanel();
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "User data not found.");
+            }
+
+            rs.close();
+            pst.close();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_printer3MouseClicked
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -313,5 +391,9 @@ public class ActivityDashboard extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel luyoCp3;
     private javax.swing.JLabel minimize;
+    private javax.swing.JLabel printer;
+    private javax.swing.JLabel printer1;
+    private javax.swing.JLabel printer2;
+    private javax.swing.JLabel printer3;
     // End of variables declaration//GEN-END:variables
 }
