@@ -58,7 +58,7 @@ public class forgotpass extends javax.swing.JFrame {
                 homeKeyReleased(evt);
             }
         });
-        jPanel1.add(home, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 580, 40, 30));
+        jPanel1.add(home, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 590, 40, 20));
 
         minimize.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         minimize.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -66,14 +66,14 @@ public class forgotpass extends javax.swing.JFrame {
                 minimizeMouseClicked(evt);
             }
         });
-        jPanel1.add(minimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 580, 50, 30));
+        jPanel1.add(minimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 590, 40, 20));
 
         exit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 exitMouseClicked(evt);
             }
         });
-        jPanel1.add(exit, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, 20, 10));
+        jPanel1.add(exit, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 20, 20));
 
         back.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         back.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -81,7 +81,7 @@ public class forgotpass extends javax.swing.JFrame {
                 backMouseClicked(evt);
             }
         });
-        jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 580, 40, 30));
+        jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 590, 40, 20));
 
         answer1.setBackground(new java.awt.Color(255, 212, 157));
         answer1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -119,7 +119,6 @@ public class forgotpass extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void saveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMouseClicked
-                                     
     try {
         dbConnector dbc = new dbConnector();
 
@@ -139,6 +138,8 @@ public class forgotpass extends javax.swing.JFrame {
         ResultSet emailRs = emailPst.executeQuery();
 
         if (emailRs.next()) {
+            String userId = emailRs.getString("u_id"); 
+
             String verifyQuery = "SELECT * FROM tbl_security WHERE question = ? AND answer = ?";
             PreparedStatement verifyPst = dbc.getConnection().prepareStatement(verifyQuery);
             verifyPst.setString(1, selectedQuestion);
@@ -146,7 +147,9 @@ public class forgotpass extends javax.swing.JFrame {
             ResultSet verifyRs = verifyPst.executeQuery();
 
             if (verifyRs.next()) {
-                new newpass().setVisible(true);
+                newpass np = new newpass();          
+                np.id.setText(userId);
+                np.setVisible(true);
                 this.dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Incorrect security question or answer.");
@@ -160,10 +163,11 @@ public class forgotpass extends javax.swing.JFrame {
 
         emailRs.close();
         emailPst.close();
-        } catch (SQLException | NoSuchAlgorithmException ex) {
+
+    } catch (SQLException | NoSuchAlgorithmException ex) {
         ex.printStackTrace();
         JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
-        }
+    }
 
     }//GEN-LAST:event_saveMouseClicked
 

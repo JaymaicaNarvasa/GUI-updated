@@ -352,7 +352,7 @@ public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
                 imageMouseClicked(evt);
             }
         });
-        jPanel1.add(image, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, 180, 90));
+        jPanel1.add(image, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, 160, 90));
 
         image1.setText("Image");
         image1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -364,7 +364,7 @@ public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
 
         cellphone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/updateadminProfile.png"))); // NOI18N
-        jPanel1.add(cellphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jPanel1.add(cellphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 630));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -374,9 +374,7 @@ public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE)
         );
 
         pack();

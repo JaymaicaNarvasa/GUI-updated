@@ -79,13 +79,15 @@ public class addUser extends javax.swing.JFrame {
         registerPane = new javax.swing.JPanel();
         register = new javax.swing.JLabel();
         back = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         cellphone = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(350, 625));
 
-        luyoCp.setBackground(new java.awt.Color(255, 255, 255));
+        luyoCp.setBackground(new java.awt.Color(0, 0, 0));
         luyoCp.setPreferredSize(new java.awt.Dimension(350, 625));
         luyoCp.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -97,7 +99,7 @@ public class addUser extends javax.swing.JFrame {
                 contactActionPerformed(evt);
             }
         });
-        luyoCp.add(contact, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 260, 160, 30));
+        luyoCp.add(contact, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 270, 160, 20));
 
         Email.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         Email.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -108,7 +110,7 @@ public class addUser extends javax.swing.JFrame {
                 EmailActionPerformed(evt);
             }
         });
-        luyoCp.add(Email, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 170, 20));
+        luyoCp.add(Email, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 160, 30));
 
         user.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         user.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -129,7 +131,7 @@ public class addUser extends javax.swing.JFrame {
                 lnameActionPerformed(evt);
             }
         });
-        luyoCp.add(lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 80, 30));
+        luyoCp.add(lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, 80, 20));
 
         fname.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         fname.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -140,17 +142,17 @@ public class addUser extends javax.swing.JFrame {
                 fnameActionPerformed(evt);
             }
         });
-        luyoCp.add(fname, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 80, 30));
+        luyoCp.add(fname, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, 80, 20));
 
         role.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Staff", "Customer" }));
         role.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         role.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        luyoCp.add(role, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 380, 160, -1));
+        luyoCp.add(role, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 390, 160, -1));
 
         pass.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         pass.setBorder(null);
-        luyoCp.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(111, 330, 160, 20));
+        luyoCp.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(111, 330, 160, 30));
 
         address.setColumns(20);
         address.setRows(5);
@@ -173,7 +175,12 @@ public class addUser extends javax.swing.JFrame {
         });
 
         register.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        register.setText("Register");
+        register.setText("ADD");
+        register.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                registerMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout registerPaneLayout = new javax.swing.GroupLayout(registerPane);
         registerPane.setLayout(registerPaneLayout);
@@ -207,10 +214,32 @@ public class addUser extends javax.swing.JFrame {
         });
         luyoCp.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 20, 20));
 
+        jPanel1.setBackground(new java.awt.Color(255, 179, 153));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("ADD USER");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addComponent(jLabel1)
+                .addContainerGap(43, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+        );
+
+        luyoCp.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 150, 30));
+
         cellphone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Registration.png"))); // NOI18N
         cellphone.setPreferredSize(new java.awt.Dimension(350, 625));
-        luyoCp.add(cellphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 350, 640));
+        luyoCp.add(cellphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 630));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -220,7 +249,7 @@ public class addUser extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(luyoCp, javax.swing.GroupLayout.PREFERRED_SIZE, 617, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(luyoCp, javax.swing.GroupLayout.PREFERRED_SIZE, 639, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -304,6 +333,10 @@ public class addUser extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_backMouseClicked
 
+    private void registerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_registerMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -347,6 +380,8 @@ public class addUser extends javax.swing.JFrame {
     private javax.swing.JLabel cellphone;
     private javax.swing.JTextField contact;
     private javax.swing.JTextField fname;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField lname;
     private javax.swing.JPanel luyoCp;
     private javax.swing.JPasswordField pass;

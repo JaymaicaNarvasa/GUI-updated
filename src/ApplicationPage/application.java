@@ -163,7 +163,7 @@ public class application extends javax.swing.JFrame {
 
         email.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         email.setText("email@gmail.com");
-        luyoCp3.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 180, 30));
+        luyoCp3.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 150, 30));
 
         name.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         name.setText("Name");

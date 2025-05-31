@@ -115,7 +115,7 @@ public class editUser extends javax.swing.JFrame {
                 fnameActionPerformed(evt);
             }
         });
-        jPanel1.add(fname, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, 80, 30));
+        jPanel1.add(fname, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 80, 20));
 
         lname.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         lname.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -126,7 +126,7 @@ public class editUser extends javax.swing.JFrame {
                 lnameActionPerformed(evt);
             }
         });
-        jPanel1.add(lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, 80, 30));
+        jPanel1.add(lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 130, 80, 20));
 
         save.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         save.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -135,7 +135,7 @@ public class editUser extends javax.swing.JFrame {
                 saveMouseClicked(evt);
             }
         });
-        jPanel1.add(save, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 530, 110, 30));
+        jPanel1.add(save, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 530, 110, 40));
 
         id1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         id1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -174,7 +174,7 @@ public class editUser extends javax.swing.JFrame {
                 EmailActionPerformed(evt);
             }
         });
-        jPanel1.add(Email, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 160, 30));
+        jPanel1.add(Email, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 160, 20));
 
         contact.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         contact.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -184,17 +184,17 @@ public class editUser extends javax.swing.JFrame {
                 contactActionPerformed(evt);
             }
         });
-        jPanel1.add(contact, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, 160, 30));
+        jPanel1.add(contact, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 240, 160, 20));
 
         address.setColumns(20);
         address.setRows(5);
         address.setBorder(null);
         addressjScrollPane1.setViewportView(address);
 
-        jPanel1.add(addressjScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 400, 220, 120));
+        jPanel1.add(addressjScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 410, 220, 110));
 
         cellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/EditUser.png"))); // NOI18N
-        jPanel1.add(cellphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jPanel1.add(cellphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 630));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -207,7 +207,7 @@ public class editUser extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 634, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
